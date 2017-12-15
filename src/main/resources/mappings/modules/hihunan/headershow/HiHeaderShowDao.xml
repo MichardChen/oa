@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hihunan.dao.headershow.HiHeaderShowDao">
+	
+	<sql id="HiHeaderShowColumns">
+		a.id AS "id",
+		a.title AS "title",
+		a.title_photo AS "titlePhoto",
+		a.list_type AS "listType",
+		a.seq AS "seq",
+		a.url AS "url",
+		a.is_effect AS "isEffect",
+		a.h5app_id AS "h5appId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate"
+	</sql>
+	
+	<select id="get" resultType="HiHeaderShow">
+		SELECT 
+			<include refid="HiHeaderShowColumns"/>
+		FROM hi_header_show a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HiHeaderShow">
+		SELECT 
+			<include refid="HiHeaderShowColumns"/>
+		FROM hi_header_show a
+		<where>
+			<if test="h5appId != null and h5appId != ''">
+				AND a.h5app_id = #{h5appId}
+			</if>
+			<if test="listType != null and listType != ''">
+				AND a.list_type = #{listType}
+			</if>
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HiHeaderShow">
+		SELECT 
+			<include refid="HiHeaderShowColumns"/>
+		FROM hi_header_show a
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO hi_header_show(
+			id,
+			title,
+			title_photo,
+			list_type,
+			seq,
+			url,
+			is_effect,
+			h5app_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{title},
+			#{titlePhoto},
+			#{listType},
+			#{seq},
+			#{url},
+			#{isEffect},
+			#{h5appId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hi_header_show SET 
+			title = #{title},
+			title_photo = #{titlePhoto},
+			seq = #{seq},
+			list_type = #{listType},
+			url = #{url},
+			is_effect = #{isEffect},
+			h5app_id = #{h5appId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hi_header_show
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 查询轮播信息 -->
+	<select id="getAll" resultType="com.thinkgem.jeesite.modules.hihunan.model.herdershow.HiHeaderShowModel">
+		SELECT
+			id AS "id",
+			title AS "title",
+			title_photo AS "titlePhoto",
+			seq AS "seq",
+			url AS "url",
+			is_effect AS "isEffect",
+			h5app_id AS "h5appId"
+		FROM hi_header_show 
+		<where>
+			<if test="isEffect != null and isEffect != ''">
+				is_effect = #{isEffect}
+			</if>
+			<if test="h5appId != null and h5appId != ''">
+				AND h5app_id = #{h5appId}
+			</if>
+			<if test="listType != null and listType != ''">
+				AND list_type = #{listType}
+			</if>
+		</where>
+		ORDER BY seq
+	</select>
+</mapper>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hihunan.dao.localactivity.HiLocalActivityDao">
+    
+	<sql id="hiLocalActivityColumns">
+		a.id AS "id",
+		a.title AS "title",
+		a.title_photo AS "titlePhoto",
+		a.content_detail AS "contentDetail",
+		a.content_photo AS "contentPhoto",
+		a.start_date AS "startDate",
+		a.end_date AS "endDate",
+		a.apply_user_number AS "applyUserNumber",
+		a.type AS "type",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate"
+	</sql>
+	
+	<sql id="hiLocalActivityJoins">
+	</sql>
+    
+	<select id="get" resultType="HiLocalActivity">
+		SELECT 
+			<include refid="hiLocalActivityColumns"/>
+		FROM hi_local_activity a
+		<include refid="hiLocalActivityJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HiLocalActivity">
+		SELECT 
+			<include refid="hiLocalActivityColumns"/>
+		FROM hi_local_activity a
+		<include refid="hiLocalActivityJoins"/>
+		<where>
+			
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HiLocalActivity">
+		SELECT 
+			<include refid="hiLocalActivityColumns"/>
+		FROM hi_local_activity a
+		<include refid="hiLocalActivityJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO hi_local_activity(
+			id,
+			title,
+			title_photo,
+			content_detail,
+			content_photo,
+			start_date,
+			end_date,
+			apply_user_number,
+			type,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{title},
+			#{titlePhoto},
+			#{contentDetail},
+			#{contentPhoto},
+			#{startDate},
+			#{endDate},
+			#{applyUserNumber},
+			#{type},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hi_local_activity SET 	
+			title = #{title},
+			title_photo = #{titlePhoto},
+			content_detail = #{contentDetail},
+			content_photo = #{contentPhoto},
+			start_date = #{startDate},
+			end_date = #{endDate},
+			apply_user_number = #{applyUserNumber},
+			type = #{type},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hi_local_activity
+		WHERE id = #{id}
+	</update>
+	
+	<select id="getMemberInfo" resultType="com.thinkgem.jeesite.modules.hihunan.model.localactivity.MemberModel">
+		select 
+			sm.member_id AS "id",
+			sm.member_name AS "name",
+			sm.member_mobile AS "mobile"
+		from sc_mb_user_token smut
+		left join sc_member sm on smut.member_id = sm.member_id
+		where smut.token  = #{token} 
+	</select>
+</mapper>

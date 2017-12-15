@@ -1,0 +1,133 @@
+.doc-int {
+    position: relative;
+}
+.doc-back {
+    height: 4.17rem;
+    background: rgb(252, 70, 104);
+}
+.doc-pic {
+    position: absolute;
+    top: 1.04rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 23.43%;
+    height: 6.25rem;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0px 0px 30px 10px rgba(255,75,123,0.1);
+}
+.doc-pic img {
+    float: left;
+    width: 90.04%;
+    height: 5.63rem;
+    padding: 0.32rem 4.98%;
+    border-radius: 50%;
+}
+.doc-con {
+    height: 7.67rem;
+    padding-top: 4rem;
+    text-align: center;
+    background-color: #fffefe;
+    box-shadow: 0px 25px 25px rgba(144,144,144,0.05);
+}
+.doc-con {
+    color: #a6a6a6;
+    font-size: 1rem;
+}
+.doc-con h3 {
+    font-size: 1.33rem;
+    color: #545454;
+    line-height: 1.75rem;
+}
+.doc-con div {
+    margin-top: 0.53rem;
+    line-height: 1.33rem;
+}
+.doc-time li {
+    height: 4.92rem;
+    padding: 1.75rem 5% 0 8.59%;
+    box-shadow: 0px 25px 25px rgba(144,144,144,0.05);
+}
+.doc-time li>div {
+    float: left;
+}
+.order-time {
+    color: #a6a6a6;
+    font-size: 1rem;
+}
+.order-time span {
+    color: #616161;
+}
+.source, .reg-pirce {
+    color: #a6a6a6;
+    font-size: 0.92rem;
+    text-align: center;
+}
+.source {
+    margin: 0 5% 0 14%;
+}
+.source span {
+    display: block;
+    color: #ff4471;
+    font-size: 1.25rem;
+    font-family: 'avenir';
+}
+.reg-pirce strong {
+    display: block;
+    color: #616161;
+    font-size: 1.25rem;
+    font-family: 'avenir';
+}
+.doc-time li> .order {
+    float: right;
+    width: 21.7%;
+    height: 2.5rem;
+    font-size: 1.33rem;
+    margin-top: 0.25rem;
+    color: #ff306e;
+    text-align: center;
+    line-height: 2.5rem;
+    box-shadow: inset 0px 0px 0px 0.21rem #ff457c;
+    border-radius: 1.08rem;
+}
+.show-int {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 8.34rem;
+    height: 3.34rem;
+    line-height: 3.34rem;
+    color: white;
+    background: black;
+    z-index: 10000;
+    text-align: center;
+    border-radius: 2rem;
+    font-size: 1rem;
+}
+.mask {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+.mask-con {
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 8rem;
+    height: 3rem;
+    background: white;
+    text-align: center;
+    line-height: 3rem;
+    border-radius: 3rem;
+}

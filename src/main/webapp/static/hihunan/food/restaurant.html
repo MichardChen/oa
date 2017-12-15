@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<title>餐厅详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css"> 
+   	    <link rel="stylesheet" type="text/css"  href="../css/swiper.min.css"/>
+       	<link rel="stylesheet" type="text/css" href="../css/title.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/restaurant.css">
+        <link rel="stylesheet" type="text/css" href="../css/zepto.alert.css">
+        <link rel="stylesheet" href="../css/dropload.css">
+        <script type="text/javascript" src="../js/swiper.min.js"></script>
+        <script src="../js/zepto.min.js"></script>
+        <script type="text/javascript" src="../js/rem.js"></script>
+   	    <script src="../js/dropload.min.js"></script>
+   	    <script src="../js/common.js"></script>
+   	    <script src="../js/zepto.alert.js"></script>
+</head>
+
+<body>
+      <!--banner开始-->
+<div class="swiper-container"style="width:100%;"><!--swiper容器[可以随意更改该容器的样式-->  
+   <div class="swiper-wrapper">  
+       <div class="swiper-slide" ><img id="img" src="" style="width:100%;height:3.6rem;"></div>  
+    </div>  
+</div>  
+<!--banner结束-->
+<!--餐厅名称-->
+<div class="titlt_bottom">
+	 <div class="navico">
+		  <h1 class="people" id="titleName"></h1>
+		  <p id="shoucang" class="time">收藏</p>
+		  <div class="clearfix"></div>
+	 </div>
+</div>
+<!--餐厅名称-->
+<!--联系方式-->
+<div class="contact">
+	<a class="location"  href="https://3gimg.qq.com/lightmap/components/locationCluster/index.html?type=1&keyword=%E7%BE%8E%E9%A3%9F%E7%95%85%E9%A5%AE&center=CurrentLocation&radius=1000&georetry=0&key=633BZ-URSRJ-QWNFG-FGNZZ-F53JK-B5BV7&referer=citylife" style="color: #737373;" id="addressName"></a> 
+	<a href="" class="mobile" style="color: #737373;" id="telPhone" ></a>
+	<div class="clearfix"></div>
+</div>
+<!--餐馆描述-->
+<p class="current" id="content"></p>
+<!--列表开始-->
+ <div id="srcoll">
+  	<div class="foodlist" id ="wrap">
+	</div>  
+</div>
+<script type="text/javascript">
+   var result = ''; 
+   var id= UrlParam("id") ;
+   var date ;
+   
+   var collect = "";
+   
+   var key = getCookie("key");
+   
+   //餐厅
+   function restaunant(url) {
+	   $.ajax({
+           type: 'post',
+           url: '/hihunan/webservice/rest/restaunantRest/findRestaunant',
+           dataType: 'json',
+           data:{
+               "id":id,
+               "key":key,
+               "url":url
+           },
+           success: function(data){
+        	  var sValue = data.userdata;
+        	  $("#img").attr('src',sValue.titlePhoto);
+        	  $("#titleName").html(sValue.title);
+              $("#addressName").html(sValue.address);
+              $("#telPhone").html(sValue.tel);
+              $("#telPhone").attr('href','tel:' + sValue.tel);
+              $("#content").html(sValue.description);
+              date = sValue.tel;
+              document.getElementById("telPhone").href="tel:"+date;
+              collect = sValue.collect;
+              if(collect){
+            	  document.getElementById('shoucang').className = 'timed';
+              }else{
+            	  document.getElementById('shoucang').className = 'time'; 
+              }
+           }
+	   })	   
+   }
+   
+   $(document).ready(function () {
+	   
+	   var counter = 0; // 每页展示3个
+       var num = 5;
+       var pageStart = 0,pageEnd = 0;
+       
+       var $_wrap = $("#wrap");
+	   $('#srcoll').dropload({
+		   scrollArea : window,
+           domDown : {
+               domClass   : 'dropload-down',
+               domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+               domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+               domNoData  : '<div class="dropload-noData">没有更多</div>'
+           },
+           loadDownFn : function(me){
+               $.ajax({
+                   type: 'post',
+                   url: '/hihunan/webservice/rest/restaunantRest/findFoodInformation',
+                   dataType: 'json',
+                   data:{
+                       "id":id
+                   },
+                   success: function(data){
+                       var result = '';
+                       counter++;
+                       pageEnd = num * counter;
+                       pageStart = pageEnd - num;
+                   	   var sValue =  data.rows;
+                 	   if(sValue.length >0){
+     	               		for(var i = pageStart; i < pageEnd; i++){
+                     		   var brief = sValue[i].brief;
+	     	             		result ='<a href="food-article.html?id=' + sValue[i].id + '">' +
+	     	             				'<div class="list01" >' +
+	     	                          	    '<div class="foodlistimg">' + 
+	     	                              		'<img src="' + sValue[i].titlePhoto + '">' + 
+	     	                                '</div>'+
+	     	                             	'<div class="foodtitle">' +
+	     	                              		'<h1 style="padding-top: 0.06rem;color: #666666;padding-bottom: 0.06rem;" >'+ sValue[i].title +'</h1>'+	
+	     	                            	 '</div>'+
+	     	                             	'<div class="starimg">' + 
+	     	                              		'<p>' +  brief + ' </p>' + 
+	     	                              	'</div>' + 
+	     	                              	'<div class="Positioning">' + 
+	     	                          			'<p>' +  sValue[i].publishDate + ' </p>' + 
+	     	                          		'</div>' + 
+	     	                                '<div class="clearfix" ></div>' + 
+	     	                             ' </div>'+
+	     	                             '</a>'; 
+     	                  $_wrap.append(result);
+     	                  if((i + 1) >= sValue.length){
+     	                      // 锁定
+     	                      me.lock();
+     	                      // 无数据
+     	                      me.noData();
+     	                      break;
+     	                  }
+     	              }
+                 	 }else{
+	                      // 锁定
+	                      me.lock();
+	                      // 无数据
+	                      me.noData(); 
+                 	 }
+                     me.resetload();  
+                },
+                error: function(xhr, type){
+                	me.unlock();
+                    me.resetload();
+                }
+             })
+           },
+           threshold : 50
+       });
+	   
+       $("#shoucang").on('click',toFavorites);
+	   
+	   restaunant(window.location.href);
+	   
+   })
+   
+   
+   var toFavorites = function (){
+    	   var token = getCookie('key');
+    	   if(collect){
+	   	       	var baseUrl = '/hihunan/webservice/rest/localActivityRest/deleteCollect?key=' + token;
+		       	if(!token){
+		       		window.location.href = "localhost/index.html#act=login##toFavorites()";
+		       		return false;
+		       	}else{
+					var url = window.location.href;
+	               $.ajax({
+	                   type: 'post',
+	                   url: baseUrl,
+	                   data:{
+	                   	'url':url
+	                   },
+	                   dataType: 'json',
+	                   success: function(data){
+	                	   collect='';
+	                	   document.getElementById('shoucang').className = 'time';
+	                       $.dialog({
+	                           content : data.msg,
+	                           title: "alert",
+	                		   width: 600,
+	                           time : 1000
+	                       });
+	                   }
+	               });
+		       	}
+    	   }else{
+    	       	var baseUrl = '/hihunan/webservice/rest/localActivityRest/toCollect?token=' + token;
+    	       	if(!token){
+    	       		window.location.href = "localhost/index.html#act=login##toFavorites()";
+    	       		return false;
+    	       	}else{
+    					var img = window.location.protocol + "//" + window.location.host + $("#img").attr("src");
+    					var title = $("#titleName").text();
+    					var type = '3';
+    					var url = window.location.href;
+    					var comment = $("#content").text();
+    	               $.ajax({
+    	                   type: 'post',
+    	                   url: baseUrl,
+    	                   data:{
+    	                   	'img':img,
+    	                   	'title':title,
+    	                   	'type':type,
+    	                   	'url':url,
+    	                   	'comment':comment
+    	                   },
+    	                   dataType: 'json',
+    	                   success: function(data){
+    	                	   collect=data.msg;
+    	                	   document.getElementById('shoucang').className = 'timed';
+    	                       $.dialog({
+    	                           content : data.msg,
+    	                           title: "alert",
+    	                		   width: 600,
+    	                           time : 1000
+    	                       });
+    	                   }
+    	               });
+    	       	}
+    	   }
+       }
+</script>
+</body>
+</html>

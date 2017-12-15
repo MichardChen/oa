@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SmsValidationDao">
+    
+    <insert id="insert">
+    	INSERT INTO sys_sms_validation(
+    		id,
+    		mobile_no,
+    		send_time,
+    		validate_code
+    	)VALUES(
+    		#{id},
+    		#{mobileNo},
+    		NOW(),
+    		#{validateCode}
+    	)
+    </insert>
+    
+    <update id="update">
+    	UPDATE sys_sms_validation SET
+    		send_time = NOW(),
+    		validate_code = #{validateCode}
+    	WHERE mobile_no = #{mobileNo}
+    </update>
+    
+    <select id="findByMobileNo" resultType="com.thinkgem.jeesite.modules.constructcost.member.model.SmsValidationModel">
+    	SELECT 
+    		id AS "id",
+    		mobile_no AS "mobileNo",
+    		send_time AS "sendTime",
+    		NOW() AS "nowTime",
+    		validate_code AS "validateCode"
+    	FROM sys_sms_validation
+    	WHERE mobile_no = #{mobileNo}
+    </select>
+    
+</mapper>

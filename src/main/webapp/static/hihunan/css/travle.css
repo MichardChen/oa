@@ -1,0 +1,163 @@
+body{
+	background-color:#f5fafa;
+}
+.wrap{
+    margin:0;
+    width:100%;
+}
+.article{
+	color: #ffffff;
+    width: 100%;
+    height:2.6rem;
+    position: relative;
+    margin-bottom: 0.03rem;
+}
+.newlabl{
+	position: absolute;
+    right: 0.24rem;
+    top: 0px;
+    width:0.72rem;
+    height: auto;
+    z-index:2;	
+}
+.bannner{
+    float: left;
+    width:100%;
+    height:100%;
+}
+.hide{
+   background-color: #000;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    position: absolute;
+    z-index: 1;
+}
+h3{
+   font-size:0.34rem;
+    position: absolute;
+    z-index: 100;
+    top: 0.8rem;
+   	font-family: "寰粺闆呴粦";
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height:0.48rem;
+    left: 0rem;
+    padding-left:0.48rem;
+}
+span{
+ position: absolute;
+    z-index: 100;
+    /*top:1.44rem;*/
+    top:1.35rem;
+    width: 100%;
+    font-size:0.24rem;
+    text-align: left;
+   	font-family: "寰粺闆呴粦";
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height:0.42rem;
+    left: 0rem;
+    color: #ffffff;
+    padding-left:0.48rem;
+}
+.mask{
+	 position: absolute;
+	 left:0px;
+	 top:0px;
+	 width:100%;
+	 z-index: 1;
+}
+.free{
+    position: absolute;
+    left:0.48rem;
+    top: 0.2rem;
+    width: 100%;
+    z-index: 2;
+    width: 1.28rem;
+    min-height:0.38rem;
+    height:0.4rem;
+}
+ .SignUp{
+	position: absolute;
+    left:0.48rem;
+    bottom: 0.2rem;
+    width: 100%;
+    z-index: 4;
+    width:1.2rem;
+    min-height:0.38rem;
+    display: block;
+    width:1.44rem;
+    height:0.48rem;
+    line-height:0.36rem;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+    border-image: initial;
+    padding-top: 0.05rem;
+    font-size:0.24rem; 
+}
+.SignUped{
+	position: absolute;
+    right:0rem;
+    bottom:0.24rem;
+    width: 100%;
+    z-index:5;
+    width:2.4rem;
+    min-height:0.38rem;
+    display: block;
+    height:0.36rem;
+    line-height:0.36rem;
+    margin-right:0.24rem;
+}
+.SignUped h1{
+	float:right;
+    font-size: 0.2rem;
+    margin-top: 0.1rem;
+    text-align: right;
+}
+.SignUped h2{
+	float:right;
+	text-align: right;
+}
+閵嗕總ignUped::before {
+    content: "瀹稿弶濮ら崥锟�";
+    font-size: 0.15rem;
+    padding-right: 0.05rem;
+    vertical-align: baseline;
+}
+.fixed{
+	position: fixed;
+	right:20%;
+    top:75%;
+     z-index:10;
+}
+img{
+	 width: 100%;
+	 height:2.6rem;
+}
+*{
+	font-family: "寰粺闆呴粦";
+}
+ a div {
+    width: 100%;
+    height:1.16rem;
+    /* border-radius: 2.08rem; */
+    -webkit-box-shadow: 0px 10px 20px 0px rgb(255, 255, 255);
+     box-shadow: 0px 10px 20px 0px rgba(61, 178, 223, 0);
+}
+.freelabel{
+	position: absolute;
+    left:1.92rem;
+    top: 0.2rem;
+    z-index:8;
+    width: 1rem;
+    height:0.4rem;
+	
+}

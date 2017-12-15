@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hihunan.dao.restaunant.HiRestaunantDao">
+    
+	<sql id="hiRestaunantColumns">
+		a.id AS "id",
+		a.title AS "title",
+		a.title_photo AS "titlePhoto",
+		a.address AS "address",
+		a.cooking_style AS "cookingStyle",
+		a.longitude AS "longitude",
+		a.latitude AS "latitude",
+		a.star AS "star",
+		a.trading_area AS "tradingArea",
+		a.tel AS "tel",
+		a.description AS "description",
+		a.seq AS "seq",
+		a.is_recommend AS "isRecommend",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate"
+	</sql>
+	
+	<sql id="hiRestaunantJoins">
+	</sql>
+    
+	<select id="get" resultType="HiRestaunant">
+		SELECT 
+			<include refid="hiRestaunantColumns"/>
+		FROM hi_restaunant a
+		<include refid="hiRestaunantJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HiRestaunant">
+		SELECT 
+			<include refid="hiRestaunantColumns"/>
+		FROM hi_restaunant a
+		<include refid="hiRestaunantJoins"/>
+		<where>
+			
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="cookingStyle != null and cookingStyle != ''">
+				AND a.cooking_style = #{cookingStyle}
+			</if>
+			<if test="tradingArea != null and tradingArea != ''">
+				AND a.trading_area = #{tradingArea}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HiRestaunant">
+		SELECT 
+			<include refid="hiRestaunantColumns"/>
+		FROM hi_restaunant a
+		<include refid="hiRestaunantJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO hi_restaunant(
+			id,
+			title,
+			title_photo,
+			address,
+			cooking_style,
+			longitude,
+			latitude,
+			star,
+			trading_area,
+			tel,
+			description,
+			seq,
+			is_recommend,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{title},
+			#{titlePhoto},
+			#{address},
+			#{cookingStyle},
+			#{longitude},
+			#{latitude},
+			#{star},
+			#{tradingArea},
+			#{tel},
+			#{description},
+			#{seq},
+			#{isRecommend},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hi_restaunant SET 	
+			title = #{title},
+			title_photo = #{titlePhoto},
+			address = #{address},
+			cooking_style = #{cookingStyle},
+			longitude = #{longitude},
+			latitude = #{latitude},
+			star = #{star},
+			trading_area = #{tradingArea},
+			tel = #{tel},
+			description = #{description},
+			seq = #{seq},
+			is_recommend = #{isRecommend},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hi_restaunant
+		WHERE id = #{id}
+	</update>
+	
+	<select id="getAll" resultType="com.thinkgem.jeesite.modules.hihunan.model.restaunant.HiRestaunantModel">
+		SELECT 
+			hls.id AS "id",
+			hls.title AS "title",
+			hls.title_photo AS "titlePhoto",
+			hls.address AS "address",
+			hls.cooking_style AS "cookingStyle",
+			sd.label AS "cookStyle",
+			hls.longitude AS "longitude",
+			hls.latitude AS "latitude",
+			hls.trading_area AS "tradingArea",
+			hls.star AS "star",
+			hls.tel AS "tel",
+			hls.description AS "description",
+			hls.seq AS "seq"
+		FROM hi_restaunant hls
+		LEFT JOIN sys_dict sd ON sd.value = hls.cooking_style AND sd.type = 'hi_cooking_style'
+		<where>
+			<if test="cookingStyle != null and cookingStyle != ''">
+			    hls.cooking_style = #{cookingStyle}
+			</if>
+			<if test="tradingArea != null and tradingArea != ''">
+				AND hls.trading_area = #{tradingArea}
+			</if>
+			<if test="minDistance != null and minDistance != ''">
+				AND (round(6378.138*2*asin(sqrt(pow(sin((hls.latitude*pi()/180-#{latitude}*pi()/180)/2),2)+
+		cos(hls.latitude*pi()/180)*cos(#{latitude}*pi()/180)* pow(sin((hls.longitude*pi()/180-#{longitude}*pi()/180)/2),2)))*1000)) <![CDATA[>=]]> #{minDistance}
+			</if>
+			<if test="maxDistance != null and maxDistance != ''">
+				AND (round(6378.138*2*asin(sqrt(pow(sin((hls.latitude*pi()/180-#{latitude}*pi()/180)/2),2)+
+		cos(hls.latitude*pi()/180)*cos(#{latitude}*pi()/180)* pow(sin((hls.longitude*pi()/180-#{longitude}*pi()/180)/2),2)))*1000)) <![CDATA[<=]]> #{maxDistance}
+			</if>
+		</where>
+		ORDER BY hls.seq DESC,hls.title DESC
+	</select>
+	
+	<select id="getRestaunantDetail" resultType="com.thinkgem.jeesite.modules.hihunan.model.restaunant.HiRestaunantModel">
+		SELECT 
+			hls.id AS "id",
+			hls.title AS "title",
+			hls.title_photo AS "titlePhoto",
+			hls.address AS "address",
+			hls.cooking_style AS "cookingStyle",
+			hls.longitude AS "longitude",
+			hls.latitude AS "latitude",
+			hls.trading_area AS "tradingArea",
+			hls.star AS "star",
+			str.label AS "evaluatePhoto",
+			hls.tel AS "tel",
+			hls.description AS "description",
+			hls.seq AS "seq"
+		FROM hi_restaunant hls
+		LEFT JOIN sys_dict str ON str.value = hls.star
+		      and str.type = 'starEvaluate'
+		<where>
+		   where 1=1 
+			<if test="id != null and id != ''">
+			    and hls.id = #{id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getRecommondRestaunant" resultType="com.thinkgem.jeesite.modules.hihunan.model.restaunant.HiRestaunantModel">
+		SELECT 
+			hls.id AS "id",
+			hls.title AS "title",
+			hls.title_photo AS "titlePhoto",
+			hls.address AS "address",
+			hls.cooking_style AS "cookingStyle",
+			sd.label AS "cookStyle",
+			hls.longitude AS "longitude",
+			hls.latitude AS "latitude",
+			hls.trading_area AS "tradingArea",
+			hls.star AS "star",
+			str.label AS "evaluatePhoto",
+			hls.tel AS "tel",
+			hls.description AS "description",
+			hls.seq AS "seq",
+			hls.is_recommend AS "isRecommend",
+			hls.create_date AS "createDate"
+		FROM hi_restaunant hls
+		LEFT JOIN sys_dict str ON str.value = hls.star
+		      and str.type = 'starEvaluate'
+		LEFT JOIN sys_dict sd ON sd.value = hls.cooking_style AND sd.type = 'hi_cooking_style'
+		<where>
+		   <if test="isRecommend != null and isRecommend != ''">
+		   		hls.is_recommend = #{isRecommend}
+		   </if>
+		</where>
+		ORDER BY hls.seq DESC,hls.create_date DESC
+	</select>	
+	<!-- 餐厅信息  -->
+	<select id="findRestaunant" resultType="com.thinkgem.jeesite.modules.hihunan.model.restaunant.HiRestaunantModel">
+		SELECT 
+			hls.id AS "id",
+			hls.title AS "title",
+			hls.title_photo AS "titlePhoto",
+			hls.address AS "address",
+			hls.cooking_style AS "cookingStyle",
+			hls.longitude AS "longitude",
+			hls.latitude AS "latitude",
+			hls.trading_area AS "tradingArea",
+			hls.star AS "star",
+			str.label AS "evaluatePhoto",
+			hls.tel AS "tel",
+			hls.description AS "description",
+			hls.seq AS "seq",
+			hls.is_recommend AS "isRecommend",
+			hls.create_date AS "createDate"
+		FROM hi_restaunant hls
+		LEFT JOIN sys_dict str ON str.value = hls.star and str.type = 'starEvaluate'
+		WHERE hls.id = #{id}
+		ORDER BY hls.create_date DESC
+	</select>
+	
+		<!-- 餐厅信息  -->
+	<select id="findRestaunantAndIsCollect" resultType="com.thinkgem.jeesite.modules.hihunan.model.restaunant.HiRestaunantModel">
+		SELECT 
+			hls.id AS "id",
+			hls.title AS "title",
+			hls.title_photo AS "titlePhoto",
+			hls.address AS "address",
+			hls.cooking_style AS "cookingStyle",
+			hls.longitude AS "longitude",
+			hls.latitude AS "latitude",
+			hls.trading_area AS "tradingArea",
+			hls.star AS "star",
+			str.label AS "evaluatePhoto",
+			hls.tel AS "tel",
+			hls.description AS "description",
+			hls.seq AS "seq",
+			hls.is_recommend AS "isRecommend",
+			hls.create_date AS "createDate",
+			(SELECT favorites_id FROM hi_favorites WHERE member_id = #{memberId} AND favorites_url = #{url} limit 0,1) AS "collect"
+		FROM hi_restaunant hls
+		LEFT JOIN sys_dict str ON str.value = hls.star and str.type = 'starEvaluate'
+		WHERE hls.id = #{id}
+		ORDER BY hls.create_date DESC
+	</select>
+</mapper>

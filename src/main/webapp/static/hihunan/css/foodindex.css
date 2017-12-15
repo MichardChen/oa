@@ -1,0 +1,219 @@
+*{
+	text-decoration:none;
+	padding:0px;
+	margin:0px;
+	}
+.Information>img{
+	float: left;
+	width:100%;
+	height:auto;
+	display: block;
+	margin-top: 0.18rem;
+	}
+.tourism>img{
+	 float: left;
+	 width:80%;
+	 height:auto;
+	 display: block;
+	 margin-top: 0.18rem;
+	}
+.tourism{
+	  margin-bottom:1.2rem;
+	}
+.clearfix{
+	clear:both;
+	}
+		
+.oa-contact-cell.mui-table .mui-table-cell {
+	padding: 11px 0;
+	vertical-align: middle;
+	}
+
+.oa-contact-cell {
+	position: relative;
+	margin: -11px 0;
+	}
+.oa-contact-avatar {
+	width: 75px;
+	}
+.oa-contact-avatar img {
+	border-radius: 50%;
+	}
+.oa-contact-content {
+	width: 100%;
+	}
+.oa-contact-name {
+	margin-right: 20px;
+	}
+.oa-contact-name, oa-contact-position {
+	float: left;
+	}
+.mui-grid-view.mui-grid-9 .mui-media {
+	color: #797979;
+	border-bottom: 1px solid #eee;
+	}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+	margin: 0;
+	padding: 0.12rem;
+	vertical-align: top;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	}
+.mui-icon img{
+	max-width:0.84rem;
+	}
+.footer .mui-icon img{
+	max-width:0.48rem;
+	}
+.swiper-slide {
+	-webkit-flex-shrink: 0;
+	-ms-flex: 0 0 auto;
+	flex-shrink: 0;
+	width: auto;
+	min-height:2.4rem;;
+	position: relative;
+	}
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+	bottom:5%;
+	left: 0;
+	width: 100%;
+	}
+.selectlabel select{
+	float:left;
+	float: left;
+	width: 29.3%;
+	padding: 0.12rem 0.36rem;
+	margin: 2%;
+	border-radius: 2px;
+	background-color:rgba(52,199,170,1.00) !important;
+	color: white;
+	border: none;
+	-webkit-appearance:none;
+	background-image: url(../images/select.png);
+    background-repeat: no-repeat;
+    background-position-x:85%;
+    background-position-y: 45%;
+    background-size: 0.2rem;
+    border-radius: 15px;
+	}
+.foodlistimg{
+	float:left;
+	width:1.8rem;
+	}
+.starimg{
+	width:2.88rem;
+	}
+.starimg img{
+	width:100%;
+	}
+.foodlistimg>img{
+	width:100%;
+	height: 100%;
+	}
+.foodlistimg,.foodconturrent {
+	float:left;
+	margin-left: 2%;
+    width: 30%;
+    height: 1.8rem;
+	}
+.foodconturrent {
+	width: 60%;
+	}
+ .foodlist h1{
+	font-size: 0.28rem;
+	} 
+ .foodlist{
+	padding-top: 0.2rem;
+	padding-bottom: 0.2rem;
+	border-top: 1px solid #efeff4;
+	} 
+.Positioning>img{
+	 width: 0.48rem;
+	}
+.foodtitle h1{
+	float: left;
+    margin-right: 0.12rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	}
+.foodtitle{
+	height:0.6rem;
+	}
+ .staring{
+	height: 0.6rem;
+	}
+.Positioning{
+	height:0.48rem;
+	}
+.foodtitlelabel	{
+	text-align: center;
+	background-color: #e7ae65;
+	padding: 0.05rem 0.05rem;
+	color: white;
+	}
+.name{
+	padding-top: 0.12rem;
+    font-size: 0.22rem;
+    background-image: url(../images/Positioning.png);
+    background-repeat: no-repeat;
+    background-position: 0rem center;
+    padding-left: 0.48rem;
+    padding-bottom: 0.12rem;
+    background-size:0.38rem;
+    color: #999999;
+	}
+.Positioning p{
+	 white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	}
+/* 	.foodlistheight{ */
+/* 	padding-bottom: 3.333rem; */
+/* 				} */
+.foodtitle{
+	/*position: absolute; */
+    /* left: 0px; */
+    /* bottom: 2px; */
+    font-size: 0.22rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0.05rem   0.12rem;
+    font-size: 0.24rem;
+    text-align: center;
+    width: 100%;
+    color: #999999;
+	}
+	.add{
+	position: absolute;
+    left: 0px;
+    bottom: 2px;
+    font-size: 0.22rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0.12rem;
+    left: auto;
+    bottom:0.48rem;
+    font-size:0.24rem;
+    text-align: center;
+    width: 100%;
+    color: #999999;
+	}
+	.foodttitle{
+	left: 0px;
+    bottom:0.2rem;
+    font-size: 0.22rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0.12rem;
+    font-size:0.24rem;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+	}
+	img{
+	    display: block;
+	}

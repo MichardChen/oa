@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.pj_common.persistence.ns.dao.NsPartnerCompanyDao">
+	<!-- 查询相关单位 布设立项出用到-->
+	<select id="findAllCompany" resultType="com.thinkgem.jeesite.modules.ns.data.model.NsPartnerCompanyModel">
+		SELECT 
+			npc.id AS "id",
+			sd.label AS "type",
+			npc.type AS "typeValue",
+			npc.name AS "name",
+			npc.office_id AS "officeId",
+			so.name AS "officeName",
+			npc.sort AS "sort",
+			npc.remarks AS "remarks"
+		FROM ns_partner_company npc
+		JOIN sys_office so ON so.id = npc.office_id
+		LEFT JOIN sys_dict sd ON sd.value = npc.type AND sd.type = 'PartnerType'
+		<if test="types != null and types != ''">
+			WHERE npc.type in 
+			<foreach item="item" index="index" collection="types" 
+		 	open="(" separator = "," close =")">
+		 	#{item.type}
+		 </foreach>
+		</if>
+		ORDER BY npc.sort DESC
+	</select>
+	
+	<!-- 费用单位 所有的外协公司-->
+	<select id="findoutsourcingCompany" resultType="com.thinkgem.jeesite.modules.sys.entity.Dict">
+		select 
+			npc.id AS "value",
+			npc.name AS "label"
+			from ns_partner_company npc
+			left join sys_office so on so.id = npc.office_id
+			left join sys_office s on s.id = so.parent_id where s.name = '外协公司'
+			ORDER BY npc.sort DESC
+	</select>
+	
+	<select id="getCompany" resultType="com.thinkgem.jeesite.modules.ns.data.model.NsPartnerCompanyModel">
+		SELECT 
+			npc.id AS "id",
+			sd.label AS "type",
+			npc.type AS "typeValue",
+			npc.name AS "name",
+			npc.office_id AS "officeId",
+			so.name AS "officeName",
+			npc.sort AS "sort",
+			npc.remarks AS "remarks"
+		FROM ns_partner_company npc
+		JOIN sys_office so ON so.id = npc.office_id
+		LEFT JOIN sys_dict sd ON sd.value = npc.type AND sd.type = 'PartnerType'
+		<if test="type != null and type != ''">
+			WHERE npc.type = #{type}
+		</if>
+		ORDER BY npc.sort DESC
+	</select>
+	
+	<!-- 查询相关单位名称是否重复 -->
+	<select id="getByName" resultType="com.thinkgem.jeesite.pj_common.persistence.ns.entity.NsPartnerCompany">
+		SELECT 
+			id AS "id",
+			type AS "type",
+			name AS "name",
+			office_id AS "officeId",
+			remarks AS "remarks"
+		FROM ns_partner_company
+		WHERE name = #{name}
+	</select>
+	
+	<!-- 根据ID查询相关单位 -->
+	<select id="findById" resultType="com.thinkgem.jeesite.modules.ns.data.model.NsPartnerCompanyModel">
+		SELECT 
+			id AS "id",
+			type AS "type",
+			name AS "name",
+			office_id AS "officeId",
+			sort AS "sort",
+			remarks AS "remarks"
+		FROM ns_partner_company
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 根据用户ID查询相关单位id -->
+	<select id="findByUserId" resultType="com.thinkgem.jeesite.modules.ns.data.model.NsPartnerCompanyModel">
+		SELECT 
+			npc.id AS "id"
+		from ns_partner_company npc 
+		join sys_user su on su.office_id = npc.office_id
+		WHERE su.id = #{userId}
+	</select>
+	
+	<!-- 根据type查询相关单位 -->
+	<select id="findByType" resultType="com.thinkgem.jeesite.modules.ns.data.model.NsPartnerCompanyModel">
+		SELECT 
+			id AS "id",
+			type AS "type",
+			name AS "name",
+			office_id AS "officeId",
+			sort AS "sort",
+			remarks AS "remarks"
+		FROM ns_partner_company
+		WHERE type = #{type}
+	</select>
+	
+	<!-- 根据部门查询对应部门的负责人 -->
+	<select id="findHeadById" resultType="com.thinkgem.jeesite.modules.ns.data.model.NsPartnerCompanyModel">
+		SELECT 
+			npc.id AS "id",
+			npc.type AS "type",
+			npc.name AS "name",
+			npc.office_id AS "officeId",
+			su.name AS "head",
+			su.id AS "headId"
+		FROM ns_partner_company npc
+		left join sys_office so on npc.office_id = so.id
+		left join sys_user su on su.id = so.PRIMARY_PERSON
+		WHERE npc.id = #{partnerCompanyId}
+	</select>
+	
+	<!-- 根据部门(ids)查询对应部门的负责人 -->
+	<select id="findHeadsByIds" resultType="com.thinkgem.jeesite.modules.ns.data.model.NsPartnerCompanyModel">
+		SELECT 
+			npc.id AS "id",
+			npc.type AS "type",
+			npc.name AS "name",
+			npc.office_id AS "officeId",
+			su.name AS "head",
+			su.id AS "headId"
+		FROM ns_partner_company npc
+		left join sys_office so on npc.office_id = so.id
+		left join sys_user su on su.id = so.PRIMARY_PERSON
+		WHERE npc.id in
+		<foreach item="item" index="index" collection="ids" 
+		 	open="(" separator = "," close =")">
+		 	#{item.id}
+		 </foreach>
+	</select>
+	
+	<!-- 新增相关单位 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO ns_partner_company(
+			id,
+			type,
+			name,
+			office_id,
+			sort,
+			remarks,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		)VALUES(
+			#{id},
+			#{type},
+			#{name},
+			#{officeId},
+			#{sort},
+			#{remarks},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<!-- 修改相关单位 -->
+	<update id="update">
+		UPDATE ns_partner_company SET
+			name=#{name},
+			type=#{type},
+			update_by=#{updateBy.id},
+			update_date=#{updateDate}
+		WHERE office_id=#{officeId}
+	</update>
+	
+	<!-- 删除相关单位 -->
+	<delete id="delete">
+		DELETE FROM ns_partner_company
+		WHERE office_id = #{officeId}
+	</delete>
+	
+	<!-- 根据部门id来关联相关单位，获取此单位类型下的角色列表 -->
+	<select id="getRoleKeysByOfficeId" resultType="String">
+		SELECT sd.description 
+	  FROM ns_partner_company nspc
+	  INNER JOIN sys_dict sd
+	     ON sd.type = 'PartnerType' 
+	    AND sd.value = nspc.type 
+	 WHERE nspc.office_id = #{officeId}
+ 	</select>
+ 	
+ 	<!-- 获取广电银通的部门ID -->
+ 	<select id="getGdytId" resultType="String">
+ 		SELECT
+ 			office_id
+ 		FROM ns_partner_company
+ 		WHERE name = #{name}
+ 	</select>
+ 	
+ 	<!-- 通过部门ID查询 -->
+ 	<select id="getByOfficeId" resultType="com.thinkgem.jeesite.modules.ns.data.model.NsPartnerCompanyModel">
+ 		SELECT id
+ 		FROM ns_partner_company
+ 		WHERE office_id = #{officeId}
+ 	</select>
+</mapper>

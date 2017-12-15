@@ -1,0 +1,66 @@
+.dropload-up,
+.dropload-down {
+  background-color: #F0EFF5;
+  position: relative;
+  height: 0;
+  overflow: hidden;
+}
+
+.dropload-down {
+  height: 50px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.dropload-refresh .drop-up-icon,
+.dropload-refresh .drop-down-icon,
+.dropload-update .drop-up-icon,
+.dropload-update .drop-down-icon {
+  vertical-align: text-bottom;
+  margin-right: 3px;
+  height: 16px;
+  width: 12px;
+}
+
+.dropload-load .loading-icon {
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+}
+
+.dropload-refresh span,
+.dropload-update span {
+  vertical-align: middle;
+  line-height: 18px;
+  font-size: 16px;
+  color: #585858;
+}
+
+.dropload-noData {
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #FFFFFF;
+}
+
+.dropload-noData span {
+  line-height: 18px;
+  font-size: 14px;
+  color: #999999;
+}
+
+.dropload-refresh,
+.dropload-update,
+.dropload-load,
+.dropload-noData {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  bottom: 0;
+  line-height: 50px;
+  text-align: center;
+}
+
+.dropload-down .dropload-refresh,
+.dropload-down .dropload-update,
+.dropload-down .dropload-load {
+  top: 0;
+  bottom: auto;
+}

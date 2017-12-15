@@ -1,0 +1,128 @@
+			*{
+			       text-decoration:none;
+			       padding:0px;
+			       margin:0px;
+			}
+			.current_title {
+				margin-top:1rem;
+				margin-bottom:1rem;
+			}	
+			.clearfix{
+				clear:both;
+					}
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 11px 0;
+				vertical-align: middle;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+				margin: -11px 0;
+			}
+	
+			.oa-contact-avatar {
+				width: 75px;
+			}
+			.oa-contact-avatar img {
+				border-radius: 50%;
+			}
+			.oa-contact-content {
+				width: 100%;
+			}
+			.oa-contact-name {
+				margin-right: 20px;
+			}
+			.oa-contact-name, oa-contact-position {
+				float: left;
+			}
+			.mui-grid-view.mui-grid-9 .mui-media {
+			color: #797979;
+			border-bottom: 1px solid #eee;
+		}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+		margin: 0;
+		padding: 0.5rem;
+		vertical-align: top;
+		border-right: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+	}
+	.mui-icon img{
+		max-width:3.5rem;
+		}
+	.footer .mui-icon img{
+		max-width:2rem;
+		}
+		
+		.swiper-slide {
+			-webkit-flex-shrink: 0;
+			-ms-flex: 0 0 auto;
+			flex-shrink: 0;
+			width: 100%;
+			max-width:26.667rem;
+			height: auto;
+			position: relative;
+		}
+
+		.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+			bottom: 30px;
+			left: 0;
+			width: 100%;
+		}
+		.mui-bar-nav.mui-bar .mui-icon {
+		width: 3rem;
+		height: auto;
+		padding-top: 1rem;
+		/* padding-right: 2rem; */
+		margin-right: 0.5rem;
+		}
+		.navico {
+			 padding-left: 1.25rem;
+    		 margin-top: 0.75rem;
+			}
+		.navico .time{
+			float:left;
+			background-image:url(../images/clock.png);
+			background-repeat:no-repeat;
+			background-position: 1.75rem center;
+   			padding-left: 3.25rem;
+			font-size: 0.75rem;
+			background-size: 1.5rem 1.5rem;
+			}
+		.navico .people{
+			float:left;
+			background-image:url(../images/people.png);
+			background-repeat:no-repeat;
+			background-position: 1.75rem center;
+			background-size: 1.5rem 1.5rem;
+			font-size: 0.75rem;
+			padding-left: 3.25rem;
+			}
+		.titlt_bottom{
+			margin-top:4.15rem;
+			    height: 6.5rem;
+		background-color: #f5fafa;
+			}
+		.swiper-wrapper {
+		width: 21.66667rem;
+		height:auto;
+		margin-left: 2.5rem;
+	}
+	.current{
+		font-size: 1rem;
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+		line-height: 2rem;
+		margin-top: 1rem;
+		margin-bottom: 5rem;
+		}
+		.mui-bar-tab .mui-tab-item {
+		display: table-cell;
+		overflow: hidden;
+		width: 1%;
+		height: 50px;
+		text-align: center;
+		vertical-align: middle;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		color: #ffffff;
+	}

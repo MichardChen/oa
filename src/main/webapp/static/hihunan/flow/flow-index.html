@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta id='viewEle' name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>流量银行</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/flow-index.css">
+    <script src="../js/color.js"></script>
+    <script type="text/javascript">
+        window.onload=function(){
+            colorNum = 2;
+        };
+        $(document).ready(function(){
+            get()
+        })
+        function refresh(){
+            $.ajax({
+                type:'post',
+                url:Domain1+'andlife/base?action=totalFlow',
+                data:{
+                    key:key,
+                    version:'2.0'
+                },
+                dataType:'json',
+                success:function(data){
+                    console.log(data)
+                    $('#flow').html(data.message.totalData)
+                },
+                error:function(){}
+
+            });
+            $.ajax({
+                type:'post',
+                url:Domain1+'andlife/base?action=getPointFlow',
+                data:{
+                    key:key,
+                    version:'2.0'
+                },
+                dataType:'json',
+                success:function(data){
+                    $('#hibi').html(data.message.point);
+                },
+                error:function(){}
+            })
+        }
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="flow-hi clearfix">
+        <div class="hi">
+            <span>你目前拥有</span>
+            <span class="Hibi" id="hibi">0</span>
+            <span>Hi币</span>
+        </div>
+        <span class="hi-bet"></span>
+        <div class="flow">
+            <span>剩余流量</span>
+            <span class="flow-left" id="flow">0</span>
+            <span>MB</span>
+        </div>
+    </div>
+    <div class="service">
+        <a href="flow-exchange.html">
+            <div class="flow1"></div>
+            <span>Hi币兑流量</span>
+        </a>
+        <a href="flow-get.html">
+            <div class="flow2"></div>
+            <span>流量提取</span>
+        </a>
+        <a href="javascript:jumpTorule();">
+            <div class="flow3"></div>
+            <span>Hi币攻略</span>
+        </a>
+        <a href="flow-red.html">
+            <div class="flow4"></div>
+            <span>Hi币赠送</span>
+        </a>
+        <a href="flow-mall.html">
+            <div class="flow5"></div>
+            <span>Hi币商城</span>
+        </a>
+    </div>
+</div>
+<script src="../js/common.js"></script>
+<script type="text/javascript">
+    function jumpTorule(url){
+        window.location.href = "locahost/index.html#act=hiRule"
+    }
+    var key = getCookie('key')
+    var member_id = getCookie("member_id")
+    $(document).ready(function(){
+        $.ajax({
+            type:'post',
+            url:Domain1+'andlife/base?action=totalFlow',
+            data:{
+                key:key,
+                version:'2.0'
+            },
+            dataType:'json',
+            success:function(data){
+                console.log(data)
+                $('#flow').html(data.message.totalData)
+            },
+            error:function(){}
+
+        });
+        $.ajax({
+            type:'post',
+            url:Domain1+'andlife/base?action=getPointFlow',
+            data:{
+                key:key,
+                version:'2.0'
+            },
+            dataType:'json',
+            success:function(data){
+                $('#hibi').html(data.message.point);
+            },
+            error:function(){}
+        })
+    })
+</script>
+</body>
+</html>

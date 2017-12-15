@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysParameterDao">
+	
+	<!-- 根据关键字获取系统参数（1条) -->
+	<select id="findByKeyword" resultType="com.thinkgem.jeesite.modules.sys.model.SysParameterModel">
+		select 	sp.id,
+		        sp.keyword,
+				sp.value1,
+				sp.value2,
+				sp.value3,
+				sp.value4,
+				sp.value5,
+				sp.value6,
+				sp.value7,
+				sp.value8,
+				sp.value9,
+				sp.value10,
+				sp.remarks
+		from  sys_parameter sp
+		where sp.keyword=#{keyword}
+	</select>
+	
+	<!-- 分页查询  -->
+	<select id="findByPage" resultType="com.thinkgem.jeesite.modules.sys.model.SysParameterModel">
+		select 	sp.id,
+		        sp.keyword,
+				sp.value1,
+				sp.value2,
+				sp.value3,
+				sp.value4,
+				sp.value5,
+				sp.value6,
+				sp.value7,
+				sp.value8,
+				sp.value9,
+				sp.value10,
+				sp.remarks
+		from  sys_parameter sp
+	</select>
+	
+	<!-- 更新 -->
+	<update id="update">
+	    update sys_parameter
+	       set value1 = #{value1},
+	           value2 = #{value2},
+	           value3 = #{value3},
+	           value4 = #{value4},
+	           value5 = #{value5},
+	           value6 = #{value6},
+	           value7 = #{value7},
+	           value8 = #{value8},
+	           value9 = #{value9},
+	           value10 = #{value10},
+			   remarks = #{remarks}
+		where  id= #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysMessageHistDao">
+    
+	<!-- 根据自增长ID获取该条数据 -->
+	<select id="findByAutoIncId" resultType="com.thinkgem.jeesite.modules.sys.model.SysMessageHistModel">
+		SELECT 
+				a.id  AS "id",
+				a.proc_ins_id AS "procInsId"
+		FROM sys_message_hist a
+		WHERE a.autoIncId = #{autoIncId}
+	</select>
+	
+	<!-- 通过主键获取该条数据 -->
+	<select id="getById" resultType="com.thinkgem.jeesite.modules.sys.model.SysMessageHistModel">
+		SELECT 
+			smh.id AS "id",
+			smh.proc_ins_id AS "procInsId",
+			smh.sender_name AS "senderName",
+			smh.title AS "title",
+			smh.send_status AS "sendStatus",
+			smh.send_date As "sendDate",
+			smh.contentDtl AS "contentDtl",
+			smh.read_flag AS "readFlag",
+			smh.reply_status AS "replyStatus"
+		FROM sys_message_hist smh 
+		WHERE smh.id = #{id}
+	</select>
+	
+	<!-- 通过流程id、流程标识、单位id查询消息反馈内容 -->
+	<select id="getFeedback" resultType="com.thinkgem.jeesite.modules.sys.model.SysMessageHistModel">
+		select 
+				smh.reply_content AS "replyContent",
+				smh.customize_field1 AS "customizeField1",
+				npc.type AS "type"
+		from sys_message_hist smh 
+		left join ns_partner_company npc on npc.id = smh.customize_field1
+		where smh.customize_field2 = #{procInsId}
+		and smh.customize_field3 = #{processFlage}
+		<if test="list != null and list != ''">
+			AND smh.customize_field1  in 
+			<foreach item="item" index="index" collection="list" 
+		 	open="(" separator = "," close =")">
+		 	#{item.customizeField1}
+		 </foreach>
+		</if>
+		order by smh.update_date desc 
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO sys_message_hist(
+			id,
+			system,
+			proc_ins_id,
+			sender_wx_userid,
+			sender_user_id,
+			sender_name,
+			receiver_wx_userid,
+			receiver_user_id,
+			receiver_name,
+			title,
+			contentSend,
+			content_type,
+			contentDtl,
+			biz_id,
+			customize_field1,
+			customize_field2,
+			customize_field3,
+			next_proc_sign,
+			send_status,
+			notice_send_date,
+			read_date,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{system},
+			#{procInsId},
+			#{senderWxUserid},
+			#{senderUserId},
+			#{senderName},
+			#{receiverWxUserid},
+			#{receiverUserId},
+			#{receiverName},
+			#{title},
+			#{contentSend},
+			#{contentType},
+			#{contentDtl},
+			#{bizId},
+			#{customizeField1},
+			#{customizeField2},
+			#{customizeField3},
+			#{nextProcSign},
+			#{sendStatus},
+			#{noticeSendDate},
+			#{readDate},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_message_hist SET
+		<if test="sendStatus != null and sendStatus !=''">
+			send_status = #{sendStatus},
+		</if>
+		<if test="sendDate != null and sendDate != ''">
+			send_date = #{sendDate},
+		</if>
+		<if test="contentSend != null and contentSend != ''">
+			contentSend = #{contentSend},
+		</if>
+		<if test="bizId != null and bizId != ''">
+			biz_id = #{bizId},
+		</if>
+		<if test="customizeField2 != null and customizeField2 != ''">
+			customize_field2 = #{customizeField2},
+		</if>
+		<if test="readDate != null and readDate != ''">
+			read_date = #{readDate},
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			read_flag = #{readFlag},
+		</if>
+		<if test="replyContent != null and replyContent != ''">
+			reply_content = #{replyContent},
+		</if>
+		<if test="replyStatus != null and replyStatus != ''">
+			reply_status = #{replyStatus},
+		</if>
+		<if test="replyDate != null and replyDate != ''">
+			reply_date = #{replyDate},
+		</if>
+			update_date = #{updateDate},
+			update_by = #{updateBy.id}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 查询未读消息 -->
+	<select id="getUnread" resultType="com.thinkgem.jeesite.modules.sys.model.SysMessageHistModel">
+		SELECT 
+			id AS "id",
+			sender_name AS "senderName",
+			title AS "title",
+			send_date AS "sendDate",
+			read_flag AS "readFlag"
+		FROM sys_message_hist
+		WHERE receiver_user_id = #{receiverUserId} AND read_flag = '0' AND send_status = '1'
+		ORDER BY send_date DESC
+	</select>
+	
+	<!-- 查询已读消息,按阅读时间倒序查询最多20条 -->
+	<select id="getHaveRead" resultType="com.thinkgem.jeesite.modules.sys.model.SysMessageHistModel">
+		SELECT 
+			id AS "id",
+			sender_name AS "senderName",
+			title AS "title",
+			read_date AS "readDate",
+			read_flag AS "readFlag"
+		FROM sys_message_hist
+		WHERE receiver_user_id = #{receiverUserId} AND read_flag = '1' AND send_status = '1'
+		ORDER BY read_date DESC limit 0,20
+	</select>
+	
+	<!-- 查询未发送的信息 -->
+	<select id="getUnsend" resultType="com.thinkgem.jeesite.modules.sys.model.SysMessageHistModel">
+		SELECT
+			id AS "id",
+			receiver_wx_userid AS "receiverWxUserid",
+			contentSend AS "contentSend"
+		FROM sys_message_hist
+		WHERE send_status = '0'
+	</select>
+	
+	<!-- 查询公告消息 -->
+	<select id="getNotice" resultType="com.thinkgem.jeesite.modules.sys.entity.SysMessageHist">
+		SELECT
+		 	id AS "id",
+		 	title AS "title",
+		 	contentDtl AS "contentDtl",
+		 	send_status AS "sendStatus",
+		 	sum(case when read_flag = '1' then 1 else 0 end) AS "readNum",
+		 	sum(case when read_flag = '0' then 1 else 0 end) AS "unReadNum",
+		 	notice_send_date AS "noticeSendDate",
+		 	DATE_FORMAT(notice_send_date,'%Y-%m-%d%H:%i:%s') AS "noticeSendDateString"
+		FROM sys_message_hist
+		WHERE content_type = 'notice'
+		<if test="title != null and title != ''">
+			AND title LIKE CONCAT('%', #{title}, '%')
+		</if>
+		<if test="sendStatus != null and sendStatus != ''">
+			AND send_status = #{sendStatus}
+		</if>
+		GROUP BY notice_send_date
+	</select>
+	
+	<!-- 删除公告 -->
+	<delete id="delNotice">
+		DELETE FROM
+			sys_message_hist
+		WHERE DATE_FORMAT(notice_send_date,'%Y-%m-%d%H:%i:%s') = #{noticeSendDateString}
+	</delete>
+	
+	<!-- 公告详情 -->
+	<select id="getNoticeDetail" resultType="com.thinkgem.jeesite.modules.sys.model.SysMessageHistModel">
+		SELECT
+			smh.receiver_name AS "receiverName",
+			IFNULL(npc.name,'') AS "receiverOfficeName",
+			sd.label AS "sendStatus",
+			sdt.label AS "readFlag",
+			IFNULL(DATE_FORMAT(smh.read_date,'%Y-%m-%d %H:%i:%s'),'') AS "readTime" 
+		FROM sys_message_hist smh 
+		LEFT JOIN sys_user su ON su.id = smh.receiver_user_id
+		LEFT JOIN ns_partner_company npc ON npc.office_id = su.office_id
+		LEFT JOIN sys_dict sd ON sd.value = smh.send_status AND sd.type = 'send_status'
+		LEFT JOIN sys_dict sdt ON sdt.value = smh.read_flag AND sdt.type = 'read_flag'
+		WHERE smh.content_type = 'notice'
+		AND  DATE_FORMAT(smh.notice_send_date,'%Y-%m-%d%H:%i:%s') = #{noticeSendDateString}
+	</select>
+	<!-- 查询我的消息 -->
+	<select id="findList" resultType="SysMessageHist">
+		SELECT
+		 	id AS "id",
+		 	title AS "title",
+		 	contentDtl AS "contentDtl",
+		 	send_date AS "sendDate",
+		 	read_flag AS "readFlag"
+		FROM sys_message_hist
+		WHERE receiver_user_id = #{receiverUserId}
+		<if test="title != null and title != ''">
+			AND title LIKE CONCAT('%', #{title}, '%')
+		</if>
+		<if test="startDate != null and startDate != ''">
+			<![CDATA[And DATE_FORMAT(send_date, '%Y-%m-%d')>=DATE_FORMAT(#{startDate}, '%Y-%m-%d')]]>
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[And DATE_FORMAT(send_date, '%Y-%m-%d')<=DATE_FORMAT(#{endDate}, '%Y-%m-%d')]]>
+		</if>
+		ORDER BY send_date DESC
+	</select>
+</mapper>

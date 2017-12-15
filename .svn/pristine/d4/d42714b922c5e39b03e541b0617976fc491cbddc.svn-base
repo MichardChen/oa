@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hihunan.dao.tagref.SysTagRefDao">
+    
+	<sql id="sysTagRefColumns">
+		a.tag_type AS "tagType",
+		a.reference_id AS "referenceId",
+		a.reference_type AS "referenceType",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate"
+	</sql>
+	
+	<sql id="sysTagRefJoins">
+	</sql>
+    
+	<select id="get" resultType="SysTagRef">
+		SELECT 
+			<include refid="sysTagRefColumns"/>
+		FROM sys_tag_ref a
+		<include refid="sysTagRefJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysTagRef">
+		SELECT 
+			<include refid="sysTagRefColumns"/>
+		FROM sys_tag_ref a
+		<include refid="sysTagRefJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysTagRef">
+		SELECT 
+			<include refid="sysTagRefColumns"/>
+		FROM sys_tag_ref a
+		<include refid="sysTagRefJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO sys_tag_ref(
+			tag_type,
+			reference_id,
+			reference_type,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{tagType},
+			#{referenceId},
+			#{referenceType},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_tag_ref SET 	
+			tag_type = #{tagType},
+			reference_id = #{referenceId},
+			reference_type = #{referenceType},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_tag_ref
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

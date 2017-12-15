@@ -1,0 +1,327 @@
+<!doctype html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<title>Hi 湖南</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.css">
+		<!--App自定义的css-->
+   	    <link rel="stylesheet" type="text/css"  href="css/swiper.min.css"/>
+   	    <link rel="stylesheet" type="text/css" href="css/index.css">
+   	    <script src="js/zepto.min.js"></script>
+   	    <script src="js/common.js"></script> 
+        <script type="text/javascript" src="js/swiper.min.js"></script>
+       	<script type="text/javascript" src="js/rem.js"></script>
+       	<script src="http://api.map.baidu.com/api?v=2.0&ak=dLrXkZq6r30wvc4rr2GsWIv6eHFxdQZT"></script>
+	</head>
+<body>
+	<!--banner开始-->
+	<div class="swiper-container" id="banner" style="width:100%;height:3.6rem;"><!--swiper容器[可以随意更改该容器的样式-->  
+	    <div class="swiper-wrapper banner" style="">
+	    </div>  
+	    <div class="swiper-pagination" style="float: right;"></div>
+	    <!--分页器-->
+	</div>  
+    <!--banner结束-->
+    <!--九宫格开始-->
+    <div class="mui-content" style="">
+        <ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: #f5fafa;">
+        </ul> 
+       
+	</div>
+	 <div style="height: 0.2rem;width: 100%;background-color: #f5fafa;"></div> 
+    <!--九宫格结束-->
+   
+    <!--本地生活-->
+   <div id="localList" style="margin-bottom: 0rem;/*height:13.33833rem*/"> 
+    </div>
+     <!--其他列表 -->
+    <div id="headerList" style="margin-bottom:0.3rem;">
+    </div>
+       <!--资讯 -->
+<!--     <div style="height:9.333rem;margin-left: 0.2455rem;width: 95.4%"> -->
+<!-- 			<img class="Informationimg" src=""> -->
+<!--     </div> -->
+    <!-- 旅游 -->
+<!--     <div style="height: 5.833rem;margin-left: 0.2455rem;width:100%;"> -->
+<!-- 			<img class="imgheight"src=""> -->
+<!-- 			<img class="imgheight"src=""> -->
+<!-- 			<div class="clearfix"></</div> -->
+<!--     </div> -->
+	<script type="text/javascript">
+		function findHeadBanner(){//查询轮播
+            $.ajax({
+                type: 'post',
+                url: '/hihunan/webservice/rest/indexRest/findBanner',
+                dataType: 'json',
+                data:{
+                	'listType':'top'
+                },
+                success: function(data){
+                	var banner = $(".banner");
+                	banner.empty();
+                	var result = "";
+					var rows = data.rows;
+                    for(var i = 0; i < rows.length; i++){
+						result = '<div class="swiper-slide">' + 
+							 		'<a href="' + rows[i].url + '">' + 
+							 			'<img src="' + rows[i].titlePhoto + '" style="width:100%;height:3.6rem;">' +
+							 		'</a>' + 
+								  '</div>';
+						banner.append(result);
+                    }
+            		var mySwiper = new Swiper("#banner",{  
+            			direction:"horizontal",/*横向滑动*/  
+            			loop:true,/*形成环路（即：可以从最后一张图跳转到第一张图*/  
+            			pagination:".swiper-pagination",/*分页器*/  
+            			prevButton:".swiper-button-prev",/*前进按钮*/  
+            			nextButton:".swiper-button-next",/*后退按钮*/  
+            			autoplay:3000,/*每隔3秒自动播放*/  
+            			autoplayDisableOnInteraction: false
+            		});
+                },
+                error: function(xhr, type){
+                }
+            });
+		}
+		
+		function findHeaderItem(){//应用栏信息
+            $.ajax({
+                type: 'post',
+                url: '/hihunan/webservice/rest/indexRest/findHeaderItem',
+                dataType: 'json',
+                success: function(data){
+                	var ul = $(".mui-grid-9");
+                	ul.empty();
+                	var result = "";
+					var rows = data.rows;
+                    for(var i = 0; i < rows.length; i++){
+                    	var isNeedLogin = rows[i].isNeedLogin;
+                    	if(isNeedLogin == '1'){
+    						result = '<a href="' + rows[i].url + '">' +  
+					     	'<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">' + 
+							 	'<span class="mui-icon">' + 
+						 			'<img src="' + rows[i].icon + '">' +
+						 		'</span>' + 
+						 		'<div class="mui-media-body">' + rows[i].name + '</div>' + 
+						 	'</li>' +
+						 '</a>';
+                    	}else{
+    						result = '<a href="' + rows[i].url + '?type=' + rows[i].listType + '&name=' + rows[i].name + '">' +  
+					     	'<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">' + 
+							 	'<span class="mui-icon">' + 
+						 			'<img src="' + rows[i].icon + '">' +
+						 		'</span>' + 
+						 		'<div class="mui-media-body">' + rows[i].name + '</div>' + 
+						 	'</li>' +
+						 '</a>';
+                    	}
+						ul.append(result);
+                    }
+                },
+                error: function(xhr, type){
+                }
+            });
+		}
+		
+		function findHeaderList(){//获取功能模块列表，除本地生活列表以外
+            $.ajax({
+                type: 'post',
+                url: '/hihunan/webservice/rest/indexRest/findHeaderList',
+                dataType: 'json',
+                success: function(data){
+                	var headerList = $("#headerList");
+                	headerList.empty();
+                	var result = "";
+					var rows = data.rows;
+                    for(var i = 0; i < rows.length; i++){
+                    	var listType = rows[i].listType;
+						if(listType!="culture"){
+							result = '<div class="current">' + 
+							 '<h1 style="background-image:url(' + rows[i].icon + ')">' + rows[i].name + '</h1>' +
+				 			 '<a href="' + rows[i].url + '?type=' + listType + '&name=' + rows[i].name + '" >' +
+				 			'<span class="titleimg"><img style=" width: 0.12rem;" src="images/more.png"></span>'+
+				 			 '<h1 style="float: right;font-size:0.18rem;color: #999999;line-height:0.24rem;margin-top: 1%;">更多</h1>' + 
+				 			 '</a>' +
+				 			 '<div class="clearfix"></div>' + 
+				             '</div>'+ '<div class="swiper-container" id="' + listType + '">' + 
+						 	 '<div class="swiper-wrapper">' + 
+						 	 '</div>' + 
+						 	 '</div>';
+						}else{
+							result = '<div class="current">' + 
+							'<h1 style="background-image:url(' + rows[i].icon + ')">' + rows[i].name + '</h1>' +
+			 				'<a href="' + rows[i].url + '?type=' + listType + '&name='+rows[i].name+'" >' +
+			 				'<span class="titleimg"><img style=" width: 0.12rem;" src="images/more.png"></span>'+
+				 			 '<h1 style="float: right;font-size:0.18rem;color: #999999;line-height:0.24rem;margin-top: 1%;">更多</h1>' +  
+			 				'</a>' +
+			 				'<div class="clearfix"></div>' + '</div>' + 
+			 				'<div  id="' + listType +'" style="padding-left: 0.06rem;width:100%;"></div>';
+							'</div>';
+						}
+					    headerList.append(result);
+					    if(listType=="culture"){
+					    	var div = $("#" + listType);
+					    	var model = rows[i].listModel;
+					    	var length = model.length;
+					    	if(length > 4){
+					    		length = 4;
+					    	}
+						    for(var h = 0; h < length; h++){
+								var ahref = '';
+								if(model[h].url){
+									ahref = model[h].url
+								}else{
+									ahref = 'listDetail.html?id=' + model[h].id;
+								}
+						    	result = '<div class="imgheight">' + 
+						    			'<a href="' + ahref + '">' + 
+						    					'<img src="' + model[h].titlePhoto + '" style="width: 100%;height: 100%;">' + 
+						    			 	'</a>'
+						    			 	 + 
+						    			'</div>';
+						    	div.append(result);
+						    }
+						    div.append('<div class="clearfix"></div>');
+					    }else{
+					    	var className = '';
+					    	var styleName = "height:2.25rem;position:relative;";
+					    	if(listType == 'advisory'){
+					    		className = 'add';
+					    		styleName = "height:2.64rem;position: relative;";
+					    	}else{
+					    		className = 'titlelabell';
+					    	}
+					    	
+					    	var ahref = "";
+					    	if(listType == "local"){
+					    		ahref = "LocalLife/locallifedetail.html?id=";
+					    	}else if(listType == "advisory"){
+					    		ahref = "advisory/advisoryDetail.html?id=";
+					    	}else{
+					    		ahref = "listDetail.html?id=";
+					    	}
+					    	var div = $("#" + listType + " .swiper-wrapper");
+					    	var model = rows[i].listModel;
+						    for(var k = 0; k < model.length; k++){
+						    	if(model[k].url){
+							    	result = '<div class="swiper-slide" style=' + styleName + ' >' + 
+							    			 	'<a href="' + model[k].url + '">' + 
+							    			 		'<img style="height:2.25rem;" src="' + model[k].titlePhoto + '">' + 
+							    			 		'<h1 class="' + className + '">' + model[k].title + '</h1>'+
+							    			 	'</a>' + 
+							    			 '</div>';
+						    	}else{
+							    	result = '<div class="swiper-slide" style=' + styleName + ' >' + 
+							    			 	'<a href="' + ahref + model[k].id + '&type=' + listType + '">' + 
+							    			 		'<img style="height:2.25rem;" src="' + model[k].titlePhoto + '">' + 
+							    			 		'<h1 class="' + className + '">' + model[k].title + '</h1>'+
+							    			 	'</a>' + 
+							    			 '</div>';
+						    	}
+						    	div.append(result);
+						    }
+						    div.append('<div class="clearfix"></div>');
+							var mySwiper = new Swiper("#" + listType,{ 
+						        slidesPerView: 'auto',
+						        paginationClickable: true,
+						        spaceBetween: 10,
+						        slidesOffsetBefore: 10,
+						        slidesOffsetAfter:10 
+							})
+					    }
+                    }
+                },
+                error: function(xhr, type){
+                }
+            });
+		}
+		
+		function findLocalList(){//获取本地生活列表
+            $.ajax({
+                type: 'post',
+                url: '/hihunan/webservice/rest/localActivityRest/findLocalList',
+                dataType: 'json',
+                success: function(data){
+                	var localList = $("#localList");
+                	localList.empty();
+                	var result = "";
+					var rows = data.rows;
+                    for(var i = 0; i < rows.length; i++){
+                    	var listType = rows[i].listType;
+						
+							result = '<div class="current">' + 
+							 '<h1 style="background-image:url(' + rows[i].icon + ')">' + rows[i].name + '</h1>' +
+				 			 '<a href="' + rows[i].url + '?type=' + listType + '&name=' + rows[i].name + '" >' +
+				 			'<span class="titleimg"><img style=" width: 0.12rem;" src="images/more.png"></span>'+
+				 			 '<h1 style="float: right;font-size:0.18rem;color: #999999;line-height:0.24rem;margin-top: 1%;">更多</h1>' + 
+				 			 '</a>' +
+				 			 '<div class="clearfix"></div>' + 
+				             '</div>'+ '<div class="swiper-container" id="' + listType + '">' + 
+						 	 '<div class="swiper-wrapper">' + 
+						 	 '</div>' + 
+						 	 '</div>';
+						
+					    localList.append(result);
+					    
+						
+					    	var className = 'titlelabell';
+					    	var styleName = "height:2.25rem;position:relative;";
+					    	
+					    	
+					    	var ahref = "LocalLife/locallifedetail.html?id=";
+					    	
+					    	var div = $("#" + listType + " .swiper-wrapper");
+					    	var model = rows[i].listModel;
+						    for(var k = 0; k < model.length; k++){
+							    	result = '<div class="swiper-slide" style=' + styleName + ' >' + 
+							    			 	'<a href="' + ahref + model[k].id + '&type=' + listType + '">' + 
+							    			 		'<img style="height:2.25rem;color: #666666;" src="' + model[k].titlePhoto + '" alt="' + model[k].title + '">' + 
+							    			 		'<h1 class="' + className + '">' + model[k].title + '</h1>'+
+							    			 	'</a>' + 
+							    			 '</div>';
+						    	div.append(result);
+						    }
+						    div.append('<div class="clearfix"></div>');
+							var mySwiper = new Swiper("#" + listType,{ 
+						        slidesPerView: 'auto',
+						        paginationClickable: true,
+						        spaceBetween: 10,
+						        slidesOffsetBefore: 10,
+						        slidesOffsetAfter:10
+							})
+					    }
+                },
+                error: function(xhr, type){
+                }
+            });
+		}
+		
+		$(document).ready(function () {
+			
+			$('title').text("Hi 湖南");
+			
+			window.scrollBy(0,0);
+			
+		    navigator.geolocation.getCurrentPosition(function (position) {  
+		        var longitude = position.coords.longitude;  
+		        var latitude = position.coords.latitude;
+		        window.localStorage.latitude = latitude;
+		        window.localStorage.longitude = longitude;
+		    });
+			
+			//查询轮播
+			findHeadBanner();
+			//查询应用栏
+			findHeaderItem();
+			//查询本地生活列表
+			findLocalList();
+			//查询功能列表
+			findHeaderList();
+		})
+	</script>  
+</body>
+</html>

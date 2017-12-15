@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.pj_common.persistence.ns.dao.NsRoleDao">
+	<!-- 根据角色英文名字标识查找匹配角色列表 -->
+	<select id="getRolesByEnnames" resultType="com.thinkgem.jeesite.modules.sys.model.RoleModel">
+		SELECT 
+			sr.id AS "id",
+			sr.name AS "name"
+		FROM sys_role sr 
+		WHERE sr.enname IN 
+	    <foreach collection="array" index="index" item="ennames" open="(" separator="," close=")">  
+            #{ennames}   
+   		</foreach>  
+	</select>
+</mapper>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <title>搜索结果</title>
+        <script src="../js/zepto.min.js"></script>
+        <script type="text/javascript" src="../js/rem.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/time.css" />
+
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" type="text/css" href="../css/route.css" />
+        <script src="../js/color.js"></script>
+        <script src="../js/common.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+                colorNum = 1;
+            };
+        </script>
+        <style>
+            ul.wrap{
+                padding-top: 1.25rem;
+                padding-bottom: 1.25rem;                
+            }
+            .wrap li {
+                height: auto; 
+                padding-bottom: 0.5rem;
+            }
+
+            .wrap li.li-name {
+                height: auto; 
+                padding: 1rem 1rem;
+            }   
+            .route.li-name-address{
+                color: #00b998;
+                font-size: 1rem;
+                font-family: avenirm;                
+            }
+
+            body{overflow:visible;}
+
+            /*2019-09-13 黄耿升 延时弹窗*/
+            #container {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                opacity: 0;
+            }
+            #container canvas {
+                width: 200%;
+                height: 200%;
+            }
+            .show-int {
+                opacity: 0.8;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                margin: 18rem auto 0;
+                width: 18rem;
+                height: 3.34rem;
+                line-height: 3.34rem;
+                color: white;
+                background: black;
+                z-index: 10000;
+                text-align: center;
+                border-radius: 2rem;
+                font-size: 1rem;
+            }
+            .collect{
+                display: block;
+                width: 2rem;
+                height: 2rem;
+                background: url("../images/collect.png") no-repeat;
+                background-size:cover;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+
+        </style> 
+    </head>
+    <body>
+        <div class="wrap">
+
+            <div class="detail">
+                <div class="price" style="left:3rem;text-align: left;">
+                    <span style="margin-bottom:5px;"><span style="display: inline;">起点：</span><span id="origin" style="display: inline;">软件园软件园</span></span>
+                    <span style="margin-top:5px;"><span style="display: inline;">终点：</span><span id="destination" style="display: inline;">华侨大学华侨大学</span></span>                    
+                </div>
+                <span id="btn_transfer" class="collect"></span>
+            </div>
+
+            <ul class="wrap" id="bus-route">
+
+                <!--<li>-->
+                <!--<section>-->
+                <!--<div class="tip_label"><font color="#ffffff">最快</font></div>-->
+                <!--<div class="route">-->
+                <!--步行14米<br/>-->
+                <!--从<font color="#313233">芙蓉苑站</font>,乘19路(栖凤路方向),经过3站,到<font color="#313233">兑泽街站</font><br/>-->
+                <!--步行106米<br/>-->
+                <!--</div>-->
+                <!--<div class="r-details">距离：2048米</div>-->
+                <!--<div class="r-details">时长：2048秒</div>-->
+                <!--</section>-->
+                <!--</li>-->
+
+            </ul>
+        </div>
+        <div class="show-int"   style="display:none;"></div>
+        <div id="container" class="route-chart">
+            <canvas id="canvas"></canvas>
+        </div>
+        <script src="../js/Zoomage.min.js"></script>
+        <script type="text/javascript">
+            //city = "长沙";
+            city = getUrlParam("city");
+            origin = getUrlParam("origin");
+            destination = getUrlParam("destination");
+            collectWayFlag = 0;
+            message_id = 0;
+
+            $("#origin").html(origin);
+            $("#destination").html(destination);
+            $("title").html("[" + city + "]乘车方案");
+            //获取url中的参数
+            function getUrlParam(name) {
+                //构造一个含有目标参数的正则表达式对象
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                //匹配目标参数
+                var r = window.location.search.substr(1).match(reg);
+                //alert(r);
+                //返回参数值
+                if (r !== null)
+                    return decodeURI(r[2]);
+                return null;
+            }
+
+
+            $('.show-int').hide();
+            function show() {
+                $('.show-int').show();
+                setTimeout(function () {
+                    $('.show-int').hide(2000);
+                }, 2000)
+            }
+
+            $(document).ready(function () {
+                dataload();
+                isCollectWay("2:判断是否已经收藏乘车方案");
+            });
+
+            //29-1. 判断是否收藏路线
+            function isCollectWay(tmpStr) {
+                var key = getCookie("key");
+                var site_start = origin;
+                var site_end = destination;
+                $.ajax({
+                    url: Domain1 + 'andlife/base?action=isCollectWay',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        version: '2.0',
+                        site_start: site_start,
+                        site_end: site_end,
+                        key: key,
+                        type: 1
+                    },
+                    success: function (data) {
+                        collectWayFlag = data.flag;
+                        if (collectWayFlag === 1) {
+                            message_id = data.message.id;
+                        }
+
+                        if (data.result.indexOf("success") > -1) {
+                            $(".collect").css({"background": 'url("../images/collected.png") no-repeat;'});
+                            $(".collect").css({"height": '2rem;'});
+                            $(".collect").css({"width": '2rem;'});
+                            $(".collect").css({"background-size": 'cover;'});
+
+
+                        }
+                    }
+                });
+            }
+
+
+            //29. 收藏路线
+            function collectWay(tmpStr) {
+                var key = getCookie("key");
+                var site_start = origin;
+                var site_end = destination;
+                $.ajax({
+                    url: Domain1 + 'andlife/base?action=collectWay',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        version: '2.0',
+                        site_start: site_start,
+                        site_end: site_end,
+                        key: key,
+                        type: 1
+                    },
+                    success: function (data) {
+                        //console.log(data);
+                        $('.show-int').html(data.message.info);
+                        show();
+                        //alert(data.result);
+                        if (data.result.indexOf("success") > -1) {
+                            $(".collect").css({"background": 'url("../images/collected.png") no-repeat;'});
+                            $(".collect").css({"height": '2rem;'});
+                            $(".collect").css({"width": '2rem;'});
+                            $(".collect").css({"background-size": 'cover;'});
+
+                            collectWayFlag = 1;
+                            message_id = data.message.id;
+                        }
+                    }
+                });
+            }
+
+
+            //31. 取消收藏路线
+            function cancelCollectWay(tmpStr) {
+                //alert(message_id);
+                var key = getCookie("key");
+                var site_start = origin;
+                var site_end = destination;
+                $.ajax({
+                    url: Domain1 + 'andlife/base?action=cancelCollectWay',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        version: '2.0',
+                        id: message_id
+                    },
+                    success: function (data) {
+                        //console.log(data);
+                        $('.show-int').html(data.message);
+                        show();
+                        //alert(data.result);
+                        if (data.result.indexOf("success") > -1) {
+                            $(".collect").css({"background": 'url("../images/collect.png") no-repeat;'});
+                            $(".collect").css({"height": '2rem;'});
+                            $(".collect").css({"width": '2rem;'});
+                            $(".collect").css({"background-size": 'cover;'});
+                            collectWayFlag = 2;
+                        }
+                    }
+                });
+            }
+
+            //查询公交路线
+            function dataload() {
+                var sql = "http://api.map.baidu.com/direction/v1?mode=transit&origin={{*origin}}&destination={{*destination}}&region={{*city}}&output=json&ak=DGaSun0cuvQfAVIWGMm7uGK7oP2pvuiv";
+                sql = sql.replace("{{*city}}", city);
+                sql = sql.replace("{{*origin}}", origin);
+                sql = sql.replace("{{*destination}}", destination);
+                //console.log(sql);
+
+                $.get(sql, {}, function (data) {
+                    //console.log(data);
+                    if (data.status === 0) {
+                        if (data.type === 1) {
+                            if ((!data.result.hasOwnProperty("origin")) && (!data.result.hasOwnProperty("destination"))) {
+                                $('.show-int').html("您查询的地点不在当前城市内");
+                                show();
+                            }
+                            else if (data.result.hasOwnProperty("origin")) {
+                                var json = data.result.origin;
+                                $.each(json, function (index, item) {
+                                    var tmpstr = '<li class="li-name">'
+                                            + '<a href="route.html?city=' + city + '&origin={{*origin}}&destination={{*destination}}">'
+                                            + '<div class="route">{{*name}}</div>'
+                                            + '<div class="route li-name-address">地址：{{*address}}</div>'
+                                            + '</a>'
+                                            + '</li>';
+                                    var name = json[index].name;
+                                    var address = json[index].address;
+                                    tmpstr = tmpstr.replace("{{*name}}", name);
+                                    tmpstr = tmpstr.replace("{{*address}}", address);
+                                    tmpstr = tmpstr.replace("{{*origin}}", name);
+                                    tmpstr = tmpstr.replace("{{*destination}}", destination);
+                                    $("#bus-route").append(tmpstr);
+                                });
+
+                            } else {
+                                var json = data.result.destination;
+                                $.each(json, function (index, item) {
+                                    var tmpstr = '<li class="li-name">'
+                                            + '<a href="route.html?city=' + city + '&origin={{*origin}}&destination={{*destination}}">'
+                                            + '<div class="route">{{*name}}</div>'
+                                            + '<div class="route li-name-address">地址：{{*address}}</div>'
+                                            + '</a>'
+                                            + '</li>';
+                                    var name = json[index].name;
+                                    var address = json[index].address;
+                                    tmpstr = tmpstr.replace("{{*name}}", name);
+                                    tmpstr = tmpstr.replace("{{*address}}", address);
+                                    tmpstr = tmpstr.replace("{{*origin}}", origin);
+                                    tmpstr = tmpstr.replace("{{*destination}}", name);
+                                    $("#bus-route").append(tmpstr);
+                                });
+                            }
+
+                        } else {
+                            var json = data.result.routes;
+                            //console.log(json);
+                            $("#bus-route").html();
+                            $.each(json, function (index, item) {
+                                var tmpstr = '<li>'
+                                        + '<section>'
+                                        + '<div class="tip_label" style="color:#F00;">{{*tip_label}}</div>'
+                                        + '<div class="route">{{*stepInstruction}}</div>'
+                                        + '<div class="r-details">距离：{{*distance}}</div>'
+                                        + '<div class="r-details">时长：{{*duration}}</div>'
+                                        + '</section>'
+                                        + '</li>';
+                                //console.log(json[index].scheme[0]);
+                                var distance = json[index].scheme[0].distance;
+                                distance = formatMi(distance);
+
+                                var duration = json[index].scheme[0].duration;
+                                duration = formatTime(duration);
+
+                                if (json[index].scheme[0].hasOwnProperty("tip_label")) {
+                                    var tip_label = json[index].scheme[0].tip_label;
+                                    tip_label = "[" + tip_label.replace("#ffffff", "#f00") + "]";
+                                } else {
+                                    var tip_label = "";
+                                }
+
+                                var jsondata = json[index].scheme[0].steps;
+                                var stepInstruction = "";
+                                $.each(jsondata, function (i, itemi) {
+                                    var arr_jsondata = jsondata[i];
+                                    stepInstruction += arr_jsondata[0].stepInstruction + "。</br>";
+                                    stepInstruction = stepInstruction.replace("#313233", 'blue" class="list_stop"');
+                                    $.each(arr_jsondata, function (x, itemx) {
+                                        if (arr_jsondata[x].vehicle !== null) {
+                                            var str_name = arr_jsondata[x].vehicle.name;
+                                            //console.log(str_name);
+                                            stepInstruction = stepInstruction.replace(str_name, '<a href="bus-detail.html?city=' + city + '&busId=' + str_name + '" style="color:#F00;">' + str_name + '</a>');
+                                        }
+                                    });
+                                });
+
+                                //蓝色车站的点击事件
+                                $('.list_stop').on('click', function () {
+                                    var origin = $(this).html();
+                                    window.location.href = "stop.html?city=" + city + "&origin=" + origin;
+                                });
+
+
+                                tmpstr = tmpstr.replace("{{*tip_label}}", tip_label);
+                                tmpstr = tmpstr.replace("{{*distance}}", distance);
+                                tmpstr = tmpstr.replace("{{*duration}}", duration);
+                                tmpstr = tmpstr.replace("{{*stepInstruction}}", stepInstruction);
+                                $("#bus-route").append(tmpstr);
+                            });
+                        }
+                    } else {
+
+                        $("#bus-route").html(data.message);
+                    }
+
+
+                }, "jsonp");
+
+            }
+
+        </script>
+
+        <script>
+
+            $(function () {
+                //收藏路线
+                $(document).on("click", "#btn_transfer", function () {
+                    //判断用户是否登录
+                    checkLoginThenSkip(window.location.href);
+                });
+            });
+
+
+            /**
+             * 读取cookie
+             */
+            function getCookie(e) {
+                var t = document.cookie;
+                var a = t.split("; ");
+                for (var n = 0; n < a.length; n++) {
+                    var r = a[n].split("=");
+                    if (r[0] == e)
+                        return unescape(r[1])
+                }
+                return null
+            }
+
+            var member_id = getCookie("member_id");
+
+
+            // 进入登录页面
+            function initLoad() {
+                var key = getCookie("key");
+                if (!key) {
+
+                    return false;
+                } else {
+                    login();
+                    return true;
+                }
+            }
+            //initLoad();---------------------------------------------------------------
+
+            function login() {
+                key = getCookie("key");
+                $.ajax({
+                    url: Domain1 + 'andlife/base?action=index_data',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        version: '2.0',
+                        key: key,
+                    },
+                    success: function (data) {
+                        //console.log(data);
+
+                    }
+                })
+            }
+            //点击判定是否登录
+            function checkLoginThenSkip(url) {
+                var key = getCookie("key");
+                if (!key) {
+                    window.location.href = "locahost/index.html#act=login##checkLoginThenSkip('" + url + "')";
+                    return false;
+                } else {
+                    //window.location.href = url;
+                    //在判断已经有key的情况下……收藏乘车方案
+                    if (collectWayFlag === 1) {
+                        cancelCollectWay("3:在判断已经有key的情况下……取消收藏乘车方案");
+                    } else {
+                        collectWay("1:在判断已经有key的情况下……收藏乘车方案");
+                    }
+
+                    return true;//==============================================
+                }
+            }
+            /**
+             * APP端登录成功调该方法。
+             * @param e
+             * @param url
+             */
+            function afterLogin(e, url) {
+                var key = getCookie("key");
+                if (url.indexOf('##') != -1) {
+                    var index = url.indexOf('##') + 2;
+                } else {
+                    var index = url.indexOf('%23%23') + 6;
+                }
+                if (key) {
+                    login();
+                }
+                ;
+                if (url != null && url != '') {
+                    eval(url.substr(index));
+                }
+            }
+
+            /**
+             * @function 将时间戳转化为日+小时+分+秒
+             * @param {Date} 时间戳
+             * @return {String} 时间字符串
+             */
+            function formatTime(longTime) {
+                //转化为 日+小时+分+秒
+                var time = parseFloat(longTime);
+                if (time != null && time != "") {
+                    if (time < 60) {
+                        var s = time;
+                        time = s + '秒';
+                    } else if (time > 60 && time < 3600) {
+                        var m = parseInt(time / 60);
+                        var s = parseInt(time % 60);
+                        time = m + "分钟" + s + "秒";
+                    } else if (time >= 3600 && time < 86400) {
+                        var h = parseInt(time / 3600);
+                        var m = parseInt(time % 3600 / 60);
+                        var s = parseInt(time % 3600 % 60 % 60);
+                        time = h + "小时" + m + "分钟" + s + "秒";
+                    } else if (time >= 86400) {
+                        var d = parseInt(time / 86400);
+                        var h = parseInt(time % 86400 / 3600);
+                        var m = parseInt(time % 86400 % 3600 / 60)
+                        var s = parseInt(time % 86400 % 3600 % 60 % 60);
+                        time = d + '天' + h + "小时" + m + "分钟" + s + "秒";
+                    }
+                }
+                return time;
+            }
+
+            function formatMi(longStep) {
+                var g = parseInt(longStep / 1000);
+                var m = parseInt(longStep % 1000);
+                longStep = g + "公里" + m + "米";
+                return longStep;
+            }
+        </script>
+    </body>
+</html>

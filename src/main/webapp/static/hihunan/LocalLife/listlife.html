@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>本地生活</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/dropload.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/title.css"/>
+    <link rel="stylesheet" href="../css/travle.css">
+    <link rel="stylesheet" href="../css/mui.css">
+    <link rel="stylesheet" href="../css/dropload.css">
+    <script type="text/javascript">
+        window.onload=function(){
+            colorNum = 3;
+        };
+        
+    </script>
+</head>
+<body>
+<div id="srcoll">
+	<div id="wrap" class="wrap" >
+	</div>
+</div>
+<script type="text/javascript">
+
+		var type = UrlParam("type");
+		
+		var name = UrlParam("name");
+		
+		//$('title').text(name);
+		
+        $(document).ready(function () {
+            var counter = 0;
+            // 每页展示5个
+            var num = 5;
+            
+            var pageStart = 0,pageEnd = 0;
+            
+	        var $_wrap = $("#wrap");
+	        // dropload
+	        $('#srcoll').dropload({
+	            scrollArea : window,
+	            domDown : {
+	                domClass   : 'dropload-down',
+	                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+	                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+	                domNoData  : '<div class="dropload-noData">没有更多</div>'
+	            },
+	            loadDownFn : function(me){
+	                $.ajax({
+	                    type: 'post',
+	                    url: '/hihunan/webservice/rest/localActivityRest/findList?type=' + type,
+	                    dataType: 'json',
+	                    success: function(data){
+	                        var result = '';
+	                        counter++;
+	                        pageEnd = num * counter;
+	                        pageStart = pageEnd - num;
+	                        var n = data.rows;
+	                        var re = /-/g; 
+	                        for(var i = pageStart; i < pageEnd; i++){
+	                        	var tagType = n[i].tagType;//获取标签属性，2置顶，1最新
+	                        	var myDate = new Date().Format("yyyy-MM-dd");
+	                        	var register='';
+	                        	//判断时间是否已过期，活动已结束
+	                        	if (  n[i].end_time.substring(0,10)>myDate )
+	                        		{register='我要报名'}
+	                        	else
+	                        	  {register='已结束'}
+	                        	var freelabelover;
+	                        	if(register=='已结束'){
+	                        		freelabelover = '<img class="freelabel" src="../images/free_label_over.png">';
+	                        	}
+	                        	else{
+	                        		freelabelover = '';
+	                        	}
+	                        	
+	                        	if(i%3 == 0){
+	                        		result = '<a href="locallifedetail.html?id=' + n[i].id + '">' +
+			                                	'<div class="article">' + 
+			                                    	'<h3 class="title">' + n[i].name + '</h3>' + 
+			                                    	'<span class="time">' + n[i].begin_time.substring(0,10) + '至'+  n[i].end_time.substring(0,10)  +'</span>' + 
+			                                   		'<div class="hide"></div>' + 
+			                                    	'<img id="img" class="bannner" src= ' +  n[i].picUrl + ' alt="">' + 
+			                                    	'<div class="mask"><img style="width:65%;height:2.6rem;" src="../images/mask_blue.png"></div>' +
+			                                    	'<img class="free" src="../images/free_label.png">' + freelabelover + 
+			                                    	'<div class="SignUp">'+register+'</div>' + 
+			                                    	'<div class="SignUped" style="color:#20e6ee;"><h2 style="font-size:0.68rem;">'+ n[i].applicants +'</h2><h1>已报名</h1></div>' +
+			                                    '</div>' + 
+			                                 ' </a>'; 
+	                        	}else if(i%3 == 2){
+	                        		result = '<a href="locallifedetail.html?id=' + n[i].id + '">' +
+			                                	'<div class="article">' + 
+			                                    	'<h3 class="title">' + n[i].name + '</h3>' + 
+			                                    	'<span class="time">' + n[i].begin_time.substring(0,10) + '至'+  n[i].end_time.substring(0,10)  +'</span>' + 
+			                                   		'<div class="hide"></div>' + 
+			                                    	'<img id="img" class="bannner" src= ' +  n[i].picUrl + ' alt="">' + 
+			                                    	'<div class="mask"><img style="width:65%;height:2.6rem;" src="../images/mask_red.png"></div>' +
+			                                    	'<img class="free" src="../images/free_label.png">' + freelabelover + 
+			                                    	'<div class="SignUp">'+register+'</div>' + 
+			                                    	'<div class="SignUped" style="color: #f96c58;"><h2 style="font-size:0.68rem;">'+ n[i].applicants +'</h2><h1>已报名</h1></div>' +
+			                                    '</div>' + 
+			                                 ' </a>'; 
+	                        	}else{
+	                        		result = '<a href="locallifedetail.html?id=' + n[i].id + '">' +
+			                                	'<div class="article">' + 
+			                                    	'<h3 class="title">' + n[i].name + '</h3>' + 
+			                                    	'<span class="time">' + n[i].begin_time.substring(0,10) + '至'+  n[i].end_time.substring(0,10)  +'</span>' + 
+			                                   		'<div class="hide"></div>' + 
+			                                    	'<img id="img" class="bannner" src= ' +  n[i].picUrl + ' alt="">' + 
+			                                    	'<div class="mask"><img style="width:65%;height:2.6rem;" src="../images/mask_yellow.png"></div>' +
+			                                    	'<img class="free" src="../images/free_label.png">' + freelabelover + 
+			                                    	'<div class="SignUp">'+register+'</div>' + 
+			                                    	'<div class="SignUped" style="color: #fae24a;"><h2 style="font-size:0.68rem;">'+ n[i].applicants +'</h2><h1>已报名</h1></div>' +
+			                                    '</div>' + 
+			                                 ' </a>'; 
+	                        	}
+	                            $_wrap.append(result);
+	                            if((i + 1) >= n.length){
+	                                // 锁定
+	                                me.lock();
+	                                // 无数据
+	                                me.noData();
+	                                break;
+	                            }
+	                        }
+	                        me.resetload();   
+	                    },
+	                    error: function(xhr, type){
+	                        me.resetload();
+	                    }
+	                });
+	            },
+	            threshold : 50
+	        });
+    })
+	
+</script>
+</body>
+</html>

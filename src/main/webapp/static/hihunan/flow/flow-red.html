@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id='viewEle' name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>赠送hi币</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/time.css"/>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/flow-gift.css">
+    <script src="../js/color.js"></script>
+    <script type="text/javascript">
+        function refresh(){
+
+            $.ajax({
+                type: 'post',
+                url: Domain1 + 'andlife/base?action=getPointFlow',
+                data: {
+                    key:key,
+                    version:'2.0'
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('#hibi').html(data.message.point);
+
+                },
+                error: function () {
+                }
+            })
+        }
+        window.onload = function () {
+            colorNum = 2;
+        };
+    </script>
+
+</head>
+<body>
+<div class="wrap">
+    <div class="flow-hi">
+        <span>当前Hi币</span>
+        <span><span class="hi" id="hibi">0</span>Hi币</span>
+
+    </div>
+
+    <div class="btn">
+        <a href="flow-gift.html" id="gift">手机号码分享</a>
+    </div>
+
+        <div class="btn2">
+            <a href="flow-ruby.html" >QQ、微信分享</a>
+        </div>
+</div>
+<script type="text/javascript">
+    var count = $('#number').val();
+    var phone = $('#phone').val();
+
+
+    var member_id = getCookie('member_id')
+    var key = getCookie('key')
+    $(document).ready(function () {
+
+        $.ajax({
+            type: 'post',
+            url: Domain1 + 'andlife/base?action=getPointFlow',
+            data: {
+                key:key,
+                version:'2.0'
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#hibi').html(data.message.point);
+
+            },
+            error: function () {
+            }
+        })
+        })
+
+</script>
+</body>
+</html>

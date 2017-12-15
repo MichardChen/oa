@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>美食</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  	<link rel="stylesheet" type="text/css"  href="../css/swiper.min.css"/>
+  	<link rel="stylesheet" type="text/css"  href="../css/foodindex.css"/>
+  	<link rel="stylesheet" href="../css/dropload.css">
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/dropload.js"></script>
+    <script src="../js/selector.js"></script>
+    <script type="text/javascript" src="../js/swiper.min.js"></script>
+    <script type="text/javascript" src="../js/rem.js"></script>
+</head>
+<body>
+<!--banner开始-->
+   <div class="swiper-container"  id="banner" style="width:100%;height:3.6rem;"><!--swiper容器[可以随意更改该容器的样式-->  
+       <div class="swiper-wrapper banner" style="width:100%;height:3.6rem;"></div>  
+       <div class="swiper-pagination" style="width:100%;float: right;"></div><!--分页器-->
+   </div>  
+<!--banner结束-->
+<!--推荐餐厅开始-->
+   <div style="margin-top:0.24rem;" class="swiper-container" id="local">
+      <div class="swiper-wrapper" id="restaunant" style="height:2.4rem;">  
+       </div>   
+	</div>
+<!--推荐餐厅结束-->
+<div style="height: 0.2rem;width: 100%;background-color: #f5fafa;margin-top:0.24rem;"></div>
+<!--菜系列表-->
+    <div class="selectlabel" style="margin-top: 0.12rem;margin-bottom: 0.12rem;">
+	   	<select id="hi_trading_area" class="foodSelect" style="background-image:url(../images/select.png)">
+	    </select>
+		<select id="hi_cooking_style" class="foodSelect">
+        </select>
+  		<select id="hi_distance" class="foodSelect">
+      	</select>
+      	<div class="clearfix"></div>
+      </div>
+<!--菜谱列表开始-->
+	<div id="list">
+		<div id="foodListDiv">
+		</div>
+	</div>
+	<script type="text/javascript">
+	
+	    var counter = 0;
+	    // 每页展示5个
+	    var num = 5;
+	    
+	    var pageStart = 0,pageEnd = 0;
+	
+		function findSelectCondition(){//获取搜索条件并赋值到页面
+           	var hiTradingArea = $("#hi_trading_area");
+           	hiTradingArea.empty();
+           	hiTradingArea.append('<option value="">商圈</option>');
+           	var hiCookingStyle = $("#hi_cooking_style");
+           	hiCookingStyle.empty();
+           	hiCookingStyle.append('<option value="">菜系</option>');
+           	var hiDistance = $("#hi_distance");
+           	hiDistance.empty();
+           	hiDistance.append('<option value="">附近</option>');
+           $.ajax({
+               type: 'post',
+               url: '/hihunan/webservice/rest/restaunantRest/findSelectCondition',
+               dataType: 'json',
+               success: function(data){
+				var rows = data.rows;
+                   for(var i = 0; i < rows.length; i++){
+						var dict = rows[i];
+						$("#" + dict.type).append('<option value="' + dict.value + '">' + dict.label + '</option>');
+                   }
+               },
+               error: function(xhr, type){
+               }
+           });
+			
+		}
+		function findFoodBanner(){//查询美食轮播
+           $.ajax({
+               type: 'post',
+               url: '/hihunan/webservice/rest/indexRest/findBanner',
+               dataType: 'json',
+               data:{
+            	   'listType':'restaurant'
+               },
+               success: function(data){
+               	var banner = $(".banner");
+               	banner.empty();
+               	var result = "";
+				var rows = data.rows;
+                   for(var i = 0; i < rows.length; i++){
+						result = '<div class="swiper-slide" style="height:3.6rem;">' + 
+							 		'<a href="' + rows[i].url + '">' + 
+							 			'<img src="' + rows[i].titlePhoto + '" style="width:100%;height:3.6rem;">' +
+							 		'</a>' + 
+								  '</div>';
+						banner.append(result);
+                   }
+	           		var mySwiper = new Swiper("#banner",{  
+	           			direction:"horizontal",/*横向滑动*/  
+	           			loop:true,/*形成环路（即：可以从最后一张图跳转到第一张图*/  
+	           			autoplayDisableOnInteraction : false,
+	           			pagination:".swiper-pagination",/*分页器*/  
+	           			prevButton:".swiper-button-prev",/*前进按钮*/  
+	           			nextButton:".swiper-button-next",/*后退按钮*/  
+	           			autoplay:3000/*每隔3秒自动播放*/  
+	           		
+	           		});
+               },
+               error: function(xhr, type){
+               }
+           });
+		}
+		function getRecommondRestaunant(){//应用栏信息
+           $.ajax({
+           	type: 'post',
+               url: '/hihunan/webservice/rest/restaunantRest/findRecommondRestaunant',
+               dataType: 'json',
+               success: function(data){
+               		var restaunant = $("#restaunant");
+               		restaunant.empty();
+                   	var result = '';
+                   	var n = data.rows;
+                   	for(var i = 0; i < n.length; i++){
+                  		result = '<div class="swiper-slide" style="height:2.4rem;">' +
+                                 		'<a href="../listDetail.html?id=' + n[i].id + '&type=restaurant">' +
+		                                  	'<img style="height:100%;border-left: 0.1rem solid white;" src="' + n[i].titlePhoto +'">' +
+		                                  	'<h1 class="foodttitle" style="position: absolute;">' + n[i].title + '</h1>' + 
+                                  		'</a>' + 
+                                  	'</div>'; 
+                                 
+                        restaunant.append(result);
+                   }
+					var mySwiper = new Swiper("#local",{  
+						effect:"coverflow",/*轮播的效果：（1）fade:淡入淡出；（2）cube:立方体；（3）coverflow:立体照片*/  
+						//slidesPerView:3,/*设置slider容器能够同时显示的slides数量(carousel模式)。*/
+						centeredSlides:false,/*默认第一块居左，设置为true后则是居中显示*/ 
+						freeMode: true,
+						slidesPerView: 'auto',
+						coverflow:{  
+							rotate:0,/*3d旋转角度设置为30度*/  
+							stretch:100,/*每个slide之间的拉伸值，值越大靠得越近*/  
+							depth:60,/*位置深度，值越大离Z轴越远，看起来越小*/  
+							modifier:0,  
+							slideshadows:true/*开启阴影*/  
+						}
+					})
+               },
+               error: function(xhr, type){
+               }
+           });
+		}
+		
+		$(document).ready(function () {
+			
+			findSelectCondition();
+			//查询轮播
+			findFoodBanner();
+			//查询应用栏
+			getRecommondRestaunant();
+			
+	        // dropload
+	        self.moreFund = $('#list').dropload({
+	        	scrollArea : window,
+	            domDown : {
+	                domClass   : 'dropload-down',
+	                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+	                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+	                domNoData  : '<div class="dropload-noData">没有更多</div>'
+	            },
+	            loadDownFn : function(me){
+	            	
+	    			var tradingArea = $("#hi_trading_area").val();
+	    			var cookingStyle = $("#hi_cooking_style").val();
+	    			var distance = $("#hi_distance").val();
+	    			
+	                $.ajax({
+	                    type: 'post',
+	                    url: '/hihunan/webservice/rest/restaunantRest/findRestaunantList',
+	                    data:{
+	                    	'tradingArea':tradingArea,
+	                    	'cookingStyle':cookingStyle,
+	                    	'distance':distance,
+	                    	'latitude':localStorage.latitude,
+	                    	'longitude':localStorage.longitude
+	                    },
+	                    dataType: 'json',
+	                    success: function(data){
+	                    	$_wrap = $("#foodListDiv");
+	                        var result = '';
+	                        counter++;
+	                        pageEnd = num * counter;
+	                        pageStart = pageEnd - num;
+	                        var n = data.rows;
+	                        if(n.length > 0){
+		                        for(var i = pageStart; i < pageEnd; i++){
+									result = '<div class="foodlistheight">' + 
+											 	'<a href="restaurant.html?id=' + n[i].id + '">' +
+											 		'<div class="foodlist">' + 
+											 			'<div class="foodlistimg">' + 
+											 				'<img src="' + n[i].titlePhoto + '">' + 
+											 			'</div>' + 
+											 			'<div class="foodconturrent">' + 
+											 				'<div class="foodtitle">' + 
+											 					'<h1 style="margin-top: 0.06rem;color: #666666;max-width: 80%;">' + n[i].title + '</h1>' + 
+											 					'<h1 class="foodtitlelabel">' + n[i].cookStyle + '</h1>' + 
+											 					'<div class="clearfix"></div>' + 
+											 				'</div>' + 
+											 				'<div class="staring">' + 
+											 					'<img src="../images/star' + n[i].star +  '.png" style="height:0.39rem;width:2.44rem;">' + 
+											 				'</div>' + 
+											 				'<div class="Positioning">' + 
+											 					'<p class="name">' + n[i].address + '</p> ' + 
+											 					'<div class="clearfix"></div>' + 
+											 				'</div>' + 
+											 				'<h2 class="clearfix"></h2>' + 
+											 			'</div>' + 
+											 			'<h2 class="clearfix"></h2>' + 
+											 		'</div>' + 
+											 	'</a>' + 
+											 '</div>';	
+		                            $_wrap.append(result);
+		                            if((i + 1) >= n.length){
+		                            	  this.moreFund.lock();
+		                            	  this.moreFund.setHasData(false);
+		                                  break;
+		                            }
+		                        }
+	                        }else{
+	                        	this.moreFund.lock();
+	                        	this.moreFund.setHasData(false);
+	                        }
+	                        this.moreFund.resetload();
+	                    },
+	                    error: function(xhr, type){
+	                        this.moreFund.unlock();
+	                        this.moreFund.resetload();
+	                    }
+	                });
+	            },
+	            threshold : 50
+	        });
+			
+	        self.moreFund.setHasData(true);
+	        
+	        $(document).delegate('.foodSelect', 'change', function (event) {
+	       	   	counter = 0;
+	           	pageStart = 0;
+	           	pageEnd = 0;
+	           	$_wrap = $("#foodListDiv");
+            	$_wrap.empty();
+	           	self.moreFund.unlock();
+	        	self.moreFund.setHasData(true);
+	        });
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<title>Hi 湖南</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css"> 
+   	    <link rel="stylesheet" type="text/css"  href="../css/swiper.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/title.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/fooddetialpages.css"/>
+        <script type="text/javascript" src="../js/swiper.min.js"></script>
+        <script src="../js/zepto.min.js"></script>
+        <script type="text/javascript" src="../js/rem.js"></script>
+	</head>
+<body>
+<!--banner开始-->
+<div class="swiper-container"style="width:100%;"><!--swiper容器[可以随意更改该容器的样式-->  
+    <div class="swiper-wrapper">  
+        <div class="swiper-slide" ><img src="../images/foodbanner02.png" style=" width:100%;"></div>  
+    </div>  
+</div>  
+    <!--banner结束-->
+        <h1 style=" font-size:1.166667rem;padding: 1.25rem;padding-left: 2.5rem;">食汇美湘味主题餐厅</h1>
+        <div class="titlt_bottom">
+            <div class="navico">
+                <p class="time" >美味热线</p>
+                <p class="people">400-8877-8888</p>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+          <p class="current">麦当劳是美国一家跨国连锁速食店，也是全球最大的连锁餐厅，1955年创立于美国加州圣贝纳迪诺，主要贩售汉堡包，以及薯条、炸鸡、汽水、冰品、沙拉、水果、咖啡等快</p>
+          <!--列表开始-->
+    <div class="foodlist">
+          <div class="list01">
+                <div class="foodlistimg">
+                    <img src="../images/foodlist01.png">
+                </div>
+                <div class="foodtitle">
+                    <h1 style="margin-top: 0.25rem;color: #282828;">美食资讯粤美味港式餐厅</h1>
+                </div>
+                <div class="starimg">
+                    <p>麦当劳是美国一家跨国连锁速食店，也是全球连锁餐厅</p>
+                </div>
+                 <div class="Positioning">
+                    <p>2016.11.25</p> 
+                </div> 
+                 <div class="clearfix"></div>
+          </div>
+          <div class="list01">
+                <div class="foodlistimg">
+                    <img src="../images/foodlist01.png">
+                </div>
+                <div class="foodtitle">
+                    <h1 style="margin-top: 0.25rem;color: #282828;">美食资讯粤美味港式餐厅</h1>
+                </div>
+                <div class="starimg">
+                	<p>麦当劳是美国一家跨国连锁速食店，也是全球连锁餐厅</p>
+                </div>
+                 <div class="Positioning">
+                	<p>2016.11.25</p> 
+                </div> 
+                 <div class="clearfix"></div>
+           </div>
+          <div class="list01">
+                <div class="foodlistimg">
+                    <img src="../images/foodlist01.png">
+                </div>
+                <div class="foodtitle">
+                    <h1 style="margin-top: 0.25rem;color: #282828;">美食资讯粤美味港式餐厅</h1>
+                </div>
+                <div class="starimg">
+                	<p>麦当劳是美国一家跨国连锁速食店，也是全球连锁餐厅</p>
+                </div>
+                 <div class="Positioning">
+                	<p>2016.11.25</p> 
+                </div> 
+                 <div class="clearfix"></div>
+           </div>
+    </div>
+           <!--列表结束-->
+         <!--footer代码-->
+       <!--  <nav class="mui-bar mui-bar-tab footer"  style="background-color: #34c7aa;">
+			<a class="mui-tab-item" href="#tabbar-with-chat" style="border-right: 1px solid white;">
+				<span class="mui-tab-label">我要收藏</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-contact">
+				<span class="mui-tab-label">我要报名</span>
+			</a>
+		</nav>-->
+</body>
+</html>

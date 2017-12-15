@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysWxqyDeptDao">
+    
+	<sql id="areaColumns">
+		a.id as "id",
+		a.parentId AS "parent.id",
+		a.name as "name",
+		a.sort as "sort"
+	</sql>
+	
+	<select id="findAllList" resultType="SysWxqyDept">
+		SELECT
+			<include refid="areaColumns"/>
+		FROM sys_wxqy_depart a
+		
+	</select>
+	
+	<insert id="insertAll">
+	 insert into sys_wxqy_depart(
+		id,
+		name,
+		sort,
+		parentId
+	 )
+	 values
+	 	<foreach item="item" index="index" collection="wxqyDeptList" separator=",">
+	   	(#{item.id}
+	   	,#{item.name}
+	   	,#{item.sort}
+		,#{item.parentId}
+		)
+	   	</foreach>
+	</insert>
+	
+	<delete id="deleteAll">
+	 	delete from sys_wxqy_depart
+	</delete>	
+	
+</mapper>

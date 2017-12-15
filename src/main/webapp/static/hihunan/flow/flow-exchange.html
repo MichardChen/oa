@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id='viewEle' name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Hi币兑流量</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/flow-exchange.css">
+    <script src="../js/Zoomage.min.js"></script>
+    <script src="../js/color.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            colorNum = 2;
+        };
+    </script>
+    <style type="text/css">
+        .mask {
+            position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;
+            z-index: 1002; left: 0px;
+            opacity:0.5; -moz-opacity:0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="show-int"></div>
+<div class="wrap">
+    <div id="mask" class="mask"></div>
+
+    <div class="flow-hi">
+        <div class="hi">
+            <span>你目前拥有</span>
+            <span class="Hibi" id="hibi">0</span>
+            <span>Hi币</span>
+        </div>
+        <span class="hi-bet"></span>
+        <div class="flow">
+            <span>可兑换流量</span>
+            <span class="flow-left" id="flow">0</span>
+            <span>MB</span>
+        </div>
+    </div>
+    <div class="form">
+        兑换流量数量：<input type="number" placeholder="输入你想兑换的流量" id="count" pattern="[0-9]*">MB
+    </div>
+    <div class="btn">
+        <a >兑换</a>
+    </div>
+    <div class="btn1">
+        <a href="flow-get.html">提取流量</a>
+    </div>
+    <div class="tag">
+        <h3>Hi币说明:</h3>
+        <p>1·每10Hi币兑换1MB流量，每月最多可兑换1200M</p>
+        <p>2·Hi币兑换流量成功后需提取才可以使用</p>
+        <p>3·Hi币可用于赠送好友</p>
+        <p>4·Hi币兑换的流量每季度末将清零</p>
+        <p>5·Hi币兑换的手机号需要为湖南移动号码，否则兑换失败</p>
+    </div>
+    <div id="container" class="route-chart">
+        <canvas id="canvas"></canvas>
+    </div>
+</div>
+
+<script src="../js/common.js"></script>
+<script type="text/javascript">
+    var hiBi
+    var get
+    var Scale
+    var Judge = false
+
+    $('.show-int').hide();
+    function show(){
+
+        $('.show-int').css("display","inline-block");
+
+        var windowWidth = window.screen.width;
+        var tusiWidth = window.parseInt($('.show-int').css("width").split('px')[0]);
+        var left = (windowWidth-tusiWidth)/2;
+
+
+        $('.show-int').css("left",left);
+        setTimeout(function() {
+            $('.show-int').hide(2000);
+        }, 2000)
+    }
+
+
+
+
+    var member_id = getCookie("member_id")
+    var key = getCookie('key')
+    $(document).ready(function () {
+
+
+
+        $.ajax({
+            type: 'post',
+            url: Domain1+'andlife/base?action=getPointFlow',
+            data: {
+                version:'2.0',
+                key:key
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                $('#hibi').html(data.message.point)
+                var scale = data.message.scale;
+                var flow = data.message.point / scale;
+                $('.flow-left').html(flow);
+                get = data.message.point;
+                Scale = data.message.scale;
+            },
+            error: function () {
+
+            }
+        });
+
+
+
+
+
+        $('.btn>a').click(function () {
+
+            if( $('#count').val().length == 0){
+                $('.show-int').html("请输入兑换数量")
+                show()
+            }else {
+                showMask()
+                $.ajax({
+                    type: 'post',
+                    url:  Domain1+'andlife/base?action=pointToFlow',
+                    data: {
+                        version:'2.0',
+                        key:key,
+                  point:$("#count").val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+//                        console.log(data)
+//                        alert(data.message /+ "        " +  data.flag);
+                        var message = data.message
+                        show()
+                        $('.show-int').html(message)
+                        hideMask()
+                        $.ajax({
+                            type: 'post',
+                            url: Domain1+'andlife/base?action=getPointFlow',
+                            data: {
+                                version:'2.0',
+
+                                key:key
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+
+                                $('#hibi').html(data.message.point)
+                                var scale = data.message.scale;
+                                var flow = data.message.point / scale;
+                                $('.flow-left').html(flow);
+                                get = data.message.point;
+                                Scale = data.message.scale;
+                            },
+                            error: function () {
+
+                            }
+                        });
+
+                    },
+                    error: function () {
+
+                    }
+                });
+
+            }
+        })
+    })
+    function showMask(){
+        $("#mask").css("height",$(document).height());
+        $("#mask").css("width",$(document).width());
+        $("#mask").show();
+    }
+    //隐藏遮罩层
+    function hideMask(){
+        $("#mask").hide();
+    }
+</script>
+
+</body>
+</html>

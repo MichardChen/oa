@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hihunan.dao.artical.HiArticalDao">
+    
+	<sql id="hiArticalColumns">
+		a.id AS "id",
+		a.parent_id AS "parentId",
+		a.title AS "title",
+		a.title_photo AS "titlePhoto",
+		a.publish_date AS "publishDate",
+		a.brief AS "brief",
+		a.keyword AS "keyword",
+		a.actor AS "actor",
+		a.artical_type AS "articalType",
+		a.content AS "content",
+		a.audit_state AS "auditState",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate"
+	</sql>
+	
+	<sql id="hiArticalJoins">
+	</sql>
+    
+	<select id="get" resultType="HiArtical">
+		SELECT 
+			<include refid="hiArticalColumns"/>
+		FROM hi_artical a
+		<include refid="hiArticalJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HiArtical">
+		SELECT 
+			<include refid="hiArticalColumns"/>
+		FROM hi_artical a
+		<include refid="hiArticalJoins"/>
+		<where>
+			1 = 1
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="parentId != null and parentId != ''">
+				AND a.parent_id = #{parentId}
+			</if>
+			<if test="articalType != null and articalType != ''">
+				AND a.artical_type = #{articalType}
+			</if>
+			<if test="auditState != null and auditState != ''">
+				AND a.audit_state = #{auditState}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				<![CDATA[AND a.publish_date >= date_format(#{startTime},'%Y-%m-%d 00:00:00')]]>
+			</if>
+			<if test="endTime != null and endTime != ''">
+				<![CDATA[AND a.publish_date <= date_format(#{endTime},'%Y-%m-%d 23:59:59')]]>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.publish_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HiArtical">
+		SELECT 
+			<include refid="hiArticalColumns"/>
+		FROM hi_artical a
+		<include refid="hiArticalJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<insert id="addHiArtical" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO hi_artical(
+			id,
+			parent_id,
+			title,
+			title_photo,
+			publish_date,
+			brief,
+			keyword,
+			actor,
+			artical_type,
+			content,
+			del_flag,
+			audit_state,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{title},
+			#{titlePhoto},
+			#{publishDate},
+			#{brief},
+			#{keyword},
+			#{actor},
+			#{articalType},
+			#{content},
+			#{delFlag},
+			#{auditState},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO hi_artical(
+			id,
+			parent_id,
+			title,
+			title_photo,
+			publish_date,
+			brief,
+			keyword,
+			actor,
+			artical_type,
+			content,
+			del_flag,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{parentId},
+			#{title},
+			#{titlePhoto},
+			#{publishDate},
+			#{brief},
+			#{keyword},
+			#{actor},
+			#{articalType},
+			#{content},
+			#{delFlag},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hi_artical SET 	
+			parent_id = #{parentId},
+			title = #{title},
+			title_photo = #{titlePhoto},
+			publish_date = #{publishDate},
+			content = #{content},
+			brief = #{brief},
+			keyword = #{keyword},
+			actor = #{actor},
+			artical_type = #{articalType},
+			del_flag = #{delFlag},
+			audit_state = #{auditState},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hi_artical
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 获取 美食资讯  -->
+	<select id="getFoodInformation" resultType="com.thinkgem.jeesite.modules.hihunan.model.artical.HiArticalModel">
+		SELECT
+			ha.id AS "id",
+			ha.title AS "title",
+			ha.title_photo AS "titlePhoto",
+			date_format(ha.publish_date,'%Y-%m-%d') AS "publishDate",
+			IFNULL(ha.brief,'') AS "brief"
+		FROM hi_artical ha 
+		WHERE id IN(
+			SELECT artical_id FROM hi_artical_ref WHERE reference_id = #{referenceId}
+		)
+	</select>
+	
+	<!-- 查询所有文章的list 集合 -->
+	<select id="getHiArticalList" resultType="com.thinkgem.jeesite.modules.sys.entity.Dict">
+		SELECT 
+			id AS "value",
+			title AS "label"
+		FROM hi_artical 
+		ORDER BY publish_date DESC
+	</select>
+	
+	<!-- 获取商家关联的所有文章 -->
+	<select id="getList" resultType="com.thinkgem.jeesite.modules.hihunan.model.artical.HiArticalModel">
+		SELECT 
+			ha.id AS "id",
+			ha.title AS "title",
+			ha.title_photo AS "titlePhoto",
+			date_format(ha.publish_date,'%Y-%m-%d') AS "publishDate",
+			ha.brief AS "brief",
+			ha.keyword AS "keyword",
+			ha.actor AS "actor",
+			sd.label AS "articalType"
+		FROM hi_artical ha
+		LEFT join sys_dict sd on sd.value = ha.artical_type and sd.type='hi_list_type'
+		<where>
+			<if test="title != null and title != ''">
+				ha.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="articalType != null and articalType != ''">
+				AND ha.artical_type = #{articalType}
+			</if>
+			<if test="auditState != null and auditState != ''">
+				AND ha.audit_state = #{auditState}
+			</if>
+		</where>
+		ORDER BY ha.publish_date DESC
+	</select>
+	
+	<select id="getZxList" resultType="com.thinkgem.jeesite.modules.hihunan.model.artical.HiArticalModel">
+		SELECT 
+			ha.id AS "id",
+			ha.title AS "title",
+			ha.title_photo AS "titlePhoto",
+			date_format(ha.publish_date,'%Y-%m-%d') AS "publishDate",
+			ha.brief AS "brief",
+			ha.keyword AS "keyword",
+			ha.actor AS "actor",
+			sd.label AS "articalType"
+		FROM hi_artical ha
+		LEFT join sys_dict sd on sd.value = ha.artical_type and sd.type='hi_list_type'
+		WHERE (artical_type = 'advisory' OR artical_type = 'educate')
+		AND ha.audit_state = #{auditState}
+		ORDER BY ha.publish_date DESC
+	</select>
+	
+	<!-- 获取 新闻、教育 -->
+	<select id="getNews" resultType="com.thinkgem.jeesite.modules.hihunan.model.artical.HiArticalModel">
+		SELECT
+			id AS "id",
+			title AS "title",
+			title_photo AS "titlePhoto",
+			date_format(publish_date,'%Y-%m-%d') AS "publishDate",
+			brief AS "brief",
+			keyword AS "keyword",
+			actor AS "actor",
+			artical_type AS "articalType",
+			content AS "content",
+			create_by AS "createBy.id",
+			create_date AS "createDate",
+			update_by AS "updateBy.id",
+			update_date AS "updateDate"
+		FROM hi_artical 
+		<where>
+			1=1
+			<if test="articalType != null and articalType != ''">
+				AND artical_type = #{articalType}
+			</if>
+			<if test="auditState != null and auditState != ''">
+				AND ha.audit_state = #{auditState}
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateAuditState">
+		UPDATE hi_artical SET 	
+			audit_state = #{auditState}
+		where id in
+		 	<foreach item="item" index="index" collection="articalIds" open="(" separator="," close=")">
+	    		#{item}
+	    	</foreach>
+	</update>
+	
+	<select id="getHeadRestaunant" resultType="com.thinkgem.jeesite.modules.hihunan.model.listshow.HiListShowModel">
+		SELECT 
+			id AS "id",
+			title AS "title",
+			title_photo AS "titlePhoto"
+		FROM hi_artical
+		WHERE artical_type = #{articalType}
+		AND audit_state = '1'
+		ORDER by update_date DESC
+		<if test="listMaxCount != null and listMaxCount != ''">
+			limit 0,#{listMaxCount}
+		</if>	
+	</select>
+	
+	<select id="getByParentId" resultType="com.thinkgem.jeesite.modules.hihunan.model.artical.HiArticalModel">
+		SELECT
+			a.id AS "id",
+			a.title AS "title",
+			a.title_photo AS "titlePhoto",
+			date_format(a.publish_date,'%Y-%m-%d') AS "publishDate",
+			a.brief AS "brief",
+			a.keyword AS "keyword",
+			a.actor AS "actor",
+			a.artical_type AS "articalType",
+			a.content AS "content"
+		FROM hi_artical a
+		LEFT JOIN hi_artical_ref b ON b.artical_id = a.id
+		<where>
+			<if test="parentId != null and parentId != ''">
+				b.reference_id = #{parentId}
+			</if>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+		</where>
+		limit 0,1
+	</select>
+	
+	<insert id="addNews" parameterType="java.util.List">
+  		INSERT INTO hi_artical(
+			id,
+			parent_id,
+			title,
+			title_photo,
+			publish_date,
+			brief,
+			keyword,
+			actor,
+			artical_type,
+			content,
+			del_flag,
+			audit_state,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+  		)
+  		<foreach collection="list" item="hiArtical" index="index" separator="union all">
+  		SELECT	#{hiArtical.id},
+  				#{hiArtical.parentId},
+  				#{hiArtical.title},
+  				#{hiArtical.titlePhoto},
+  				#{hiArtical.publishDate},
+  				#{hiArtical.brief},
+  				#{hiArtical.keyword},
+  				#{hiArtical.actor},
+  				#{hiArtical.articalType},
+  				#{hiArtical.content},
+  				#{hiArtical.delFlag},
+  				#{hiArtical.auditState},
+  				#{hiArtical.createBy.id},
+  				#{hiArtical.createDate},
+  				#{hiArtical.updateBy.id},
+  				#{hiArtical.updateDate}
+  		</foreach>
+	</insert>
+	
+	<select id="getWaitDeleteNews" resultType="com.thinkgem.jeesite.modules.hihunan.model.artical.HiArticalModel">
+		SELECT
+			id AS "id",
+			keyword AS "keyword"
+		FROM hi_artical
+		WHERE artical_type = #{articalType}
+		AND TIMESTAMPDIFF(DAY,publish_date,#{publishDate}) <![CDATA[>=]]> #{validDay}
+	</select>
+	
+	<!-- 删除10天之前的资讯新闻 -->
+	<delete id="deleteNews">
+		DELETE FROM
+			hi_artical
+		WHERE artical_type = #{articalType} 
+		AND TIMESTAMPDIFF(DAY,publish_date,#{publishDate}) <![CDATA[>=]]> #{validDay}
+	</delete>
+	
+	<!-- 查询 图片未下载的本地新闻-->
+	<select id="getUnLoadImage" resultType="com.thinkgem.jeesite.modules.hihunan.model.artical.HiArticalModel">
+		SELECT
+			id AS "id",
+			keyword AS "keyword",
+			title_photo AS "titlePhoto",
+			content AS "content"
+		FROM hi_artical
+		WHERE audit_state= '9'
+	</select>
+	
+	<!-- 下载完图片后更新本地新闻信息 -->
+	<update id="updateNewsInfo">
+		UPDATE hi_artical SET
+			title_photo = #{titlePhoto},
+			content = #{content},
+			audit_state = '1'
+		WHERE id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                       http://www.springframework.org/schema/context
+                       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+                       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+    <!-- 
+        ***注意*** (SOAP风格用)
+        手动添加的内容：
+        xmlns:jaxws="http://cxf.apache.org/jaxws"
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd"
+     -->
+     <!-- 
+        ***注意*** (SOAP风格用)
+        手动添加的内容：
+        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+     -->
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+    <!-- 注意：这是SOAP风格的webservice.访问地址 ConstructCost/webservice/regValidateService?wsdl。。 
+      webservice/* 是在 web.xml中配置的 -->
+    <jaxws:endpoint id="regValidateService" implementorClass="com.thinkgem.jeesite.modules.webservice.RegValidateService" implementor="#RegValidateService" address="/regValidateService" />
+    <!-- 注意：这是REST风格的webservice.-->
+    <bean id="restRegValidate" class="com.thinkgem.jeesite.modules.webservice.RegValidateRestServiceImpl" />
+    <bean id="restLogin" class="com.thinkgem.jeesite.modules.webservice.LoginRestServiceImpl" />
+    <bean id="restPlatform" class="com.thinkgem.jeesite.modules.webservice.PlatformServiceImpl" />
+	<bean id="discoverRest" class="com.thinkgem.jeesite.modules.webservice.DiscoverRestServiceImpl"></bean>
+    <bean id="restIndex" class="com.thinkgem.jeesite.modules.webservice.IndexRestServiceImpl"></bean>
+    <bean id="Restaunant" class="com.thinkgem.jeesite.modules.webservice.RestaunantRestServiceImpl"></bean>
+    <bean id="restListShow" class="com.thinkgem.jeesite.modules.webservice.ListShowRestServiceImpl"></bean>
+    <bean id="localActivityRest" class="com.thinkgem.jeesite.modules.webservice.LocalActivityRestServiceImpl"></bean>
+    <bean id="restBase" class="com.thinkgem.jeesite.modules.webservice.BaseRestServiceImpl"></bean>
+    <bean id="newsRest" class="com.thinkgem.jeesite.modules.webservice.NewsRestServiceImpl"></bean>
+    <!-- 这里的地址很重要，客户端需要通过这个地址来访问WebService -->
+    <jaxrs:server id="restServiceContainer" address="/rest">
+	    <jaxrs:serviceBeans>  
+      <ref bean="restRegValidate" />
+      <ref bean="restLogin" />
+      <ref bean="restPlatform" /> 
+      <ref bean="discoverRest"/> 
+      <ref bean="restIndex"/>
+      <ref bean="Restaunant"/>
+      <ref bean="restListShow"/>
+      <ref bean="localActivityRest"/>
+      <ref bean="restBase"/>
+      <ref bean="newsRest"/>
+    </jaxrs:serviceBeans>
+        <jaxrs:extensionMappings>  
+            <entry key="json" value="application/json" />
+            <entry key="xml" value="application/xml"/>  
+    </jaxrs:extensionMappings>
+        <jaxrs:languageMappings>
+            <entry key="en" value="en-gb" />
+        </jaxrs:languageMappings>
+    </jaxrs:server>
+    
+</beans>

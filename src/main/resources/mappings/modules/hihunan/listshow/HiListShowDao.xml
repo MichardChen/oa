@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hihunan.dao.listshow.HiListShowDao">
+
+	<!-- <insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO hi_list_show(
+			id,
+			title,
+			title_photo,
+			address,
+			type,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		)VALUES(
+			#{id},
+			#{title},
+			#{titlePhoto},
+			#{address},
+			#{type},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>-->
+	
+	<sql id="hiListShowColumns">
+		a.id AS "id",
+		a.autoincid AS "autoincid",
+		a.title AS "title",
+		a.title_photo AS "titlePhoto",
+		a.address AS "address",
+		a.type AS "type",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.source_from as "sourceFrom",
+		a.url as "url"
+	</sql>
+	
+	<sql id="hiListShowJoins">
+	</sql>
+    
+	<select id="get" resultType="HiListShow">
+		SELECT 
+			<include refid="hiListShowColumns"/>
+		FROM hi_list_show a
+		<include refid="hiListShowJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HiListShow">
+		SELECT 
+			a.id AS "id",
+			a.autoincid AS "autoincid",
+			a.title AS "title",
+			a.title_photo AS "titlePhoto",
+			a.address AS "address",
+			sd.label AS "type",
+			a.create_by AS "createBy.id",
+			a.create_date AS "createDate",
+			a.update_by AS "updateBy.id",
+			a.update_date AS "updateDate",
+			a.source_from as "sourceFrom",
+		    a.url as "url"
+		FROM hi_list_show a
+		left join sys_dict sd on a.type = sd.value and sd.type='hi_list_type'
+		<where>
+			 a.type not in ('restaurant','top')
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HiListShow">
+		SELECT 
+			<include refid="hiListShowColumns"/>
+		FROM hi_list_show a
+		<include refid="hiListShowJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO hi_list_show(
+			id,
+			title,
+			title_photo,
+			address,
+			type,
+			source_from,
+		    url,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{title},
+			#{titlePhoto},
+			#{address},
+			#{type},
+			#{sourceFrom},
+		    #{url},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hi_list_show SET 	
+			title = #{title},
+			title_photo = #{titlePhoto},
+			address = #{address},
+			type = #{type},
+			source_from = #{sourceFrom},
+		    url  = #{url},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hi_list_show
+		WHERE id = #{id}
+	</update>
+	
+	
+	<select id="findAll" resultType="com.thinkgem.jeesite.modules.hihunan.model.listshow.HiListShowModel">
+		SELECT 
+			hls.id AS "id",
+			hls.title AS "title",
+			hls.title_photo AS "titlePhoto",
+			hls.address AS "address",
+			hls.type AS "type",
+			str.tag_type AS "tagType",
+			hls.source_from as "sourceFrom",
+		    hls.url as "url"
+		FROM hi_list_show hls
+		LEFT JOIN sys_tag_ref str ON str.reference_id = hls.id
+		<where>
+			<if test="type != null and type != ''">
+				hls.type = #{type}
+			</if>
+		</where>
+		ORDER BY str.tag_type DESC,hls.update_date DESC
+		<if test="listMaxCount != null and listMaxCount != ''">
+				limit 0,#{listMaxCount}
+		</if>
+	</select>
+</mapper>

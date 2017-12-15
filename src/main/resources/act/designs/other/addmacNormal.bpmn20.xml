@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="com.thinkgem.jeesite.act">
+  <process id="addmacNormal" name="新布设(其他类型)" isExecutable="true">
+    <startEvent id="start" name="布设立项" activiti:initiator="{applyUser}" activiti:formKey="/addmac/nsAddmac"/>
+    <userTask id="planFiling" name="施工方案报备" activiti:formKey="/static/nsmobile/pages/html/planFiling.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.addmac.service.AddMacNormalAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="installComplete" name="安装报告" activiti:formKey="/static/nsmobile/pages/html/installCompNormal.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.addmac.service.AddMacNormalAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="route" name="路由安装及调试" activiti:formKey="/static/nsmobile/pages/html/route.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.addmac.service.AddMacNormalAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="check" name="验收结果" activiti:formKey="/static/nsmobile/pages/html/installCheck.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.addmac.service.AddMacNormalAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="takeKey" name="钥匙移交" activiti:formKey="/static/nsmobile/pages/html/takekey.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.addmac.service.AddMacNormalAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <endEvent id="end" name="流程结束"/>
+    <sequenceFlow id="sid-C1F7397B-223D-4C76-8985-7ABAC7D3DCAB" sourceRef="start" targetRef="planFiling"/>
+    <sequenceFlow id="sid-970E68EF-2315-4023-BF23-430A4ED59834" sourceRef="planFiling" targetRef="installComplete"/>
+    <sequenceFlow id="sid-ABB3CE27-BA27-4406-BAFC-A91CE7099187" sourceRef="installComplete" targetRef="route"/>
+    <sequenceFlow id="sid-739AB7BD-5696-49DA-A346-7991E49A5E37" sourceRef="route" targetRef="check"/>
+    <sequenceFlow id="sid-4119995F-E14F-4D3C-9F64-B403F46B9DCC" sourceRef="check" targetRef="takeKey"/>
+    <sequenceFlow id="sid-57F82222-05DA-4DD8-ADB0-36258EDC03D7" sourceRef="takeKey" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_addmacNormal">
+    <bpmndi:BPMNPlane bpmnElement="addmacNormal" id="BPMNPlane_addmacNormal">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="15.0" y="60.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="planFiling" id="BPMNShape_planFiling">
+        <omgdc:Bounds height="128.0" width="101.0" x="75.0" y="11.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installComplete" id="BPMNShape_installComplete">
+        <omgdc:Bounds height="127.0" width="102.0" x="225.0" y="11.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="route" id="BPMNShape_route">
+        <omgdc:Bounds height="129.0" width="100.0" x="375.0" y="11.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="check" id="BPMNShape_check">
+        <omgdc:Bounds height="130.0" width="97.0" x="525.0" y="11.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="takeKey" id="BPMNShape_takeKey">
+        <omgdc:Bounds height="132.0" width="103.0" x="675.0" y="10.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="28.0" width="28.0" x="810.0" y="62.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-57F82222-05DA-4DD8-ADB0-36258EDC03D7" id="BPMNEdge_sid-57F82222-05DA-4DD8-ADB0-36258EDC03D7">
+        <omgdi:waypoint x="778.0" y="76.0"/>
+        <omgdi:waypoint x="810.0" y="76.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C1F7397B-223D-4C76-8985-7ABAC7D3DCAB" id="BPMNEdge_sid-C1F7397B-223D-4C76-8985-7ABAC7D3DCAB">
+        <omgdi:waypoint x="45.0" y="75.0"/>
+        <omgdi:waypoint x="75.0" y="75.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-4119995F-E14F-4D3C-9F64-B403F46B9DCC" id="BPMNEdge_sid-4119995F-E14F-4D3C-9F64-B403F46B9DCC">
+        <omgdi:waypoint x="622.0" y="76.0"/>
+        <omgdi:waypoint x="675.0" y="76.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-739AB7BD-5696-49DA-A346-7991E49A5E37" id="BPMNEdge_sid-739AB7BD-5696-49DA-A346-7991E49A5E37">
+        <omgdi:waypoint x="475.0" y="75.66835016835019"/>
+        <omgdi:waypoint x="525.0" y="75.83670033670033"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-ABB3CE27-BA27-4406-BAFC-A91CE7099187" id="BPMNEdge_sid-ABB3CE27-BA27-4406-BAFC-A91CE7099187">
+        <omgdi:waypoint x="327.0" y="75.17114093959731"/>
+        <omgdi:waypoint x="375.0" y="75.33221476510069"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-970E68EF-2315-4023-BF23-430A4ED59834" id="BPMNEdge_sid-970E68EF-2315-4023-BF23-430A4ED59834">
+        <omgdi:waypoint x="176.0" y="75.0"/>
+        <omgdi:waypoint x="225.0" y="75.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

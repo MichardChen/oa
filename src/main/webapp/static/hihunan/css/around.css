@@ -1,0 +1,333 @@
+*{
+	text-decoration:none;
+	padding:0px;
+	margin:0px;
+	}
+.more h1{
+	float:left;
+	}
+.hot_box{
+	position:relative;
+	}
+.hot_box>img{
+	position:absolute;
+	top:-20px;
+	left:0px;
+	}
+.current_title {
+   margin-top:0.24rem;
+   margin-bottom:0.24rem;
+	}	
+.current_title img{
+    margin-left: 40%;
+	float: left;
+	height: auto;
+	max-width:0.36rem;
+	display: block;
+	margin-top: 0.18rem;	
+	}	
+.current_title h1{
+	float:left;
+	font-size:0.36rem; 
+	text-align:center;
+	margin-top: 0.17rem;
+	font-weight: 500;
+	}
+.current {
+	margin-top:0.24rem;
+ 	margin-bottom:0.24rem;
+	}	
+.current img{
+	 margin-left: 35%;
+	 float: left;
+	 height: auto;
+	 display: block;
+	 margin-top: 0.18rem;
+	}	
+.current h1{
+    float: left;
+	font-size:0.3rem;
+	text-align: center;
+	margin-top: 0.17rem;
+	font-weight: 500;
+    margin-left: 0.12rem;
+	}
+.Information>img{
+	 float: left;
+	 width:100%;
+	 height:auto;
+	 display: block;
+	 margin-top: 0.18rem;
+	}
+.tourism>img{
+	 float: left;
+	 width:80%;
+	 height:auto;
+	 display: block;
+	 margin-top: 0.18rem;
+	}
+.tourism{
+	 margin-bottom:1.2rem;
+	}
+.clearfix{
+	clear:both;
+	}
+.food_box{
+	width:100%;
+	}	
+.food_box>img{
+	width:35%;
+	max-width:180px;
+	height:auto;
+	float:left;
+	margin-left: 0.12rem;
+	}	
+.culture_box>img{
+	width: 48%;
+	max-width:3rem;
+	height: auto;
+	float: left;
+	margin-left: 0.12rem;
+	margin-bottom: 0.12rem;
+	}	
+.oa-contact-cell.mui-table .mui-table-cell {
+	padding: 11px 0;
+	vertical-align: middle;
+	}
+.oa-contact-cell {
+	position: relative;
+	margin: -11px 0;
+    }
+.oa-contact-avatar {
+	width: 75px;
+    }
+.oa-contact-avatar img {
+	border-radius: 50%;
+    }
+.oa-contact-content {
+	width: 100%;
+    }
+.oa-contact-name {
+	margin-right: 20px;
+    }
+.oa-contact-name, oa-contact-position {
+	float: left;
+    }
+.mui-grid-view.mui-grid-9 .mui-media {
+	color: #797979;
+	border-bottom:none;
+    }
+.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+	margin: 0;
+	padding:0rem;
+	vertical-align: top;
+	border-right: 1px solid #eee;
+	border-top:1px solid #eee;
+	height:1.8rem;
+	}
+.mui-icon img{
+	width:0.8rem;
+  	height:0.7rem;
+  	margin-top:0.24rem;
+	}
+.footer .mui-icon img{
+	max-width:0.48rem;
+	}
+.swiper-slide {
+	-webkit-flex-shrink: 0;
+	-ms-flex: 0 0 auto;
+	flex-shrink: 0;
+	width: 100%;
+	max-width:6.4rem;
+	height: auto;
+	position: relative;
+	}
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+	bottom: 30px;
+	left: 0;
+	width: 100%;
+	}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn) {
+    margin: 0;
+    padding: 0px 0;
+    width: 100%;
+    height:1.8rem;
+	}
+.weather {
+    position: relative;
+    width: 100%;
+    height:2.6rem;
+    color: white;
+ 	background: -webkit-linear-gradient(left, rgba(47, 47, 47, 0.6), #3a3a3a);
+	}
+
+.time p {
+    float:left;
+   	font-size:0.24rem;
+   	margin-right:0.24rem;
+	}
+.titlelable{
+   text-align: center;
+   height: 0.8rem;
+   vertical-align: middle;
+   padding: 0.2rem;
+   font-size: 0.22rem;
+   background-color: white;
+   color: #282828;
+	}
+.mui-content {
+   background-color: #efeff4;
+   -webkit-overflow-scrolling: touch;
+   /*margin-bottom: 0.833333rem;*/
+	}
+.weather h2 {
+   margin-top: 0rem; */
+	}
+/*.wea-icon div {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 1.67rem;
+    text-align: left;
+    line-height: 4.9rem;
+    /*left: 46%;*/
+}*/
+.wea-con {
+    width: 83.75%;
+    padding-top: 0.15rem;
+    margin: 0 auto;
+	}
+.BasicInformation{
+	}
+.weatherico {
+  float:left;
+  width:1.45rem; 
+  height:1.5rem;
+	}
+.temperature_box{
+  float:left;
+  width: 34.2%; 
+  height: 1.5rem;
+  border-left: #373737 1px solid;
+	}
+.airquality_box{
+	float: left;
+    width: 36%;
+    height:1.5rem;
+    border-left: #373737 1px solid;
+	}
+.weatherdetial{
+	font-size: 0.22rem;
+    text-align: center;
+    line-height: 0.24rem;
+	}
+.airqualitydetial{
+	font-size: 0.22rem;
+    text-align: center;
+    padding: 0.05rem 0.15rem;
+    background-color: #414141;
+    width:1.32rem;
+    margin-left:0.24rem;
+    border-radius: 4px;
+    /* height: 1.25rem; */
+    line-height: 0.22rem;
+	}
+.airqualityValue{
+	font-size: 0.22rem;
+    text-align: center;
+    padding: 0.05rem 0.15rem;
+    background-color: #414141;
+    /*width:1.32rem;*/
+     width:1.8rem;
+    margin-left:0.24rem;
+    border-radius: 4px;
+    /* height: 1.25rem; */
+    line-height: 0.22rem;
+    margin-top: 0.12rem;
+    height:0.3rem;
+	}
+.wea_box{
+	width:80%;
+	height:1.5rem;
+	/*margin-top:0.48rem;*/
+	left: 10%;
+    top: 0.7rem;
+	}
+.wea-con {
+    width: 83.75%;
+    padding-top: 0.2rem;
+    margin: 0 auto;
+	}
+.poll {
+    font-size: 0.22rem;
+    line-height: 0.22rem;
+	}
+.temperature{
+	font-size: 0.22rem;
+    text-align: center;
+    /*background-image: url(../hihunan/images/oc.png);*/
+    /*background-repeat: no-repeat;
+    background-size: 100%;
+    height: 10.833rem;*/
+	}
+.tip{
+	font-size:0.34rem;
+    background-image: url(../hihunan/images/1c.png);
+    background-repeat: no-repeat;
+    background-size:0.28rem;
+    background-position-x: 98%;
+    background-position-y: -6%;
+    padding-top:0.24rem;
+	}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+    font-size: 0.18rem;
+    line-height:0.24rem;
+    display: block;
+    width: 100%;
+    height:0.24rem;
+    padding-bottom:0.33rem;
+    text-overflow: ellipsis;
+    color: #999999;
+    margin-top:0.24rem;
+	}
+.place {
+    float: left;
+    font-size: 0.18rem;
+   /* margin-right: 1.5rem;*/
+    width:1.08rem;
+    line-height:0.29rem;
+    height:0.31rem;
+}
+.week{
+	float: left;
+   /* margin-right: 1.5rem;*/
+    font-size: 0.18rem;
+    width:1.08rem;
+    line-height:0.29rem;
+    height:0.31rem;
+}
+.date{
+	float: left;
+    font-size: 0.18rem;
+    width:1.44rem;
+    line-height:0.29rem;
+    height: 0.31rem;
+}
+.a_place{
+	position: absolute;
+    top:0.24rem;
+    left: 20%;
+    font-size: 0.18rem;
+}
+.a_week{
+    position: absolute;
+    top:0.24rem;
+    left: 35%;
+    font-size: 0.18rem;	
+}
+.a_date{
+	position: absolute;
+    top: 0.24rem;
+    left: 55%;
+    font-size: 0.18rem;
+}

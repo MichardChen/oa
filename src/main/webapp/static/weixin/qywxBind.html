@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>微信企业号账号验证</title>
+	    <!--以下三行为强制微信读取不使用缓存，实际时要删除-->
+	    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	    <meta http-equiv="Pragma" content="no-cache" />
+	    <meta http-equiv="Expires" content="0" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	    <link rel="stylesheet" href="../hello-mui/css/mui.css" />
+        <link rel="stylesheet" type="text/css" href="../hello-mui/css/feedback-page.css" />
+	    <link href="../hello-mui/css/mui.indexedlist.css" rel="stylesheet" />
+	    <link href="../hello-mui/css/mui.poppicker.css" rel="stylesheet" />
+	    <link href="../hello-mui/css/mui.picker.css" rel="Stylesheet" />
+	    <link rel="stylesheet" type="text/css" href="../hello-mui/css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="../hello-mui/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../hello-mui/css/app.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+	 	<script src="../hello-mui/js/mui.js?version=20160125"></script>
+	 	<script src="../hello-mui/js/mui.view.js?version=20160125"></script>
+	 	<style type="text/css">
+	 		.mui-table-cell.ownNamePart
+        	{
+	            width: 23%;
+	            text-align: left;
+	            padding-right: 3%;
+        	}
+        	
+        	.pad{
+        	margin: 3px;
+			width: 50px;
+			height: 50px;
+			display: inline-block;
+			text-align: center;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			border-radius: 25px;
+			background-clip: padding-box;
+        	}
+        	
+	 	</style>
+	</head>   
+	<body>
+		<div id="page" class="mui-views">
+	        <div class="mui-view">
+	            <div class="mui-navbar">
+	            </div>
+	            <div class="mui-pages">
+	            </div>
+	        </div>
+	    </div>
+	    <div id="main" class="mui-page">
+			    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+						<a class="mui-action-back mui-pull-left" style="margin-top:5%;">返回</a>
+						<img src="../images/u27.png" style="width: 15%;margin-left: 2%;"/>
+					    <!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+					    <a id="icon-location"><span class="mui-icon mui-icon-location"></span></a>
+					    <h1 class="mui-title" style="width:30%;margin-left:30%;">询价网</h1>
+			    </div>
+				<div id="pullrefresh" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="mui-content-padded" style="margin: 5px;">
+							<div class="mui-input-row mui-search" style="width:80%;">
+								<input id="inputData" type="search" class="mui-input-clear" placeholder="">
+							</div>
+							<a id="search" style="float:right;margin-top:-14%;margin-right:5%;">搜索</a>
+						</div>
+						<div id="dataInfo" class="mui-table">
+							<div style="float:left;margin-right: 10%;margin-left:6%;font-size: 10px;"><a style="color: red;">综合</a></div>
+							<div style="float:left;margin-right: 10%;font-size: 10px;"><a id="price" style="color: black;">价格</a></div>
+							<div style="float:left;margin-right: 10%;font-size: 10px;"><a id="numFound" style="color: black;">访问量</a></div>
+							<div style="float:left;margin-right: 10%;font-size: 10px;"><a style="color: black;">更新日</a></div>
+							<div style="float:left;font-size: 10px;"><a style="color: black;">供应商</a></div>
+						</div>
+						<ul id="dataList" class="mui-table-view mui-grid-view mui-grid-9">
+				        </ul>
+			        </div>
+				</div>
+		</div>
+		<script type="text/javascript" src="../js/searchjs.js?version=20160419"></script>
+	</body>
+</html>

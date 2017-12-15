@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.MemberDao">
+	
+	<sql id="memberColumns">
+		a.id as id,
+		a.memberName as memberName
+	</sql>
+	
+	<select id="get" resultType="Member">
+		SELECT
+			<include refid="memberColumns"/>
+		FROM sys_member a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findAllMember" resultType="Member">
+	  SELECT a.id as id,
+	         a.memberName as memberName
+		FROM sys_member a
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO sys_member(
+			id,
+			concurrentPrjNum,
+			validFlag,
+			areaId,
+			memberLevel,
+			memberName,
+			addr,
+			memberStartDate,
+			memberValidDate,
+			memberStatus,
+			tel,
+			website, 
+			create_by, 
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{concurrentPrjNum},
+			#{validFlag},
+			#{areaId},
+			#{memberLevel},
+			#{memberName},
+			#{addr},
+			NOW(),
+			date_add(NOW(),interval'30'day),
+			#{memberStatus},
+			#{tel},
+			#{website},
+			#{createBy.id}, 
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_member SET
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}, 
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateMemberInfo">
+		UPDATE sys_member SET
+			memberName = #{memberName},
+			areaId = #{areaId},
+			addr = #{addr},
+			tel = #{tel},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+		
+	<update id="delete">
+		DELETE FROM sys_member
+		WHERE id = #{id}
+	</update>
+		<!-- 根据ID获得一条数据 -->
+	<sql id="sysMemberColumns">
+		a.id AS "id",
+		a.autoIncId AS "autoIncId",
+		a.concurrentPrjNum AS "concurrentPrjNum",
+		a.validFlag AS "validFlag",
+		a.areaId AS "areaId",
+		a.memberLevel AS "memberLevel",
+		a.memberName AS "memberName",
+		a.addr AS "addr",
+		a.memberStartDate AS "memberStartDate",
+		a.memberValidDate AS "memberValidDate",
+		a.tel AS "tel",
+		a.website AS "website"
+	</sql>
+	<select id="getConcurrentPrjNum" resultType="com.thinkgem.jeesite.modules.sys.model.MemberModel">
+		SELECT
+			<include refid="sysMemberColumns"/>
+			, sd.label AS "memberStatus"
+		FROM sys_member a
+		LEFT JOIN sys_dict sd ON sd.value = a.memberStatus
+		AND sd.type = 'member_status'
+		WHERE a.id = #{companyId}
+	</select>
+	<!-- 注册用户时检查公司名是否重复 -->
+	<select id="findMemberNameIsExist" resultType="com.thinkgem.jeesite.modules.sys.model.MemberModel">
+		SELECT
+			<include refid="sysMemberColumns"/>
+		FROM sys_member a
+		WHERE a.memberName = #{memberName}
+	</select>
+	
+	<!-- 根据自增长ID查询该条记录的ID -->
+	<select id="findByAutoIncId" resultType="Member">
+		SELECT
+			<include refid="sysMemberColumns"/>
+		FROM sys_member a
+		WHERE a.autoIncId = #{autoIncId}
+	</select>
+	
+	
+	<!-- 根据自增长ID查询该条记录的ID -->
+	<select id="findByAutoIncIdForModel" resultType="com.thinkgem.jeesite.modules.sys.model.MemberModel">
+		SELECT
+			<include refid="sysMemberColumns"/>
+		FROM sys_member a
+		WHERE a.autoIncId = #{autoIncId}
+	</select>
+	
+	
+	<select id="findAllCompany" resultType="com.thinkgem.jeesite.modules.sys.entity.Dict">
+		SELECT
+			id AS "value",
+			memberName AS "label"
+		FROM sys_member
+	</select>
+</mapper>

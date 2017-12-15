@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="com.thinkgem.jeesite.act">
+  <process id="fault" name="故障处理" isExecutable="true">
+    <startEvent id="start" name="异常报告" activiti:initiator="{applyUser}" activiti:formKey="/static/nsmobile/pages/html/insRegist.html"/>
+    <userTask id="confirmFault" name="故障确认" activiti:formKey="/static/nsmobile/pages/html/confirmFault.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.inspection.service.FaultAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="maintain" name="故障处理" activiti:formKey="/static/nsmobile/pages/html/maintain.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.inspection.service.FaultAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <endEvent id="end" name="流程结束"/>
+    <userTask id="initConfirm" name="初步故障确认" activiti:formKey="/static/nsmobile/pages/html/initConfirm.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.inspection.service.FaultAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="sid-B77C0DDB-2B70-4E86-838F-4F7782F9D25C"/>
+    <sequenceFlow id="sid-3466621E-DE6B-41EE-A9B0-EDAE3D448632" sourceRef="start" targetRef="initConfirm"/>
+    <sequenceFlow id="sid-636CD28A-2014-4DB6-84FF-BB37ED7DE691" sourceRef="confirmFault" targetRef="maintain"/>
+    <sequenceFlow id="sid-8524599D-C587-4985-9374-18D7880B9745" sourceRef="maintain" targetRef="end"/>
+    <sequenceFlow id="sid-DD1CD869-4B56-41DA-838A-115784FD1850" sourceRef="initConfirm" targetRef="sid-B77C0DDB-2B70-4E86-838F-4F7782F9D25C"/>
+    <sequenceFlow id="sid-FD9F22E3-8E71-4F19-9737-4A4220E3A706" sourceRef="sid-B77C0DDB-2B70-4E86-838F-4F7782F9D25C" targetRef="confirmFault">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${continue==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-A5A06805-6936-444F-B751-DC01F51E72F3" sourceRef="sid-B77C0DDB-2B70-4E86-838F-4F7782F9D25C" targetRef="end">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${continue==0}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fault">
+    <bpmndi:BPMNPlane bpmnElement="fault" id="BPMNPlane_fault">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="10.0" y="179.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="confirmFault" id="BPMNShape_confirmFault">
+        <omgdc:Bounds height="91.0" width="129.0" x="225.0" y="15.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="maintain" id="BPMNShape_maintain">
+        <omgdc:Bounds height="92.0" width="125.0" x="435.0" y="14.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="28.0" width="28.0" x="480.0" y="180.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="initConfirm" id="BPMNShape_initConfirm">
+        <omgdc:Bounds height="89.0" width="121.0" x="105.0" y="150.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-B77C0DDB-2B70-4E86-838F-4F7782F9D25C" id="BPMNShape_sid-B77C0DDB-2B70-4E86-838F-4F7782F9D25C">
+        <omgdc:Bounds height="40.0" width="40.0" x="269.5" y="174.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-A5A06805-6936-444F-B751-DC01F51E72F3" id="BPMNEdge_sid-A5A06805-6936-444F-B751-DC01F51E72F3">
+        <omgdi:waypoint x="309.04668304668303" y="194.95331695331694"/>
+        <omgdi:waypoint x="480.0000420509447" y="194.53431362242415"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-FD9F22E3-8E71-4F19-9737-4A4220E3A706" id="BPMNEdge_sid-FD9F22E3-8E71-4F19-9737-4A4220E3A706">
+        <omgdi:waypoint x="289.92537313432837" y="174.92537313432837"/>
+        <omgdi:waypoint x="289.6691449814126" y="106.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3466621E-DE6B-41EE-A9B0-EDAE3D448632" id="BPMNEdge_sid-3466621E-DE6B-41EE-A9B0-EDAE3D448632">
+        <omgdi:waypoint x="40.0" y="194.5"/>
+        <omgdi:waypoint x="105.0" y="194.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-DD1CD869-4B56-41DA-838A-115784FD1850" id="BPMNEdge_sid-DD1CD869-4B56-41DA-838A-115784FD1850">
+        <omgdi:waypoint x="226.0" y="194.5"/>
+        <omgdi:waypoint x="269.5" y="194.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-8524599D-C587-4985-9374-18D7880B9745" id="BPMNEdge_sid-8524599D-C587-4985-9374-18D7880B9745">
+        <omgdi:waypoint x="496.2985074626866" y="106.5"/>
+        <omgdi:waypoint x="494.3655469707365" y="180.50477312037475"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-636CD28A-2014-4DB6-84FF-BB37ED7DE691" id="BPMNEdge_sid-636CD28A-2014-4DB6-84FF-BB37ED7DE691">
+        <omgdi:waypoint x="354.0" y="60.5"/>
+        <omgdi:waypoint x="435.0" y="60.50000000000001"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hihunan.dao.favorites.HiFavoritesDao">
+	<insert id="insert">
+		INSERT INTO hi_favorites(
+			favorites_id,
+			member_id,
+			favorites_type,
+			favorites_title,
+			favorites_comment,
+			favorites_image,
+			favorites_url,
+			favorites_date
+		) VALUES(
+			#{favoritesId},
+			#{memberId},
+			#{favoritesType},
+			#{favoritesTitle},
+			#{favoritesComment},
+			#{favoritesImage},
+			#{favoritesUrl},
+			#{favoritesDate}
+		)
+	</insert>
+	<delete id="delete">
+		DELETE FROM
+			hi_favorites
+		WHERE (favorites_id = #{favoritesId} or favorites_url = #{favoritesUrl})
+		AND member_id = #{memberId}
+	</delete>
+	
+	<select id="getInfo" resultType="string">
+		SELECT 
+			favorites_id 
+		FROM hi_favorites 
+		WHERE member_id = #{memberId} 
+		AND favorites_url = #{favoritesUrl}
+	</select>
+</mapper>

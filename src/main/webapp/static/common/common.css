@@ -1,0 +1,76 @@
+/*!
+ * 绯荤粺鏍峰紡
+ * 鍦ㄥ紩鍏ootstrap,Jqgrid绛夎嚜甯︾殑鏍峰紡鍚庯紝濡傛灉闇�瑕佽皟鏁达紝鍒欐斁鍏ユ鏂囦欢銆�
+ * 鍙﹀锛岀郴缁熷叡鍚岀殑css鏍峰紡涔熸斁杩欓噷銆�
+ */
+ /** JQGrid鐨勬牱寮� */
+ /** 璁剧疆JQGrid鍐呯殑缂栬緫妯″紡涓嬬殑姝ｆ枃瀛椾綋澶у皬鍙妏adding **/
+.ui-jqgrid .ui-jqgrid-btable tbody tr.jqgrow td 
+ {   
+	 padding-top:2px;
+	 padding-left:4px;
+	 padding-bottom:2px;
+	 padding-right:2px;
+	 font-size:12px;
+ }
+ /** 璁剧疆JQGrid鍐呯殑缂栬緫妯″紡涓嬬殑杈撳叆妗唅nput鍙妏adding **/
+ .ui-jqgrid .ui-jqgrid-btable tbody tr.jqgrow td input
+ {   
+	 padding-top:2px;
+	 padding-left:4px;
+	 padding-bottom:2px;
+	 padding-right:2px;
+	 font-size:12px;
+ }
+ /**璁剧疆JQGrid鍐呯殑缂栬緫妯″紡涓嬬殑涓嬫媺妗唖elect鍙妏adding */
+  .ui-jqgrid .ui-jqgrid-btable tbody tr.jqgrow td select
+ {   
+	 padding-top:2px;
+	 padding-left:4px;
+	 padding-bottom:2px;
+	 padding-right:2px;
+	 height:26px;
+	 font-size:12px;
+ }
+ 
+  /** 璁剧疆JQGrid鍐呯殑缂栬緫妯″紡涓嬬殑琛ㄥご鐨勫瓧浣撳ぇ灏忓強padding **/
+ .ui-jqgrid .ui-jqgrid-htable thead th{
+	 padding-top:2px;
+	 padding-bottom:2px;
+	 font-size:12px;
+	 text-align:center;
+ }
+ 
+ /**JQGrid鐨勭粺璁℃爮鐨勬牱寮�**/
+ .ui-jqgrid tr.footrow{
+     height:22px;
+     line-height:22px;
+ }
+ .ui-jqgrid tr.footrow td{
+     font-size:12px;
+ }
+ /** JqGrid浠ュ 杈撳叆鎺т欢鐨勬牱寮忥紙JqGrid浠ュ锛� */
+ .form-control{
+    height:26px;
+    font-size:12px;
+ }
+ 
+ .control-label{
+    height:26px;
+ }
+ 
+ /** Ztree鐨勯�変腑鑺傜偣鐨勬牱寮�*/
+ .ztree li a.curSelectedNode{
+  background-color:#75CBA4;
+  color:#030303;
+ }
+ 
+ /** 閾炬帴鐨勯紶鏍囨偓鍋�  **/
+a{
+  cursor:pointer;
+}
+/**消除右边框，避免下部的滚动条 **/
+.ui-jqgrid-view > .ui-jqgrid-bdiv .ui-jqgrid-btable
+{
+	border-right:0px solid #ddd;
+}

@@ -1,0 +1,183 @@
+body {
+    padding-bottom: 2.21rem;
+}
+.wrap, .contacts {
+    width: 82.81%;
+    margin: 0 auto;
+}
+li {
+    height: 3.16rem;
+    padding-top: 1.42rem;
+    color: #a6a6a6;
+    font-size: 1.33rem;
+    box-shadow: inset 0px -1px #dcdcdc;
+}
+li input, .medi-card input {
+    width: 62%;
+    border: 0;
+    margin-left: 1.13rem;
+    font-size: 1.33rem;
+}
+::-webkit-input-placeholder {
+    color: #dcdcdc;
+}
+.gender span {
+    display: inline-block;
+    padding-left: 1.92rem;
+    height: 1.54rem;
+    background: url("../images/nan.png") bottom left no-repeat;
+    background-size: 1.13rem;
+}
+.gender span:nth-child(1) {
+    margin: 0 2.58rem 0 1.46rem;   
+}
+.gender .cho-s {
+    background: url("../images/nv.png") bottom left no-repeat;
+    background-size: 1.13rem;
+}
+.medi-card {
+    padding-top: 1.67rem;
+    color: #a6a6a6;
+    font-size: 1.33rem;
+}
+.add-used, .order-peo, .check-or {
+    width: 71.7%;
+    display: block;
+    height: 3.33rem;
+    color: #ff4367;
+    margin: 2.5rem auto 0;
+    text-align: center;
+    line-height: 3.33rem;
+    border-radius: 1.8rem;
+    font-size: 1.33rem;
+    border: 0.13rem solid #ff457c;
+    box-shadow: 0px 0px 30px 0px rgba(255,69,124,0.1);
+}
+.contacts {
+    width: 100%;
+    height: 4.17rem;
+    margin-top: 3.33rem;
+    box-shadow: 0px 0px 1.67rem 0.42rem rgba(66,66,66,0.05);
+}
+.peo-con { 
+    width: 82.81%;
+    margin: 0 auto;
+    line-height: 4.17rem;
+    color: #a6a6a6;
+    background: url("../images/ren.png") center right no-repeat;
+    background-size: 1.54rem;
+    font-size: 1.25rem;
+}
+.peo-con span {
+    color: red;
+    font-size: 0.92rem;
+}
+.peo-int>div {
+    width: 82.81%;
+    margin: 0 auto;
+}
+.cho-peo section {
+    width: 100%;
+    height: 4.92rem;
+    padding-top: 1.83rem;
+    line-height: 1.58rem;
+    box-shadow: inset 0px -1px 0px #dcdcdc;
+}
+.cho-peo .cho-color {
+    background: url("../images/cho-1.png") center right no-repeat;
+    background-size: 1.13rem;
+}
+.cho-peo section div {
+    color: #616161;
+    font-size: 1.33rem;
+}
+.cho-peo section p {
+    color: #a6a6a6;
+    font-size: 1rem;
+}
+.peo-int div:nth-child(2) {
+    position: relative;
+}
+.show-int, .show-y, .show-f {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 8.34rem;
+    height: 3.34rem;
+    line-height: 3.34rem;
+    color: white;
+    background: black;
+    z-index: 10000;
+    text-align: center;
+    font-size: 1rem;
+}
+.show-int {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 8.34rem;
+    height: 3.34rem;
+    line-height: 3.34rem;
+    color: white;
+    background: black;
+    z-index: 10000;
+    text-align: center;
+    border-radius: 2rem;
+    font-size: 1rem;
+}
+.show-y {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 0;
+    width: 8.34rem;
+    height: 3.34rem;
+    line-height: 3.34rem;
+    color: white;
+    background: black;
+    text-align: center;
+    border-radius: 2rem;
+    font-size: 1rem;
+}
+.show-f {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding-top: 0.5rem;
+    width: 8.34rem;
+    height: 5.34rem;
+    line-height: 1.2rem;
+    background: black;
+    z-index: 10000;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 1rem;
+}
+.check-or {
+    width: 59%;
+}
+.medi-card input {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+}
+.medi-card section {
+    box-shadow: inset 0px -1px #dcdcdc;
+    padding-bottom: 1rem;
+}
+.medi-card span {
+    color: red;
+}

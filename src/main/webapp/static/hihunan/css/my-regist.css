@@ -1,0 +1,58 @@
+.regist {
+    position: relative;
+    height: 5.67rem;
+    background: url("../images/pink.png") no-repeat;
+    background-size: 100% 100%;
+}
+.regist-con {
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 82.87%;
+    padding: 0 4.58%;
+    background-color: white;
+    box-shadow: 0px 0px 30px 10px rgba(255,67,103,0.1);
+}
+.regist-con h2 {
+    height: 4.17rem;
+    color: #616161;
+    line-height: 4.17rem;
+    font-size: 1.33rem;
+    background: url("../images/ren-1.png") right center no-repeat;
+    background-size: 1.13rem;
+    
+}
+.regist-con ul {
+    position: relative;
+    padding-top: 0.84rem;
+    height: 13.66rem;
+    box-shadow: inset 0px 1px 0px #dcdcdc;
+    line-height: 2.5rem;
+    font-size: 1.17rem;
+}
+.regist-con ul li {
+    height: 2.92rem;
+    line-height: 2.92rem;
+}
+.regist-con ul strong {
+    display: inline-block;
+    width: 22.8%;
+    height: 3.63rem;
+    color: #cdcccc;
+    text-align: right;   
+}
+.regist-con ul span {
+    margin-left: 0.33rem;
+    color: #616161;
+}
+.remove-re {
+    position: absolute;
+    right: 0;
+    bottom: 1rem;
+    color: #FF446F;
+    font-size: 1rem;
+    text-align: center;
+}
+

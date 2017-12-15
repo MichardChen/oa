@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>资讯</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<!--标准mui.css-->
+	<link rel="stylesheet" href="../css/mui.css">
+	<!--App自定义的css-->
+	<link rel="stylesheet" type="text/css"  href="../css/swiper.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/advisory.css"/>
+	<script type="text/javascript" src="../js/swiper.min.js"></script>
+	<script src="../js/zepto.min.js"></script>
+	<script type="text/javascript" src="../js/rem.js"></script>
+	<script src="../js/dropload.js"></script>
+	<script src="../js/common.js"></script>
+	<link rel="stylesheet" href="../css/dropload.css">
+	<link rel="stylesheet" type="text/css" href="../css/title.css"/>
+</head>
+<body>
+<div class="outer">
+     <div class="labelpages header">
+         <a  href="javascript:volid(0);" class="titlenew labeltitle" id="aAll">全部</a>
+         <a  href="javascript:volid(0);" class="titlenew labeltitle" id="aNew">本地新闻</a>
+         <a  href="javascript:volid(0);" class="titlenew labeltitle" id="aTeach">教育</a>
+     <div class="clearfix"></div>
+ 	</div>
+          <!--列表开始-->
+    <div id="list" class="inner" style="margin-bottom:0.24rem;">
+        <div class="foodlist" id="wrap">
+        </div>
+    	<input type="hidden" id="hdnType" value="all">
+    </div>
+</div>
+    <!--列表结束-->
+	<script type="text/javascript">
+		var name = UrlParam("name");
+			
+ 	   var counter = 0; // 每页展示3个
+       var num = 10;
+       var pageStart = 0,pageEnd = 0;
+       
+		 $(document).ready(function () {
+			 
+			$('title').text(name);
+			 
+			 $("#aAll").addClass("titleControlColor");
+			 
+			 if(name == '教育'){
+				 $("#aTeach").addClass("titleControlColor");
+				 $("#aAll").removeClass("titleControlColor");
+				 $("#aNew").removeClass("titleControlColor");
+				 $('#hdnType').val("educate");
+			 }
+			 self.moreFund = $('#list').dropload({
+		           domDown : {
+		               domClass   : 'dropload-down',
+		               domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+		               domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+		               domNoData  : '<div class="dropload-noData">没有更多</div>'
+		           },
+		           loadDownFn : function(){
+		               var type = $("#hdnType").val();
+		               $.ajax({
+				           type: 'post',
+				           url: '/hihunan/webservice/rest/newsRest/findNewsAndEducate',
+				           dataType: 'json',
+				           data:{
+				               "type":type
+				           },
+				           success: function(data){
+				        	 var sValue = data.rows;
+				     		 var $_wrap = $("#wrap");
+				        	  counter++;
+				              pageEnd = num * counter;
+				              pageStart = pageEnd - num;
+				        	  if(sValue.length > 0){
+					        	  for(var i = pageStart; i < pageEnd; i++){
+					        		  	var brief = sValue[i].brief == undefined?'':sValue[i].brief;
+					              		result ='<a href="advisoryDetail.html?id=' + sValue[i].id + '">' +
+					              				'<div class="list01" >' +
+					                           	    '<div class="foodlistimg">' + 
+					                               		'<img src="' + sValue[i].titlePhoto + '">' + 
+					                                 '</div>'+
+					                              	'<div class="foodtitle">' +
+					                               		'<h1 style="padding-top: 0.05rem;color: #666666;padding-bottom:0.05rem;" >'+ sValue[i].title +'</h1>'+	
+					                             	 '</div>'+
+					                               	'<div class="Positioning">' + 
+					                           			'<p>' +  sValue[i].publishDate  + ' </p>' + 
+					                           		'</div>' + 
+					                                 '<div class="clearfix" ></div>' + 
+					                              ' </div>'+
+					                              '</a>'; 
+	
+					                   $_wrap.append(result);
+					                    if((i + 1) >= sValue.length){
+					                       // 锁定
+					                       this.moreFund.lock();
+					                       this.moreFund.setHasData(false);
+					                       break;
+					                   } 
+					               }
+			        		  }else{
+		                        	this.moreFund.lock();
+		                        	this.moreFund.setHasData(false);
+		                        }
+		                        this.moreFund.resetload();
+				           },
+				           error: function(xhr, type){
+				               this.moreFund.unlock();
+				               this.moreFund.resetload();
+				           }
+					   })	
+		           },
+		           threshold : 50
+		      })
+		      
+		      self.moreFund.setHasData(true);
+			 
+		        $(document).delegate('.titlenew', 'click', function (event) {
+		        	 
+		        	 switch(this.id)
+	 				 {
+	 					 case"aAll":
+	 						 $("#aAll").addClass("titleControlColor");
+	 						 $("#aNew").removeClass("titleControlColor");
+	 						 $("#aTeach").removeClass("titleControlColor");
+	 						 $('#hdnType').val("all");
+	 						 break;
+	 					 case"aNew":
+	 						 $("#aNew").addClass("titleControlColor");
+	 						 $("#aAll").removeClass("titleControlColor");
+	 						 $("#aTeach").removeClass("titleControlColor");
+		 					 $('#hdnType').val("advisory");
+	 						 break;
+	 					 case"aTeach":
+	 						 $("#aTeach").addClass("titleControlColor");
+	 						 $("#aAll").removeClass("titleControlColor");
+	 						 $("#aNew").removeClass("titleControlColor");
+		 					 $('#hdnType').val("educate");
+	 						 break;
+	 				 }
+		       	   	counter = 0;
+		           	pageStart = 0;
+		           	pageEnd = 0;
+		     		var $_wrap = $("#wrap");
+		        	$_wrap.empty();
+		        	self.moreFund.unlock();
+		        	self.moreFund.setHasData(true);
+		        });
+		 })
+		</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id='viewEle' name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Hi币商城</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/flow-mall.css">
+    <script src="../js/color.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            colorNum = 2;
+        };
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="hibi clearfix">
+        <span>Hi币数量</span>
+        <span id="hibi">0</span>
+        <span class="bet"></span>
+        <div class="hibi-btn clearfix">
+            <a href="javascript:checkLoginThenSkip('flow-detail.html');" class="btn-1"><span></span><strong>Hi币明细</strong></a>
+            <a href="javascript:checkLoginThenSkip('http://./#act=hiRule');" class="btn-2"><span></span><strong>Hi币攻略</strong></a>
+        </div>
+
+    </div>
+    <div class="btn">
+        <a href="http://hyrus.vip.natapp.cn/wap/tmpl/integral.html" class="btn">Hi币兑换</a>
+    </div>
+
+    <!--<div class="u-like">-->
+
+        <!--<a href="#">-->
+            <!--<div class="article">-->
+                <!--<h3 class="title">-->
+                <!--</h3>-->
+                <!--<div class="hide"></div>-->
+                <!--<img id="img" src="" alt="">-->
+
+            <!--</div>-->
+        <!--</a>-->
+    <!--</div>-->
+</div>
+<script src="../js/common.js"></script>
+<script>
+    var key = getCookie('key')
+    $.ajax({
+        type: 'post',
+        url: Domain1 + 'andlife/base?action=getPointFlow',
+        data: {
+            key:key,
+            version:'2.0'
+        },
+        dataType: 'json',
+        success: function (data) {
+            $('#hibi').html(data.message.point);
+        },
+        error: function () {
+        }
+    })
+    var cell = ' <a href="#">' +
+            '<div class="article">' +
+            '<h3 class="title">' +
+            '</h3>' +
+            '<div class="hide">' + '</div>' +
+            '<img id="img" src="" alt="">' +
+            '</div>' +
+            '</a>'
+    var $_ulike = $('.u-like')
+
+        $.ajax({
+        type: 'post',
+        url: Domain2+'article/queryArticleListByTopTypeAndPage',
+        data: {
+            topType: '2',
+        },
+        dataType: 'json',
+        success: function (data) {
+
+
+            var rows = data.rows;
+            // 用 "A" 替换 "The
+            $(rows).each(function (i, n) {
+                var $_cell = $(cell);
+                $('.title', $_cell).html(n.pgoods_name);
+                $('#img', $_cell).attr('src', n.pgoods_image);
+//                    $('.ari')
+//                var showTime = n.showTime.replace(re, ".");
+//                $('.time', $_cell).html(showTime);
+                $_cell.data('id', n.pgoods_id);
+                $_ulike.append($_cell);
+                // window.localStorage.id= n.id;
+            });
+
+        },
+        error: function () {
+        }
+    })
+
+    function checkLoginThenSkip(url) {
+        var key = getCookie("key");
+        if (!key) {
+            window.location.href = "locahost/index.html#act=login##checkLoginThenSkip('" + url + "')";
+            return false;
+        } else {
+            window.location.href = url;
+            return true;
+        }
+    }
+
+    function afterLogin(e, url) {
+        var key = getCookie("key");
+        if (url.indexOf('##') != -1) {
+            var index = url.indexOf('##') + 2;
+        } else {
+            var index = url.indexOf('%23%23') + 6;
+        }
+        if (url != null && url != '') {
+            eval(url.substr(index));
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+.weather {
+    position: relative;
+    width: 100%;
+    height: 11.62rem;
+    color: white;
+    /*background: url("../images/blue.png") no-repeat;*/
+    background-color: #3a98d8;
+    /*background-size: 100% 100%;*/
+}
+
+.weather h2{
+    margin-top: 2rem;
+}
+.wea-con {
+    width: 83.75%;
+    padding-top: 1.83rem;
+    margin: 0 auto; 
+}
+
+
+.place {
+    font-size: 1.25rem;
+}
+.wea-con p {
+    height: 0.92rem;
+    margin: 0.33rem 0;
+    background: url("../images/12.png") no-repeat;
+    background-size: 0.83rem;
+}
+.poll {
+    font-size: 1rem;
+    line-height: 2.33rem;
+}
+.poll strong {
+    margin-left: 0.58rem;
+}
+.wea-icon {
+    position: absolute;
+    top: 1rem;
+    right: 2.17rem;
+    width: 21%;
+    height: 9.79rem;
+    /*background: url("../images/we.png") no-repeat;*/
+    /*background-size: 100%;*/
+}
+#weather{
+    display: block;
+    width:100%;
+}
+#temp{
+    /*display: block;*/
+    font-size: 1.6rem;
+    font-family: "΢ܛ�ź�";
+    text-align: center;
+    margin-top: 0.5rem;
+}
+/*.wea-icon div {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 1.67rem;
+    text-align: center;
+    line-height: 4.9rem;
+}*/
+.travel, .life, .handle {
+    width: 92.18%;
+    margin: 0 auto;  
+}
+.travel, .life {
+    -webkit-box-shadow: inset 0px -2px 0px #f2f2f2;
+    box-shadow: inset 0px -2px 0px #f2f2f2;
+}
+.travel span, .life span, .handle span {
+    display: block;
+    text-align: center;
+    height: 2.92rem;
+    color: #686868;
+    font-size: 0.92rem;
+    line-height: 2.5rem;
+}
+.travel h2, .life h2, .handle h2 {
+    padding-top: 1rem;
+    height: 2.33rem;
+    color: #616161;
+    font-size: 1.25rem;
+    font-weight: normal;
+    text-indent: 1.13rem;
+}
+a {
+    display: inline-block;  
+    width: 19.82%;
+    padding: 0 0.88rem 0 0.38rem;
+}
+a div {
+    width: 100%;
+    height: 4.83rem;
+    border-radius: 2.08rem;
+    -webkit-box-shadow: 0px 10px 20px 0px  rgba(61, 178, 223, 0.1);
+    box-shadow: 0px 10px 20px 0px  rgba(61, 178, 223, 0.1);
+}
+/*出行*/
+.bus div {
+    background: url("../images/b-1.png") center 1.5rem no-repeat;
+    background-size: 1.75rem;
+}
+.subway div {
+    background: url("../images/b-1.png") center no-repeat;
+    background-size: 1.75rem;
+}
+.illegal div {
+    background: url("../images/b-1.png") center -9rem no-repeat;
+    background-size: 1.75rem;
+}
+/*生活*/
+.life .hot {
+    padding-right: 0;
+}
+.food div {
+    background: url("../images/b-2.png") center 1.3rem no-repeat;
+    background-size: 2.42rem;
+}
+.social div {
+    background: url("../images/b-2.png") center -4.7rem no-repeat;
+    background-size: 2.42rem;
+}
+.school div {
+    background: url("../images/b-2.png") center -11.7rem no-repeat;
+    background-size: 2.42rem;
+}
+.hot div {
+    background: url("../images/b-2.png") center -18rem no-repeat;
+    background-size: 2.42rem;
+}
+.courier div {
+    background: url("../images/b-3.png") center 1.2rem no-repeat;
+    background-size: 1.71rem;
+}
+.cost div {
+    background: url("../images/b-3.png") center -5.5rem no-repeat;
+    background-size: 1.71rem;
+}
+.order div {
+    background: url("../images/b-3.png") center -11.2rem no-repeat;
+    background-size: 1.71rem;
+}
+/*办理*/
+.soc-sec div {
+    background: url("../images/b-4.png") center 1.4rem no-repeat;
+    background-size: 2.29rem;
+}
+.certificate div {
+    background: url("../images/b-4.png") center -4.6rem no-repeat;
+    background-size: 2.29rem;
+}
+.charge div {
+    background: url("../images/b-4.png") center -11.2rem no-repeat;
+    background-size: 2.29rem;
+}

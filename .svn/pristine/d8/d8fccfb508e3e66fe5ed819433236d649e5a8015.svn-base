@@ -1,0 +1,221 @@
+*{
+	text-decoration:none;
+	padding:0px;
+	margin:0px;
+	}
+.current_title {
+	margin-top:0.24rem;
+	margin-bottom:0.24rem;
+	}	
+.clearfix{
+	clear:both;
+	}
+.oa-contact-cell.mui-table .mui-table-cell {
+	padding: 11px 0;
+	vertical-align: middle;
+	}	
+.oa-contact-cell {
+	position: relative;
+	margin: -11px 0;
+	}
+.oa-contact-avatar {
+	width: 75px;
+	}
+.oa-contact-avatar img {
+	border-radius: 50%;
+	}
+.oa-contact-content {
+	width: 100%;
+	}
+.oa-contact-name {
+	margin-right: 20px;
+	}
+.oa-contact-name, oa-contact-position {
+	float: left;
+	}
+.mui-grid-view.mui-grid-9 .mui-media {
+	color: #797979;
+	border-bottom: 1px solid #eee;
+	}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+	margin: 0;
+	padding: 0.12rem;
+	vertical-align: top;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	}
+.mui-icon img{
+	max-width:0.85rem;
+	}
+.footer .mui-icon img{
+	max-width:0.48rem;
+	}
+.swiper-slide {
+	-webkit-flex-shrink: 0;
+	-ms-flex: 0 0 auto;
+	flex-shrink: 0;
+	width: 100%;
+	max-width:6.4rem;
+	height: auto;
+	position: relative;
+    height:2.6rem;
+	}
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+	bottom: 30px;
+	left: 0;
+	width: 100%;
+	}
+.mui-bar-nav.mui-bar .mui-icon {
+	width:0.72rem;
+	height: auto;
+	padding-top:0.24rem;
+	/* padding-right: 2rem; */
+	margin-right: 0.12rem;
+	}
+.navico {
+	 padding-left:0.3rem;
+  	 margin-top: 0.18rem;
+	 padding-top:0.24rem;
+	}
+.navico .time{
+	float:left;
+	background-image:url(../images/phoone.png);
+	background-repeat:no-repeat;
+	background-position:0.42rem center;
+ 	padding-left:0.78rem;
+	font-size: 0.18rem;
+	background-size:0.36rem 0.36rem;
+	}
+.navico .people{
+	float:left;
+	font-size:0.38rem;
+	padding-left:0.78rem;
+	}
+.titlt_bottom{
+	margin-top:0rem;
+	height:1rem;
+    background-color: #f5fafa;
+	}
+.swiper-wrapper {
+	width:6.4rem;
+	height:auto;
+	}
+.current{
+	font-size:0.24rem;
+	line-height:0.48rem;
+	padding:0.48rem 0.6rem;
+	}
+.mui-bar-tab .mui-tab-item {
+	display: table-cell;
+	overflow: hidden;
+	width: 1%;
+	height: 50px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #ffffff;
+	}
+.foodlistimg{
+  	width: 1.75rem;
+    float: left;
+    height:0.86rem;
+	}
+.foodlistimg img{
+	width:100%;
+	height:100%;
+	}
+.foodtitle{
+	float:left;
+	width:67.5%;
+	font-size:0.28rem;
+	 margin-left: 0.15rem;
+	}
+.foodtitle h1{
+	 font-size:0.24rem;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     font-weight: 500;
+}
+.starimg{
+	float: left;
+    width: 67.5%;
+    font-size: 0.22rem;
+    margin-left: 0.15rem;
+    margin-top: 0.06rem;
+    line-height:0.29rem;
+    height:0.72rem;
+	}
+.starimg p{
+ 	font-size: 0.22rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: #777777;
+    line-height:0.31rem;
+}
+.Positioning{
+    width: 67.5%;
+    float: left;
+    background-image: url(../images/calendar.png);
+    background-position: 0.12rem center;
+    background-repeat: no-repeat;
+    padding-left:0.48rem;
+    background-size:0.24rem;
+    /*position: absolute;
+    left:33%;
+    bottom: 10%;*/
+	}
+.Positioning p{
+	 font-size: 0.22rem;
+	 color:#999999;
+	 margin-top: 0.05rem;
+	}
+.foodlist{
+	 padding-top: 0.12rem;
+	}	
+.list01 {
+    border-bottom: 1px solid #dfebeb;
+    padding: 0.2rem 0.24rem;
+    background-color: white;
+    height:1.32rem;
+    position: relative;
+	}
+.labelpages{
+	width:100%;
+	height:0.68rem;
+	}
+.labelpages a{
+	width:33.333333%;
+	font-size:0.29rem;
+	float:left;
+	text-align: center;
+	 width: 33.333333%;
+	font-size: 0.29rem;
+	float: left;
+	text-align: center;
+	padding: 0.17rem;
+	color:#282828;
+	}
+.labeltitle{
+	width: 33.333333%;
+    font-size:0.29rem;
+    float: left;
+    text-align: center;
+    width: 33.333333%;
+    font-size: 0.22rem;
+    float: left;
+    text-align: center;
+    padding:0.24rem;
+    color: #282828;
+   /* border-bottom: 1px solid #dfebeb;*/
+	}
+.titleControlColor{
+	color: #fff !important;
+	background-color: #4a4646;
+}
+		

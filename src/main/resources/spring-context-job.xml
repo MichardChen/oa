@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd"
+	default-lazy-init="true">
+
+	<description>批处理定义</description>
+		
+	<beans>
+ 		<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+            <property name="triggers">
+                <list>
+                    <!-- 把要启动的Task的beanID放入此列表中。
+                    <ref local="weixinTask"/>
+                    <ref local="refreshWxUserStatusTask"/>  -->
+                    <!-- <ref local="scrapyNewsTask"/> -->
+                    <ref local="deleteNewsTask"/>
+                </list>
+            </property>
+            <property name="quartzProperties">
+				<map> <!-- 指定启动几个线程 -->
+				   <entry key="org.quartz.threadPool.threadCount" value="1"/>
+				</map>
+            </property>
+        </bean>
+        
+        <!-- 发送微信消息(每30秒执行一次) -->
+        <bean id="messageTask" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">  
+			<property name="jobDetail" ref="messageTaskDetail" />  
+			<property name="startDelay" value="0" />
+			<property name="repeatInterval" value="300000" />
+		</bean>
+        <bean id="messageTaskDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="sendMessageService"/>
+            <property name="targetMethod" value="sendWxMessage"/>
+            <property name="concurrent" value="false"/>
+        </bean>
+        
+        <!-- 刷新微信企业号账号的状态(每2分钟执行一次) -->
+        <bean id="refreshWxUserStatusTask" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">  
+			<property name="jobDetail" ref="refreshWxUserStatusDetail" />  
+			<property name="startDelay" value="0" />  
+			<property name="repeatInterval" value="3600000" />  
+		</bean>
+        <bean id="refreshWxUserStatusDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="refreshWxqyService"/>
+            <property name="targetMethod" value="refreshWxUserStatus"/>
+            <property name="concurrent" value="false"/>
+        </bean>
+        
+        <!-- 微信服务器的Token(每1小时执行一次) -->
+        <bean id="weixinTask" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">  
+			<property name="jobDetail" ref="weixinTaskDetail" />  
+			<property name="startDelay" value="0" />  
+			<property name="repeatInterval" value="7000000" />  
+		</bean>
+        <bean id="weixinTaskDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="refreshAccessTokenService"/>
+            <property name="targetMethod" value="refreshAccessToken"/>
+            <property name="concurrent" value="false"/>
+        </bean>
+        
+        <!--抓取腾讯大湘网新闻(每24小时执行一次) -->
+        <bean id="scrapyNewsTask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+			<property name="jobDetail" ref="scrapyNewsTaskDetail" />  
+			<property name="startDelay" value="5000" />  
+			<property name="repeatInterval" value="86000000" /> 
+		</bean>
+        <bean id="scrapyNewsTaskDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="scrapyNewsFromHNQQService"/>
+            <property name="targetMethod" value="scrapyNewsFromQQ"/>
+            <property name="concurrent" value="false"/>
+        </bean>
+        
+        <!-- 定时删除大湘网新闻 -->
+       <bean id="deleteNewsTask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+			<property name="jobDetail" ref="deleteNewsTaskDetail" />  
+			<property name="cronExpression" value="0 0 23 * * ?"/>
+		</bean>
+        <bean id="deleteNewsTaskDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="scrapyNewsFromHNQQService"/>
+            <property name="targetMethod" value="deleteQQNews"/>
+            <property name="concurrent" value="false"/>
+        </bean>
+	</beans>
+</beans>

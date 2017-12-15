@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysRptInfoDao">
+	
+   <!-- 获取报表类型数据  -->
+    <select id="getCcRptInfoList" resultType="com.thinkgem.jeesite.modules.sys.model.SysRptInfoModel">
+    	SELECT id AS "id"
+    		  ,rpt_name AS "rptName"
+    		  ,rpt_eng_name AS "rptEngName"	 
+    	  FROM sys_rpt_info
+    	 WHERE display_target = '1'
+   </select>
+   
+   <!-- 查询报表名称-->
+	 <select id="findList" resultType="com.thinkgem.jeesite.modules.sys.model.SysRptInfoModel">
+		SELECT a.id AS "id",
+    		  a.rpt_name AS "rptName",
+    		  a.rpt_eng_name AS "rptEngName",	
+    		  a.display_target AS "displayTarget",
+    		  a.major_code AS "majorCode",
+    		  a.report_fullpath AS "reportFullPath",
+    		  a.report_filename AS "reportFileName",
+    		  a.remarks AS "remarks",
+    		  a.id AS "idFmDB",
+			  "1" AS "insertFlag",
+			  "0" AS "modifyFlag"
+    	  FROM sys_rpt_info a
+    	  where 1=1
+    	  <if test="rptName != null and rptName != ''">
+			  AND a.rpt_name like CONCAT('%', #{rptName}, '%')
+		  </if>
+		</select>
+		
+		<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO sys_rpt_info (
+			id,
+		    rpt_name,
+			rpt_eng_name,
+			display_target,
+			major_code,
+			report_fullpath,
+			report_filename,
+			remarks
+		)VALUES(
+			#{id},
+			#{rptName},
+			#{rptEngName},
+			#{displayTarget},
+			#{majorCode},
+			#{reportFullPath},
+			#{reportFileName},
+			#{remarks}
+			)
+		</insert>
+	 <!-- 删除报表信息-->	
+	<delete id="delete">
+		DELETE FROM sys_rpt_info 
+		WHERE id=#{id}
+	</delete>
+	<!-- 更新报表信息-->
+	<update id="update">
+		UPDATE sys_rpt_info SET
+			  rpt_name = #{rptName},
+    		  rpt_eng_name = #{rptEngName},
+    		  display_target = #{displayTarget},
+    		  major_code = #{majorCode}, 
+    		  report_fullpath = #{reportFullPath}, 
+    		  report_filename = #{reportFileName}, 
+    		  remarks = #{remarks}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 更新文件名-->
+	<update id="updateRptFileName">
+		UPDATE sys_rpt_info SET
+			  report_fullpath = #{reportFullPath}, 
+    		  report_filename = #{reportFileName}
+		WHERE id=#{id}
+	</update>
+	<!-- 根据自增长ID获取该条数据 -->
+	<select id="findByAutoIncId" resultType="String">
+		SELECT id 
+		  FROM sys_rpt_info a
+		 WHERE a.autoIncId = #{autoIncId}
+	</select>
+	
+</mapper>

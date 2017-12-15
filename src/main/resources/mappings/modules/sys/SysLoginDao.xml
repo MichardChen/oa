@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysLoginDao">
+	<select id="getTokenKey" resultType="String">
+		SELECT
+			token
+		FROM sys_login
+		WHERE (user_id=#{userId} and token_date >=DATE_SUB(NOW(),INTERVAL 30 MINUTE))
+			or (code= #{code} and IFNULL(#{code},'')!='' and login_date >=DATE_SUB(NOW(),INTERVAL 5 MINUTE)) limit 1
+	</select>
+	<select id="getUserIdByToken" resultType="String">
+		SELECT
+			user_id
+		FROM sys_login
+		WHERE token=#{token}
+	</select>
+	<select id="CheckTokenKey" resultType="String">
+		SELECT 
+			token
+		FROM sys_login
+		WHERE (ifnull(#{token},'')!='' and token=#{token} and login_date >=DATE_SUB(NOW(),INTERVAL 30 MINUTE))
+	</select>
+	<insert id="insert">
+		INSERT INTO sys_login(
+			id,
+			user_id,
+			member_id,
+			login_ip,
+			code,
+			login_date
+		) VALUES (
+			#{id},
+			#{userId}, 
+			#{memberId}, 
+			#{loginIp}, 
+			#{code}, 
+			#{loginDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_login SET 
+			user_id = IFNULL(#{userId},user_id),			
+			member_id = IFNULL(#{memberId},member_id), 
+			login_ip = #{loginIp}, 
+			code = IFNULL(#{code},code), 
+			login_date = IFNULL(#{loginDate},login_date),
+			token = IFNULL(#{token},token),
+			token_date= IFNULL(#{tokenDate},token_date)
+		WHERE user_id = IFNULL(#{userId},0) or code=#{code}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_login
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

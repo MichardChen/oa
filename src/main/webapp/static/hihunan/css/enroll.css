@@ -1,0 +1,108 @@
+.wrap {
+    height: 16.41rem;
+    background-color: #fafdfe;
+}
+.regist {
+    position: relative;
+    height: 5.67rem;
+    background: rgb(252, 70, 104);
+}
+.regist-con {
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 83.74%;
+    padding: 0 4.22%;
+    background-color: white;
+}
+form {
+    height: 3.58rem;
+    padding-top: 1.42rem;
+    font-size: 1.33rem;
+    color: #a6a6a6;
+}
+form input {
+    width: 53%;
+    font-size: 1.33rem;
+    border: 0;
+    line-height: 1.75rem;
+}
+::-webkit-input-placeholder {
+    color: #dcdcdc;
+}
+.get-tel {
+    position: relative;  
+}
+.get-tel span {
+    position: absolute;
+    display: block;
+    right: 0rem;
+    top: 1.15rem;
+    width: 6rem;
+    height: 2rem;
+    color: #ff306e;
+    box-shadow: inset 0px 0px 0rem 0.13rem #ff4685;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 2rem;
+    border-radius: 1.25rem;
+}
+.order-code {
+    position: absolute;
+    width: 91.5%;
+    top: 11.41rem;
+    padding: 1.55rem 0 0 8.5%;
+    height: 3.45rem;
+    background-color: #f8f8f8;
+    box-shadow: 0px 15px 40px 0px rgba(61, 178, 223, 0.1);
+}
+.order-code input {
+    background-color: #f8f8f8;
+}
+.regist-con strong, .order-code strong{
+    display: inline-block;
+    width: 4.4rem;
+    text-align: right;
+    font-size: 1.33rem;
+}
+.regist-b {
+    display: block;
+    width: 71.7%;
+    height: 3.33rem;
+    color: #ff4367;
+    margin: 3.33rem auto 0;
+    text-align: center;
+    line-height: 3.33rem;
+    border-radius: 1.8rem;
+    font-size: 1.33rem;
+    border: 0.13rem solid #ff457c;
+    box-shadow: 0px 0px 30px 0px rgba(255,69,124,0.1);
+}
+.show-int {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 8.34rem;
+    height: 3.34rem;
+    line-height: 3.34rem;
+    color: white;
+    background: black;
+    z-index: 10000;
+    text-align: center;
+    border-radius: 2rem;
+    font-size: 1rem;
+}
+.t-login {
+    display: block;
+    margin-top: 2rem;
+    font-size: 0.92rem;
+    color: red;
+    text-align: center;
+    text-decoration: underline;
+}

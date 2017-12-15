@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysWfAssignDao">
+	
+	<!-- 根据流程定义id和流程节点id获取候选人和候选角色 -->
+	<select id="getCandidateUserAndGroup" resultType="SysWfAssign">
+	SELECT a.id AS id,
+       a.taskDefKey AS taskDefKey,
+       a.roleIds AS roleIds,
+       a.officeIds AS officeIds,
+       a.userIds AS userIds,
+       a.create_by as "createBy.id",
+       a.create_date as createDate,
+       a.update_by AS "updateBy.id",
+	   a.update_date as updateDate
+     FROM sys_wf_assign a 
+    WHERE a.process_def_id = #{processDefId} 
+      AND a.taskDefKey = #{taskDefKey}
+	</select>
+	
+	<!-- 获取Model的列表 -->
+	<select id="findModels" resultType="com.thinkgem.jeesite.modules.sys.model.SysWfAssignModel">
+	SELECT a.id AS id,
+	       a.process_def_id as processDefId,
+           a.taskDefKey AS taskDefKey,
+           a.roleIds AS roleIds,
+           a.officeIds AS officeIds,
+           a.userIds AS userIds,
+           a.remarks as remarks
+      FROM sys_wf_assign  a
+     where a.process_def_id = #{procDefId}
+     ORDER BY a.sort
+	</select>
+	
+	<!-- 获取Model的列表 -->
+	<select id="findProcModels" resultType="com.thinkgem.jeesite.modules.sys.model.SysWfAssignModel">
+	SELECT     b.ID_ as id,
+	           b.NAME_ as  processDefName,
+	           b.KEY_  as  processDefKey,
+	           b.VERSION_ as processDefVer
+	      FROM act_re_procdef b
+	     WHERE b.VERSION_ = 
+	           ( select max(a.VERSION_)
+	               from act_re_procdef a
+	              where a.KEY_ = b.KEY_
+	           )
+	</select>
+	
+	<!-- 获取某环节(如 planXXX)的上一环节的一条数据(start) -->
+	<select id="findPrevTaskInfo" resultType="com.thinkgem.jeesite.modules.sys.model.SysWfAssignModel">
+		SELECT a.id AS id,
+		       a.process_def_id as processDefId,
+	           a.taskDefKey AS taskDefKey,
+	           a.roleIds AS roleIds,
+	           a.officeIds AS officeIds,
+	           a.userIds AS userIds,
+	           a.remarks as remarks
+	      FROM sys_wf_assign  a
+	     where a.process_def_id = #{procDefId}
+	       and a.sort
+	       <![CDATA[
+	        < (select b.sort
+	                       from sys_wf_assign b
+	                      where b.process_def_id = a.process_def_id
+	                        and b.taskDefKey     = #{taskDefKey}) 
+	       ]]>
+	     ORDER BY a.sort DESC
+	     limit 0,1
+	</select>
+	<!-- 获取某一节点下个环节的一条数据 -->
+	<select id="findNextTaskInfo" resultType="com.thinkgem.jeesite.modules.sys.model.SysWfAssignModel">
+		SELECT a.id AS id,
+		       a.process_def_id as processDefId,
+	           a.taskDefKey AS taskDefKey,
+	           a.roleIds AS roleIds,
+	           a.officeIds AS officeIds,
+	           a.userIds AS userIds,
+	           a.remarks as remarks
+	      FROM sys_wf_assign  a
+	     where a.process_def_id = #{procDefId}
+	       and a.sort
+	       <![CDATA[
+	        > (select b.sort
+	                       from sys_wf_assign b
+	                      where b.process_def_id = a.process_def_id
+	                        and b.taskDefKey     = #{taskDefKey}) 
+	       ]]>
+	     ORDER BY a.sort
+	     limit 0,1
+	</select>
+</mapper>

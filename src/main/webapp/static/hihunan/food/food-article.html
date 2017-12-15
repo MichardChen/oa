@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>美食详情</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/food-article.css">
+    <script type="text/javascript">
+        window.onload=function(){
+            colorNum = 3;
+        };
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="title">
+        <h2 id='title'></h2>
+        <span></span>
+    </div>
+    <div class="detail">
+        <div class="essay">
+            <!--<img src="" alt="" style="width: 100%">-->
+        </div>
+    </div>
+<!--     <div class="address"> -->
+<!--         <h2 style="width: 87.5%;"></h2> -->
+<!--         <span class="phone">联系电话：<span></span></span> -->
+<!-- <!--         <span class="time">营业时间：<span class="start" >09：00</span> - <span class="end">23：00</span></span> -->
+<!--     </div> -->
+    <!--<div class="operate clearfix">-->
+        <!--<span class="collect">收藏</span>-->
+        <!--<span class="like"></span>-->
+        <!--<span class="share">分享</span>-->
+        <!--<span class="share-1"></span>-->
+    <!--</div>-->
+</div>
+</body>
+<script type="text/javascript">
+	
+	var id = UrlParam("id");
+    $.ajax({
+        type:'post',
+        url: '/hihunan/webservice/rest/restaunantRest/findFoodInformationDetail',
+        data:{
+            "id":id
+        },
+        dataType:'json',
+        success:function(data){
+       		var n = data.userdata;
+       		if(data.userdata != undefined){
+       			$('.title>h2').html(n.title)
+      	        $('.title>span').html(n.publishDate)
+      	        $('.essay').html(escape2Html(n.content));
+       		}
+        }
+    });
+</script>
+</html>

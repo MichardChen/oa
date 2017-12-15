@@ -1,0 +1,96 @@
+.flow-hi{
+    background: url("../images/flow-back1.0.png") no-repeat;
+    width:100%;
+    height:17.5rem;
+    color: #FFFFFF;
+}
+.flow-hi:first-child{
+    padding-top: 3rem;
+    font-size: 1rem;
+    font-family: pingh;
+}
+span{
+    display: block;
+    text-align: center;
+}
+#hibi{
+    font-size: 5rem;
+    font-family: numb;
+    display: inline;
+}
+input  {
+    font-size: 1rem;
+    width:54%;
+    border:none;
+    height: 2.5rem;
+
+    text-align: center;
+}
+.form{
+    width:90%;
+    position: absolute;
+    top: 13rem;
+    left: 5%;
+    background-color: #ffffff;
+    height:12rem;
+    border-radius: 10px;
+    padding-left:4.375%;
+    font-size:1.33rem;
+    line-height: 6.3rem;
+    -webkit-box-shadow:0px 0px 40px 15px rgba(255, 68, 121, 0.1) ;
+    box-shadow: 0px 0px 40px 15px rgba(255, 68, 121, 0.1);
+}
+.btn a{
+    display: block;
+    width: 56.25%;
+    height: 3.33rem;
+    margin: 9rem auto 3rem;
+    color: #ff4479;
+    text-align: center;
+    line-height: 3.33rem;
+    background: url("../images/flow-btn.png") no-repeat;
+    background-size: 100% 100%;
+    border-radius: 1.5rem;
+    font-size: 1.33rem;
+    -webkit-box-shadow:0px 10px 40px 15px rgba(255, 68, 121, 0.1) ;
+    box-shadow: 0px 10px 40px 15px rgba(255, 68, 121, 0.1);
+}
+.btn2 a{
+    display: block;
+    width: 56.25%;
+    height: 3.33rem;
+    margin: 0rem auto 3rem;
+    color: #ff4479;
+    text-align: center;
+    line-height: 3.33rem;
+    background: url("../images/flow-btn.png") no-repeat;
+    background-size: 100% 100%;
+    border-radius: 1.5rem;
+    font-size: 1.33rem;
+    -webkit-box-shadow:0px 10px 40px 15px rgba(255, 68, 121, 0.1) ;
+    box-shadow: 0px 10px 40px 15px rgba(255, 68, 121, 0.1);
+}
+.share{
+    color: #a6a6a6;
+    font-size: 1rem;
+}
+.wechart{
+    margin:0 auto;
+    display: inline-block;
+    background: url("../images/flow-2.png") no-repeat ;
+    background-size: 100%;
+    width:18%;
+    height:3rem;
+}
+.img{
+    padding-left: 37.5%;
+    margin-top: 1rem;
+}
+.weiblog{
+    margin:0 auto;
+    display: inline-block;
+    background: url("../images/flow-2-02.png") no-repeat ;
+    background-size: 100%;
+    width:18%;
+    height:3rem;
+}

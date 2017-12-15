@@ -1,0 +1,164 @@
+.sea-city {
+    width: 100%;
+    padding-top: 1.92rem;
+    height: 5rem;
+    background: rgb(252, 70, 104);
+}
+.sea-city form {
+    position: relative;
+    width: 77.78%;
+    height: 2.22rem;
+    padding: 0.7rem 0 0 5.5%;
+    margin: 0 auto;
+    color: #cdcccc;
+    background: white;
+    border-radius: 1.33rem;  
+}
+.sea-city input {
+    width: 70%;
+    border: 0;
+    font-size: 1rem;
+}
+form span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 3.17rem;
+    height: 2.92rem;
+    background: url("../images/search.png") center no-repeat;
+    background-size: 1.17rem;
+}
+.hosp-con a {
+    display: block;
+    width: 100%;
+    height: 7.25rem;
+    -webkit-box-shadow: 0px 40px 40px rgba(144,144,144,0.05);
+    box-shadow: 0px 40px 40px rgba(144,144,144,0.05);
+}
+.hosp-con a div {
+    width: 82.81%;
+    margin: 0 auto;
+    height: 5.75rem;
+    padding-top: 1.5rem;
+    background: url("../images/r-turn.png") right center no-repeat;
+    background-size: 0.58rem;
+}
+.hosp-con a div span {
+    display: block;
+    line-height: 2.42rem;
+    color: #545454;
+    font-size: 1.33rem;
+}
+.hosp-con a div strong {
+    display: block;
+    width: 5.17rem;
+    height: 1.3rem;
+    color: white;
+    line-height: 1.4rem;
+    text-align: center;
+    background-color: #5dd1a4;
+    font-size: 1rem;
+    border-radius: 0.67rem;
+}
+/*选择题目*/
+.cho-tit {
+    position: relative;
+    width: 100%;
+    height: 4.83rem;
+    background: rgb(252, 70, 104);
+}
+.cho-tit div {
+    position: absolute;
+    top: 1.67rem;
+    color: white;
+    line-height: 1.58rem;
+}
+.cho-tit div:nth-child(1) {
+    left: 30%;
+}
+.cho-tit div:nth-child(2) {
+    right: 30%;
+}
+.cho-tit .cho-tit-c {
+    box-shadow: inset 0px -2px white;
+}
+.cho-con>div{
+    display: none;
+}
+.cho-con div:nth-child(1) {
+    display: block;
+}
+/*详细内容*/
+.regist {
+    position: relative;
+    height: 5.67rem;
+    background: url("../images/pink.png") no-repeat;
+    background-size: 100% 100%;
+}
+.regist-con {
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 82.87%;
+    padding: 0 4.58%;
+    background-color: white;
+    box-shadow: 0px 0px 30px 10px rgba(255,67,103,0.1);
+}
+.regist-con h2 {
+    height: 4.17rem;
+    color: #616161;
+    line-height: 4.17rem;
+    font-size: 1.33rem;
+    background: url("../images/ren-1.png") right center no-repeat;
+    background-size: 1.13rem; 
+}
+.regist-con ul {
+    position: relative;
+    padding-top: 0.84rem;
+    height: 13.66rem;
+    box-shadow: inset 0px 1px 0px #dcdcdc;
+    line-height: 2.5rem;
+    font-size: 1.17rem;
+}
+.regist-con ul li {
+    height: 2.92rem;
+    line-height: 2.92rem;
+}
+.regist-con ul strong {
+    display: inline-block;
+    width: 22.8%;
+    height: 3.63rem;
+    color: #cdcccc;
+    text-align: right;   
+}
+.regist-con ul span {
+    margin-left: 0.33rem;
+    color: #616161;
+}
+.remove-re {
+    position: absolute;
+    right: 0;
+    bottom: 1rem;
+    color: #FF446F;
+    font-size: 1rem;
+    text-align: center;
+}
+input[type="search"] {
+    -webkit-appearance:none;
+}
+input::-webkit-search-cancel-button {
+    display: none;
+}
+.sea-city p {
+    display: none;
+    top: 0;
+    right: 3.33rem;
+    position: absolute;
+    width: 3.17rem;
+    height: 2.92rem;
+    background: url('../images/cha.png') center no-repeat;
+    background-size: 1.3rem;
+}

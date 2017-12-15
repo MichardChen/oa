@@ -1,0 +1,87 @@
+.wrap {
+    height: 16rem;
+    background-color: #fafdfe;
+}
+.courier {
+    position: relative;
+    height: 5.67rem;
+    background: #39aadd;
+}
+.courier-con {
+    position: absolute;
+    top: 3.13rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 83.74%;
+    padding: 0 4.22%;
+    background-color: white;
+    box-shadow: 0px 0px 40px #39aadd;
+}
+form, section{
+    height: 3.58rem;
+    padding-top: 1.42rem;
+    font-size: 1.33rem;
+    color: #a6a6a6;
+}
+form input, select {
+    width: 65%;
+    font-size: 1.33rem;
+    border: 0;
+    line-height: 1.75rem;
+}
+select {   
+    color: #dcdcdc;
+    background: url("../images/flow-b.png") right center no-repeat;
+    background-size: 1.42rem;
+}
+select option:first-child() {
+    color: #dcdcdc;
+}
+select option {
+    color: black;
+}
+::-webkit-input-placeholder {
+    color: #dcdcdc;
+}
+.get-tel {
+    position: relative;  
+    box-shadow: inset 0px -1px 0px #dcdcdc;
+}
+.courier-con strong, .order-code strong{
+    display: inline-block;
+    width: 6.4rem;
+    text-align: right;
+    font-size: 1.33rem;
+}
+.sear-line {
+    display: block;
+    width: 71.7%;
+    height: 3.33rem;
+    color: #39aadd;
+    margin: 0rem auto;
+    text-align: center;
+    line-height: 3.33rem;
+    border-radius: 1.8rem;
+    font-size: 1.33rem;
+    border: 0.13rem solid #39aadd;
+    box-shadow: 0px 0px 30px 0px rgba(255,69,124,0.1);
+}
+.show-int {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding: 1rem;
+    width: 10.34rem;
+    height: 3.34rem;
+    color: white;
+    background: black;
+    z-index: 10000;
+    text-align: center;
+    border-radius: 2rem;
+    font-size: 1rem;
+}

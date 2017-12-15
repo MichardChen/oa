@@ -1,0 +1,248 @@
+*{
+		font-family: "Microsoft YaHei";
+		text-decoration:none;
+		padding:0px;
+		margin:0px;
+	}
+   .current_title {
+		margin-top:0.24rem;
+		margin-bottom:0.24rem;
+	}	
+.clearfix{
+		clear:both;
+	}
+.oa-contact-cell.mui-table .mui-table-cell {
+		padding: 11px 0;
+		vertical-align: middle;
+	}
+	
+ .oa-contact-cell {
+		position: relative;
+		margin: -11px 0;
+	}
+	.oa-contact-avatar {
+		width: 75px;
+	}
+	.oa-contact-avatar img {
+		border-radius: 50%;
+	}
+	.oa-contact-content {
+		width: 100%;
+	}
+	.oa-contact-name {
+		margin-right: 20px;
+	}
+	.oa-contact-name, oa-contact-position {
+		float: left;
+	}
+	.mui-grid-view.mui-grid-9 .mui-media {
+		color: #797979;
+		border-bottom: 1px solid #eee;
+	}
+	.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+		margin: 0;
+		padding: 0.12rem;
+		vertical-align: top;
+		border-right: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+	}
+	.mui-icon img{
+		max-width:0.84rem;
+	}
+	.footer .mui-icon img{
+		max-width:0.48rem;
+	}
+	.swiper-slide {
+		-webkit-flex-shrink: 0;
+		-ms-flex: 0 0 auto;
+		flex-shrink: 0;
+		width: 100%;
+		height: auto;
+		position: relative;
+		min-height:3.6rem;
+	}
+
+	.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+		bottom: 30px;
+		left: 0;
+		width: 100%;
+	}
+	.mui-bar-nav.mui-bar .mui-icon {
+		width: 0.72rem;
+		height: auto;
+		padding-top:0.24rem;
+		/* padding-right: 2rem; */
+		margin-right: 0.12rem;
+	}
+.navico {
+	 padding-left:0.24rem;
+  		 /*margin-top: 0.75rem;*/
+	  /*padding-top: 1rem;*/
+		 padding-right:0.24rem;
+	}
+.navico .time{
+		float: right;
+	    background-image: url(../images/collect.png);
+	    background-repeat: no-repeat;
+	    background-position:0.42rem center;
+	    padding-left:0.72rem;
+	    font-size: 0.24rem;
+	    background-size:0.36rem 0.36rem;
+	    padding-top: 0.06rem;
+	    padding-bottom: 0.06rem;
+	    /* margin-right: 2.5rem; */
+	    padding-top:0.24rem;
+	    padding-bottom:0.24rem;
+	    background-size: 0.3rem;
+	}
+	
+	.navico .timed{
+		float: right;
+	    background-image: url(../images/collected.png);
+	    background-repeat: no-repeat;
+	    background-position:0.42rem center;
+	    padding-left:0.72rem;
+	    font-size:0.24rem;
+	    background-size:0.36rem 0.36rem;
+	    padding-top: 0.06rem;
+	    padding-bottom: 0.06rem;
+	    /* margin-right: 2.5rem; */
+	    padding-top:0.24rem;
+	    padding-bottom:0.24rem;
+	    background-size:0.3rem;
+	}
+.navico .people{
+		float: left;
+	    font-size:0.28rem;
+	    padding-top:0.24rem;
+	    padding-bottom:0.24rem;
+	    line-height:0.36rem;
+	}
+.titlt_bottom{
+		margin-top:0rem;
+	}
+.swiper-wrapper {
+  		height:3.6rem;
+		height:auto;
+	}
+.current{
+		font-size:0.24rem;
+		line-height:0.48rem;
+		padding:0.24rem 0.24rem;
+		
+	}
+.mui-bar-tab .mui-tab-item {
+		display: table-cell;
+		overflow: hidden;
+		width: 1%;
+		height: 50px;
+		text-align: center;
+		vertical-align: middle;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		color: #ffffff;
+}
+.foodlistimg{
+		width:30%;
+		float:left;
+		height:1.68rem;
+		margin-right: 0.07rem;
+}
+.foodlistimg img{
+		width:100%;
+		height: 100%;
+}
+.foodtitle{
+		float:left;
+		width:65%;
+		font-size:0.28rem;
+	     margin-left: 0.12rem;
+		 overflow : hidden;
+		 white-space: nowrap;
+}
+.foodtitle h1{
+	    font-size:0.28rem;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+}
+.starimg{
+		float:left;
+		width:65%;
+		 font-size: 0.22rem;
+		 margin-left: 0.12rem;
+		 margin-top: 0.06rem;
+		 line-height:0.36rem;
+		 height:0.72rem;
+}
+.starimg p{
+	   font-size: 0.22rem;
+	   overflow: hidden;
+	   text-overflow: ellipsis;
+	   overflow: hidden;
+	   display: -webkit-box;
+	   -webkit-line-clamp: 2;
+	   -webkit-box-orient: vertical;
+	   color: #777777;
+}
+.Positioning{
+		width: 65%;
+	    float: left;
+	    background-image: url(../images/calendar.png);
+	    background-position: 0 center;
+	    background-repeat: no-repeat;
+	    padding-left:0.48rem;
+	    margin-left: 0.15rem;
+	    background-size:0.26rem;
+	}
+.Positioning p{
+		 font-size: 0.22rem;
+		 color:#999999;
+	}
+.foodlist{
+		 background-color: #f5fafa;
+  		 padding-top: 0.12rem;
+	}	
+.list01 {
+	    border-bottom: 1px solid #dfebeb;
+	    /*padding: 0.12rem 0.6rem;*/
+	    padding: 0.12rem 0.24rem;
+	    background-color: white;
+	    min-height:1.68rem;
+	    position: relative;
+	}
+.contact{
+		border:1px solid #dcdcdc;
+	}
+.location{
+		width: 50%;
+	    float: left;
+	    background-image: url(../images/location.png);
+	    background-repeat: no-repeat;
+	    background-size: 0.3rem;
+	    background-position: 0.24rem 0.36rem;
+	    padding-left: 0.5rem;
+	    padding-top: 0.3rem;
+	    padding-bottom: 0.24rem;
+	    border-right: 1px solid #dcdcdc;
+	    color: #666666;
+	    font-size: 0.18rem;
+	    min-height: 0.9rem;
+	    line-height: 0.36rem;
+	    padding-right: 0.1rem;
+	}
+.mobile{
+		width: 50%;
+	    float: left;
+	    background-image: url(../images/phoone.png);
+	    background-repeat: no-repeat;
+	    background-size:0.3rem;
+	    background-position:0.24rem 0.31rem;
+	    padding-left:0.6rem;
+	    padding-top:0.3rem;
+	    padding-bottom:0.24rem;
+	    color: #666666;
+	    font-size: 0.18rem;
+	    height:0.9rem;
+    	line-height:0.36rem;
+	}

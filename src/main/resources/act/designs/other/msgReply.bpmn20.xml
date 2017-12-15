@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="com.thinkgem.jeesite.act">
+  <process id="msgReply" name="消息反馈" isExecutable="true">
+    <startEvent id="start" name="产生消息" activiti:initiator="{applyUser}"/>
+    <userTask id="reply" name="反馈消息" activiti:assignee="${receiverId}" activiti:formKey="/static/nsmobile/pages/html/msgDetail.html"/>
+    <endEvent id="end" name="结束"/>
+    <sequenceFlow id="sid-C80FF664-EF16-4693-AE17-8C6FFE99C175" sourceRef="start" targetRef="reply"/>
+    <sequenceFlow id="sid-472E7BD6-A22B-4752-9275-CCA32BD1714E" sourceRef="reply" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_msgReply">
+    <bpmndi:BPMNPlane bpmnElement="msgReply" id="BPMNPlane_msgReply">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="30.0" y="89.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="reply" id="BPMNShape_reply">
+        <omgdc:Bounds height="119.0" width="132.0" x="120.0" y="45.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="28.0" width="28.0" x="300.0" y="90.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-472E7BD6-A22B-4752-9275-CCA32BD1714E" id="BPMNEdge_sid-472E7BD6-A22B-4752-9275-CCA32BD1714E">
+        <omgdi:waypoint x="252.0" y="104.5"/>
+        <omgdi:waypoint x="300.0" y="104.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C80FF664-EF16-4693-AE17-8C6FFE99C175" id="BPMNEdge_sid-C80FF664-EF16-4693-AE17-8C6FFE99C175">
+        <omgdi:waypoint x="60.0" y="104.5"/>
+        <omgdi:waypoint x="120.0" y="104.5"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

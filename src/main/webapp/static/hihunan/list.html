@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>旅游</title>
+    <script src="js/zepto.min.js"></script>
+    <script src="js/dropload.min.js"></script>
+    <script src="js/rem.js"></script>
+    <script src="js/common.js"></script>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/title.css"/>
+    <link rel="stylesheet" href="css/travellist.css">
+    <link rel="stylesheet" href="css/mui.css">
+    <link rel="stylesheet" href="css/dropload.css">
+    <script type="text/javascript">
+        window.onload=function(){
+            colorNum = 3;
+        };
+    </script>
+</head>
+<body>
+<div id="srcoll" style="">
+	<div id="wrap" class="wrap" >
+	
+	</div>
+</div>
+<script type="text/javascript">
+		var type = UrlParam("type");
+		
+		var name = UrlParam("name");
+		
+		
+        $(document).ready(function () {
+        	$('title').text(name);
+        	
+        	var counter = 0;
+        	
+            // 每页展示5个
+            var num = 5;
+            
+            var pageStart = 0,pageEnd = 0;
+	        // dropload
+	        $('#srcoll').dropload({
+	            scrollArea : window,
+	            domDown : {
+	                domClass   : 'dropload-down',
+	                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+	                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+	                domNoData  : '<div class="dropload-noData">没有更多</div>'
+	            },
+	            loadDownFn : function(me){
+	                
+	    	        var $_wrap = $("#wrap");
+	    	        
+	                $.ajax({
+	                    type: 'post',
+	                    url: '/hihunan/webservice/rest/listShowRest/findListShow',
+	                    dataType: 'json',
+	                    data:{
+	                    	'type':type
+	                    },
+	                    success: function(data){
+	                        var result = '';
+	                        counter++;
+	                        pageEnd = num * counter;
+	                        pageStart = pageEnd - num;
+	                        var n = data.rows;
+	                        if(n.length > 0){
+		                        var re = /-/g; 
+		                        for(var i = pageStart; i < pageEnd; i++){
+		                        	var ahref = n[i].url;
+		                        	if(ahref == null || ahref == undefined || ahref == ''){
+		                        		ahref = "listDetail.html?id=" + n[i].id;
+		                        	}
+		                        	var tagType = n[i].tagType;//获取标签属性，2置顶，1最新
+		                        	if(tagType == '2'){//置顶
+		                        		result = '<a href="' + ahref + '">' +
+			                                    	'<div class="article">' + 
+			                                        	'<h3 class="title">' + n[i].title + '</h3>' + 
+			                                        	'<span class="time">' + n[i].address + '</span>' + 
+			                                       		'<div class="hide"></div>' + 
+			                                        	'<img id="img" src= ' + n[i].titlePhoto + ' alt="">' + 
+			                                        	'<div><img class="newlabl" src="images/hot.png"></div>' + 
+			                                        '</div>' + 
+			                                     ' </a>';
+		                        	}else if(tagType == '1'){
+		                        		result = '<a href="' + ahref + '">' +
+				                                	'<div class="article">' + 
+				                                    	'<h3 class="title">' + n[i].title + '</h3>' + 
+				                                    	'<span class="time">' + n[i].address + '</span>' + 
+				                                   		'<div class="hide"></div>' + 
+				                                    	'<img id="img" src= ' + n[i].titlePhoto + ' alt="">' + 
+				                                    	'<div><img class="newlabl" src="images/new.png"></div>' + 
+				                                    '</div>' + 
+				                                 ' </a>';
+		                        	}else {
+		                        		result = '<a href="' + ahref + '">' +
+				                                	'<div class="article">' + 
+				                                    	'<h3 class="title">' + n[i].title + '</h3>' + 
+				                                    	'<span class="time">' + n[i].address + '</span>' + 
+				                                   		'<div class="hide"></div>' + 
+				                                    	'<img id="img" src= ' + n[i].titlePhoto + ' alt="">' + 
+				                                    '</div>' + 
+				                                 ' </a>';
+		                        	}
+		                            $_wrap.append(result);
+		                            if((i + 1) >= n.length){
+		                                // 锁定
+		                                me.lock();
+		                                // 无数据
+		                                me.noData();
+		                                break;
+		                            }
+		                        }
+	                        }else{
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                                return;
+	                        }
+	                        me.resetload();   
+	                    },
+	                    error: function(xhr, type){
+	                        me.unlock();
+	                        me.resetload();
+	                    }
+	                });
+	            },
+	            threshold : 50
+	        });
+    })
+	
+</script>
+</body>
+</html>

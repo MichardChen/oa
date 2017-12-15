@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hihunan.dao.news.HiNewsDao">
+    
+	<sql id="hiNewsColumns">
+		a.id AS "id",
+		a.title AS "title",
+		a.title_photo AS "titlePhoto",
+		a.publish_date AS "publishDate",
+		a.brief AS "brief",
+		a.keyword AS "keyword",
+		a.actor AS "actor",
+		a.artical_type AS "articalType",
+		a.content AS "content",
+		a.content_photo AS "contentPhoto",
+		a.video AS "video",
+		a.video_photo AS "videoPhoto",
+		a.url AS "url",
+		a.status AS "status",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate"
+	</sql>
+	
+	<sql id="hiNewsJoins">
+	</sql>
+    
+	<select id="get" resultType="HiNews">
+		SELECT 
+			<include refid="hiNewsColumns"/>
+		FROM hi_news a
+		<include refid="hiNewsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HiNews">
+		SELECT 
+			<include refid="hiNewsColumns"/>
+		FROM hi_news a
+		<include refid="hiNewsJoins"/>
+		<where>
+			
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HiNews">
+		SELECT 
+			<include refid="hiNewsColumns"/>
+		FROM hi_news a
+		<include refid="hiNewsJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO hi_news(
+			id,
+			title,
+			title_photo,
+			publish_date,
+			brief,
+			keyword,
+			actor,
+			artical_type,
+			content,
+			content_photo,
+			video,
+			video_photo,
+			url,
+			status,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{title},
+			#{titlePhoto},
+			#{publishDate},
+			#{brief},
+			#{keyword},
+			#{actor},
+			#{articalType},
+			#{content},
+			#{contentPhoto},
+			#{video},
+			#{videoPhoto},
+			#{url},
+			#{status},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hi_news SET 	
+			title = #{title},
+			title_photo = #{titlePhoto},
+			publish_date = #{publishDate},
+			brief = #{brief},
+			keyword = #{keyword},
+			actor = #{actor},
+			artical_type = #{articalType},
+			content = #{content},
+			content_photo = #{contentPhoto},
+			video = #{video},
+			video_photo = #{videoPhoto},
+			url = #{url},
+			status = #{status},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hi_news
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 获取 新闻、教育 -->
+	<select id="getNews" resultType="com.thinkgem.jeesite.modules.hihunan.model.news.HiNewsModel">
+		SELECT
+			id AS "id",
+			title AS "title",
+			title_photo AS "titlePhoto",
+			date_format(publish_date,'%Y-%m-%d') AS "publishDate",
+			brief AS "brief",
+			keyword AS "keyword",
+			actor AS "actor",
+			artical_type AS "articalType",
+			content AS "content",
+			content_photo AS "contentPhoto",
+			video AS "video",
+			video_photo AS "videoPhoto",
+			url AS "url",
+			status AS "status",
+			create_by AS "createBy.id",
+			create_date AS "createDate",
+			update_by AS "updateBy.id",
+			update_date AS "updateDate"
+		FROM hi_news 
+		<where>
+			<if test="articalType != null and articalType != ''">
+				artical_type = #{articalType}
+			</if>
+		</where>
+	</select>
+</mapper>

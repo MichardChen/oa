@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.hihunan.dao.h5app.HiH5appDao">
+
+	<!-- <insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO hi_h5app(
+			id,
+			h5_type,
+			name,
+			icon,
+			url,
+			is_effect,
+			is_need_login,
+			seq,
+			is_top,
+			start_date,
+			end_date,
+			vertion_no,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		)VALUES(
+			#{id},
+			#{h5Type},
+			#{name},
+			#{icon},
+			#{url},
+			#{isEffect},
+			#{isNeedLogin},
+			#{seq},
+			#{isTop},
+			#{startDate},
+			#{endDate},
+			#{vertionNo},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>-->
+	
+	<sql id="hiH5appColumns">
+		a.id AS "id",
+		a.type1 AS "type1",
+		a.type2 AS "type2",
+		a.type3 AS "type3",
+		a.name AS "name",
+		a.icon AS "icon",
+		a.url AS "url",
+		a.is_effect AS "isEffect",
+		a.is_need_login AS "isNeedLogin",
+		a.seq AS "seq",
+		a.is_top AS "isTop",
+		a.start_date AS "startDate",
+		a.end_date AS "endDate",
+		a.version_no AS "versionNo",
+		a.list_type AS "listType",
+		a.list_max_count AS "listMaxCount",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate"
+	</sql>
+	
+	<sql id="hiH5appJoins">
+	</sql>
+    
+	<select id="get" resultType="HiH5app">
+		SELECT 
+			<include refid="hiH5appColumns"/>
+		FROM hi_h5app a
+		<include refid="hiH5appJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="HiH5app">
+		SELECT 
+			<include refid="hiH5appColumns"/>
+		FROM hi_h5app a
+		<include refid="hiH5appJoins"/>
+		<where>
+			
+			<if test="type1 != null and type1 != ''">
+				AND a.type1 = #{type1}
+			</if>
+			<if test="type2 != null and type2 != ''">
+				AND a.type2 = #{type2}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="HiH5app">
+		SELECT 
+			<include refid="hiH5appColumns"/>
+		FROM hi_h5app a
+		<include refid="hiH5appJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO hi_h5app(
+			id,
+			type1,
+			type2,
+			type3,
+			name,
+			icon,
+			url,
+			is_effect,
+			is_need_login,
+			seq,
+			is_top,
+			start_date,
+			end_date,
+			version_no,
+			list_type,
+			list_max_count,
+			list_icon,
+			create_by,
+			create_date,
+			update_by,
+			update_date
+		) VALUES (
+			#{id},
+			#{type1},
+			#{type2},
+			#{type3},
+			#{name},
+			#{icon},
+			#{url},
+			#{isEffect},
+			#{isNeedLogin},
+			#{seq},
+			#{isTop},
+			#{startDate},
+			#{endDate},
+			#{versionNo},
+			#{listType},
+			#{listMaxCount},
+			#{listIcon},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE hi_h5app SET 	
+			type1 = #{type1},
+			type2 = #{type2},
+			type3 = #{type3},
+			name = #{name},
+			icon = #{icon},
+			url = #{url},
+			is_effect = #{isEffect},
+			is_need_login = #{isNeedLogin},
+			seq = #{seq},
+			is_top = #{isTop},
+			start_date = #{startDate},
+			end_date = #{endDate},
+			version_no = #{versionNo},
+			list_type = #{listType},
+			list_max_count = #{listMaxCount},
+			list_icon = #{listIcon},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM hi_h5app
+		WHERE id = #{id}
+	</update>
+	
+	
+	<select id="findTypeAll" resultType="com.thinkgem.jeesite.modules.hihunan.model.h5app.HiH5appModel">
+		SELECT 
+			hh.id AS "id",
+			hh.icon AS "icon",
+			hh.name AS"name",
+			hh.url AS "url"
+		FROM hi_h5app hh
+		<where>
+			<if test="type1 != null and type1 != ''">
+				hh.type1 = #{type1}
+			</if>
+			<if test="type2 != null and type2!= ''">
+				AND hh.type2 = #{type2}
+			</if>
+			<if test="type3 != null and type3!= ''">
+				AND hh.type3 = #{type3}
+			</if>
+			<if test="versionNo != null and versionNo != ''">
+				AND hh.version_no = #{versionNo}
+			</if>
+			<if test="isEffect != null and isEffect != ''">
+				AND is_effect = #{isEffect}
+			</if>
+		</where>
+		ORDER BY hh.seq
+	</select>
+	
+	<!-- 查询首页应用栏 -->
+	<select id="getHeaderItem" resultType="com.thinkgem.jeesite.modules.hihunan.model.h5app.HiH5appModel">
+		SELECT
+			id AS "id",
+			type1 AS "type1",
+			type2 AS "type2",
+			type3 AS "type3",
+			name AS "name",
+			icon AS "icon",
+			url AS "url",
+			is_effect AS "isEffect",
+			is_need_login AS "isNeedLogin",
+			seq AS "seq",
+			is_top AS "isTop",
+			list_type AS "listType"
+		FROM hi_h5app
+		where
+			(type2 = '' OR type2 IS NULL)
+			<if test="type1 != null and type1 != ''">
+				AND	type1 = #{type1}
+			</if>
+			<if test="isEffect != null and isEffect != ''">
+				AND is_effect = #{isEffect}
+			</if>
+		ORDER BY seq	
+	</select>
+	
+	<!-- 查询listType类型 -->
+	<select id="getListType" resultType="com.thinkgem.jeesite.modules.hihunan.model.h5app.HiH5appModel">
+		SELECT 
+			list_type AS "listType",
+			list_max_count AS "listMaxCount",
+			icon AS "icon",
+			name AS "name",
+			url AS "url"
+		FROM hi_h5app 
+		WHERE type2 = #{type2}
+		AND type1 = #{type1}
+		AND (list_type IS NOT NULL AND list_type <![CDATA[<>]]> '')
+		AND (NOT (list_type ="local" AND type2= "list")
+		OR list_type IS NULL)
+		<if test="isEffect != null and isEffect != ''">
+				AND is_effect = #{isEffect}
+		</if>
+		ORDER BY seq
+	</select>
+	
+	<!-- 取得本地生活列表题头 -->
+	<select id="getLocalListTitle" resultType="com.thinkgem.jeesite.modules.hihunan.model.h5app.HiH5appModel">
+		SELECT 
+			list_type AS "listType",
+			list_max_count AS "listMaxCount",
+			icon AS "icon",
+			name AS "name",
+			url AS "url"
+		FROM hi_h5app 
+		WHERE type2 = #{type2}
+		AND type1 = #{type1}
+		AND (list_type IS NOT NULL AND list_type <![CDATA[<>]]> '')
+		AND (list_type ="local" AND type2= "list")
+		<if test="isEffect != null and isEffect != ''">
+				AND is_effect = #{isEffect}
+		</if>
+		ORDER BY seq
+	</select>
+	
+	<!-- 轮播 查询所有应用的list 集合 -->
+	<select id="getH5appList" resultType="com.thinkgem.jeesite.modules.sys.entity.Dict">
+		SELECT 
+			id AS "value",
+			name AS "label"
+		FROM hi_h5app 
+		ORDER BY seq
+	</select>
+</mapper>

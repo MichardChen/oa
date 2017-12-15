@@ -1,0 +1,54 @@
+<!-- Created by hjk on 2016/9/6 -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <title>时间选择</title>
+        <script src="../js/zepto.min.js"></script>
+        <script type="text/javascript" src="../js/rem.js"></script>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" type="text/css" href="../css/cho-time.css" />
+        <script src="../js/color.js"></script>
+        <script type="text/javascript">          
+            window.onload=function(){
+                colorNum = 2;
+            };
+        </script>
+    </head>
+    <body>
+        <div class="mask">
+            <div class="mask-con">预约中...</div>
+        </div>
+        <div class="show-int"></div>
+        <div class="wrap">
+            <div class="doc-int">
+                <div class="doc-back"></div>
+                <div class="doc-pic">
+                    <img src="../images/white.png" alt="" />
+                </div>
+                <div class="doc-con">
+                    <h2>主任医师</h2>
+                    <h3>医生姓名</h3>
+                    <div>医生特长<br /><span></span></div>
+                </div>
+            </div>
+            <ul class="doc-time">
+                <li>
+                    <div class="order-time">
+                        <span></span><br /><strong></strong>-<em></em>
+                    </div>
+                    <div class="source">剩余号源<span></span></div>
+                    <div class="reg-pirce">挂号费<strong></strong></div>
+                    <a class="order">预约</a>
+                </li>
+            </ul>
+        </div>
+        <script src="../js/common.js" type="text/javascript"></script>
+        <script src="../js/Ajax.js" type="text/javascript"></script>
+        <script src="../js/selector.js" type="text/javascript"></script>
+        <script src="../ajax/cho-time.js" type="text/javascript"></script>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+.tab{
+    width:100%;
+    height:7.29rem;
+    background-color: #ffffff;
+    margin-bottom:12px;
+    box-shadow:  0px 10px 40px 15px rgba(170,170 ,170 , 0.1);
+    -webkit-box-shadow: 0px 10px 40px 15px rgba(170,170 ,170 , 0.1) ;
+    padding-left: 7.8%;
+    padding-right: 7.8%;
+    padding-top: 2rem;
+    box-sizing: border-box;
+}
+.point{
+    display: block;
+    color: #545454;
+    font-size: 1.33rem;
+    font-family: numb;
+}
+.time{
+    text-align: right;
+    display: block;
+    font-size: 1rem;
+    font-family: numb;
+    color: #a6a6a6;
+}
+.thing{
+    color: #ff306e;
+    display: block;
+    font-family: pingh;
+}

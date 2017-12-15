@@ -1,0 +1,113 @@
+.hibi{
+    background: url("../images/flow-back1.0.png") no-repeat;
+    width:100%;
+    height: 20rem;
+}
+.hibi:first-child{
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-family: pingh;
+    padding-top: 2.25rem;
+    text-align: center;
+}
+#hibi{
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-size: 5rem;
+    font-family: numb;
+
+}
+.bet{
+    text-align: center;
+    display: block;
+    margin:0 auto;
+    width:13%;
+    height: 4px;
+    background: url("../images/mall-bet1.0.png") no-repeat;
+}
+.article{
+    color: #ffffff;
+    width: 100%;
+    height: 15.83rem;
+    position: relative;
+}
+.article img{
+    float: left;
+    width:100%;
+    height:100%;
+}
+.hide{
+    background-color: #000;
+    width:100%;
+    height:15.83rem;
+    opacity: 0.3;
+    position: absolute;
+    z-index: 1;
+}
+h3{
+    font-size: 1.1rem;
+    position: absolute;
+    z-index: 100;
+    top: 7rem;
+    font-family:pingh;
+    width: 100%;
+    text-align: center;
+}
+.u-like span{
+    position: absolute;
+    z-index: 100;
+    top: 8.541rem;
+    width: 100%;
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: pingh;
+}
+
+.btn a{
+
+    display: block;
+    width: 56.25%;
+    height: 3.33rem;
+    margin: 2.58rem auto;
+    color: #ff4479;
+    text-align: center;
+    line-height: 3.33rem;
+    background: url("../images/flow-btn.png") no-repeat;
+    background-size: 100% 100%;
+    border-radius: 1.5rem;
+    font-size: 1.33rem;
+    -webkit-box-shadow:0px 10px 40px 15px rgba(255, 68, 121, 0.1) ;
+    box-shadow: 0px 10px 40px 15px rgba(255, 68, 121, 0.1);
+}
+.hibi-btn{
+    margin-top: 2rem;
+	margin-bottom:1rem;
+}
+.btn-1,.btn-2{
+    width: 50%;
+    float: left;
+}
+.btn-1 span{
+    display: block;
+    background: url("../images/mall1.0_16.png") no-repeat center;
+    width: 100%;
+    height: 4.3rem;
+
+}
+.btn-2 span{
+    display: block;
+    background: url("../images/mall1.0_18.png") no-repeat center;
+    width:100%;
+    height: 4.3rem;
+}
+.btn-1 strong{
+    display: block;
+    margin-top: 0.5rem;
+    color: #FFFFFF;
+}
+.btn-2 strong{
+    display: block;
+    margin-top:0.5rem ;
+    color: #FFFFFF;
+}

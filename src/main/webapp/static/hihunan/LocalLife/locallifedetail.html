@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>本地生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">  
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/sm.min.css">
+    <link rel="stylesheet" href="../css/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/act2.0.css">
+    <link rel="stylesheet" type="text/css" href="../css/zepto.alert.css">
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/dropload.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/zepto.alert.js"></script>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="page-detail">
+		<nav class="bar bar-tab">
+	    	<a id="mbtn-collect" style="background-color:#99cc33;" class="tab-item"></a>
+	  		<a id="mbtn-join" class="tab-item">我要报名</a>
+		</nav>
+		<div class="content native-scroll">
+			<input type="hidden" id="activityId" value=""/>
+			<div class="content-block act-info">
+				<img id="pic" src="">
+				<div class="count">
+					<span class="join my-icon"></span>
+					<span class="view my-icon"></span>
+				</div>
+				<h2 id="name"></h2>
+				<p class="time my-icon"></p>
+				<p class="adress my-icon"></p>
+				<p class="tel my-icon" style="width:88%;"></p>
+			</div>
+			<div class="content-block act-detail">
+			<div class="line" >
+				<span class="round" style="float:left;"></span>
+				<span class="round" style="float:right;"></span>
+				<div class="clearfix"></div>
+				<div class="titleone">活动介绍</div>
+			</div>
+				<div id="contents" class="content-padded">
+				</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	
+		var collect = "";//收藏标志
+		
+	    function applyIn(){//报名活动
+	    	var token = getCookie('key');
+	    	var url = '/hihunan/webservice/rest/localActivityRest/joinActivity?token=' + token + "&id=" + id;
+	    	if(!token){
+	    		window.location.href = "locahost/index.html#act=login##applyIn()";
+	    		return false;
+	    	}else{
+	            $.ajax({
+	                type: 'post',
+	                url: url,
+	                dataType: 'json',
+	                success: function(data){
+	                   	$.dialog({
+	                       content : data.msg,
+	                       title: "alert",
+	            		   width: 600,
+	                       time : 1000
+	                     });
+	                }
+	            });
+	    	}
+	    }
+	    
+	    function toFavorites(){//收藏
+	 	   var token = getCookie('key');
+	    	//取消收藏
+	 	    var baseUrl = '/hihunan/webservice/rest/localActivityRest/deleteCollect?key=' + token;
+	       	if(!token){
+	       		window.location.href = "localhost/index.html#act=login##toFavorites()";
+	       		return false;
+	       	}
+	 	   if(collect){
+				var url = window.location.href;
+	               $.ajax({
+	                   type: 'post',
+	                   url: baseUrl,
+	                   data:{
+	                   	'url':url
+	                   },
+	                   dataType: 'json',
+	                   success: function(data){
+	                	   collect='';
+	                	  $("#mbtn-collect").html("我要收藏");
+	                       $.dialog({
+	                           content : data.msg,
+	                           title: "alert",
+	                		   width: 600,
+	                           time : 1000
+	                       });
+	                   }
+	               });    	
+	 	   }else{
+	 		   //收藏
+	 		  	var baseUrl = '/hihunan/webservice/rest/localActivityRest/toCollect?token=' + token;
+				var img = $("#pic").attr("src");
+				var title = $("#name").text();
+				var type = '1';
+				var comment = $('#contents').text().substring(1,50);
+	            $.ajax({
+	                type: 'post',
+	                url: baseUrl,
+	                data:{
+	                	'img':img,
+	                	'title':title,
+	                	'type':type,
+	                	'url':window.location.href,
+	                	'comment':comment
+	                },
+	                dataType: 'json',
+	                success: function(data){
+	                	collect=data.msg;
+	                	  $("#mbtn-collect").html("取消收藏");
+	                      $.dialog({
+	                           content : data.msg,
+	                           title: "alert",
+	                		   width: 600,
+	                           time : 1000
+	                       });
+	                }
+	            });
+	 	   }
+	    }
+	    
+	    function loadData(){
+	        $.ajax({
+	            type: 'post',
+	            url: '/hihunan/webservice/rest/localActivityRest/findLocalDetail',
+	            data:{
+	            	'id':id
+	            },
+	            dataType: 'json',
+	            success: function(data){
+					var n = eval('(' + data.userdata + ')');
+					$("#pic").attr('src',n.picUrl);
+					$(".join").html(n.applicants);
+					$(".view").html(n.browsing);
+					$("#name").html(n.name);
+					$(".time").html(n.begin_time.substring(0,10) + "至" + n.end_time.substring(0,10));
+					$(".adress").html(n.address);
+					$(".tel").html(n.userName + '<a href="tel:' + n.mobile + '">' + n.mobile + '</a>');
+					$(".content-padded").append(escape2Html(n.contents));
+					
+			        $.ajax({
+			            type: 'post',
+			            url: '/hihunan/webservice/rest/localActivityRest/findLocalIsCollect',
+			            data:{
+			            	'token':key,
+			            	'url':window.location.href
+			            },
+			            dataType: 'json',
+			            success: function(data){
+							collect = data.msg;
+							if(collect){
+								$("#mbtn-collect").html("取消收藏");
+							}else{
+								$("#mbtn-collect").html("我要收藏");
+							}
+			            },
+			            error: function(xhr, type){
+			            }
+			        });
+			        
+	            },
+	            error: function(xhr, type){
+	            }
+	        });
+	    }
+	    
+		var id = UrlParam("id");
+		
+		var key = getCookie("key");
+		
+		$("#activityId").val(id);
+        
+        $(document).ready(function(){
+        	loadData();
+            $("#mbtn-join").on('click',applyIn);
+            
+        	$("#mbtn-collect").on('click',toFavorites);
+        });
+	</script>
+</body>
+</html>

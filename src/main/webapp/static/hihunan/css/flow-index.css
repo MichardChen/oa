@@ -1,0 +1,92 @@
+.warp{
+    margin:0 auto;
+}
+.flow-hi{
+    width:100%;
+    background: url("../images/flow-back1.0.png") no-repeat ;
+    height:13.21rem;
+    color: #FFFFFF;
+}
+.hi,.flow{
+    float: left;
+    width: 48.5%;
+    margin-top: 4.4rem;
+}
+.hi>span,.flow>span{
+    display: block;
+    text-align: center;
+
+}
+.hi-bet{
+    display: block;
+    background:url("../images/flow-bet.png") no-repeat;
+    width: 1%;
+    height: 2rem;
+    float: left;
+    margin-top: 6rem;
+}
+.hi:first-child{
+    font-size: 1rem;
+    font-family: pingh;
+}
+.hi:last-child{
+    font-family: pingh;
+    font-size:1rem;
+}
+.flow:first-child{
+    font-size: 1rem;
+    font-family: pingh;
+}
+.flow:last-child{
+    font-size: 1rem;
+    font-family: pingh;
+}
+#hibi,#flow{
+    font-size: 3rem;
+    font-family: numb;
+}
+.service{
+    width: 92.18%;
+    margin: 1.5rem auto 0 ;
+    font-family: pingh;
+}
+.flow1{
+    background: url("../images/flow1.0_35.png") center 1.3rem no-repeat;
+    background-size: 2rem;
+}
+.flow2{
+    background: url("../images/flow1.0_52.png")center 1.3rem no-repeat;
+    background-size: 2rem;
+}
+.flow3{
+    background: url("../images/flow1.0_39.png")center 1.3rem no-repeat;
+    background-size: 1.8rem;
+}
+.flow4{
+    background: url("../images/flow1.0_55.png")center 1.3rem no-repeat;
+    background-size: 2rem;
+}
+.flow5{
+    background: url("../images/flow1.0_84.png")center 1.3rem no-repeat;
+    background-size: 1.8rem;
+}
+a{
+    display: inline-block;
+    width: 19.82%;
+    padding: 0 0.68rem 0 0.38rem;
+}
+a div {
+    width: 100%;
+    height: 4.83rem;
+    border-radius: 1.08rem;
+    -webkit-box-shadow: 0px 10px 20px 0px  rgba(255, 68, 121, 0.1);
+    box-shadow: 0px 10px 20px 0px rgba(255, 68, 121, 0.1);;
+}
+.service span{
+    display: block;
+    text-align: center;
+    height: 2.92rem;
+    color: #686868;
+    font-size: 0.92rem;
+    line-height: 2.5rem;
+}

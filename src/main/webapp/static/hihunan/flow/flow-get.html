@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id='viewEle' name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>提取流量</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/flow-get.css">
+    <script src="../js/color.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            colorNum = 2;
+        };
+    </script>
+    <style type="text/css">
+        html{
+            height:40rem;
+        }
+        .mask {
+            position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;
+            z-index: 1002; left: 0px;
+            opacity:0.5; -moz-opacity:0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="show-int"></div>
+<div class="wrap">
+    <div id="mask" class="mask"></div>
+    <div class="flow-hi">
+        <span>当前流量</span>
+        <span><span class="hi" id="hibi">0</span>&nbsp;MB</span>
+    </div>
+    <div class="form">
+        <select name="" id="flow" placeholder="请选择提取档次">
+            <option style="text-align: center" value="" selected>请选择提取档次</option>
+            <option value="50">50MB</option>
+            <option value="60">60MB</option>
+            <option value="70">70MB</option>
+            <option value="80">80MB</option>
+            <option value="100">100MB</option>
+            <option value="500">500MB</option>
+        </select>
+    </div>
+    <div class="btn">
+        <a id="gift">提取</a>
+    </div>
+    <div id="container" class="route-chart">
+        <canvas id="canvas"></canvas>
+    </div>
+</div>
+<script src="../js/Zoomage.min.js"></script>
+<script src="../js/common.js"></script>
+<script type="text/javascript">
+    var member_id = getCookie('member_id')
+    var key = getCookie('key')
+
+    $('.show-int').hide();
+    function show(){
+
+        $('.show-int').css("display","inline-block");
+
+        var windowWidth = window.screen.width;
+        var tusiWidth = window.parseInt($('.show-int').css("width").split('px')[0]);
+        var left = (windowWidth-tusiWidth)/2;
+
+
+        $('.show-int').css("left",left);
+        setTimeout(function() {
+            $('.show-int').hide(2000);
+        }, 2000)
+    }
+
+    $('document').ready(function(){
+        $.ajax({
+            type: 'post',
+            url: Domain1+'andlife/base?action=totalFlow',
+            data: {
+
+                key :key,
+                version:'2.0'
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                $('#hibi').html(data.message.totalData);
+            },
+            error: function () {
+            }
+
+        });
+    });
+    $("#gift").click(function () {
+        if ($('#flow').val().length == 0 ){
+            $('.show-int').html("请选择提取档次")
+            show()
+        }else {
+            showMask()
+                $.ajax({
+                    type: 'post',
+                    url: Domain1 + 'andlife/base?action=takeFlow',
+                    data: {
+                        version:'2.0',
+
+                        key:key,
+                        flow: $('#flow').val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        $('.show-int').html(data.message)
+                        show();
+                        hideMask()
+                        $.ajax({
+                            type: 'post',
+                            url: Domain1+'andlife/base?action=totalFlow',
+                            data: {
+
+                                key :key,
+                                version:'2.0'
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+                                console.log(data);
+                                $('#hibi').html(data.message.totalData);
+                            },
+                            error: function () {
+                            }
+
+                        });
+
+                    },
+                    error: function (data) {
+                    }
+                })
+
+        }
+    })
+
+
+    function showMask(){
+        $("#mask").css("height",$(document).height());
+        $("#mask").css("width",$(document).width());
+        $("#mask").show();
+    }
+    //隐藏遮罩层
+    function hideMask(){
+        $("#mask").hide();
+    }
+</script>
+
+</body>
+</html>

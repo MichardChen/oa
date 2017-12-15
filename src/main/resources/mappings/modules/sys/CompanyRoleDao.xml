@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.CompanyRoleDao">
+    
+	<select id="getCompanyRoleList" resultType="CompanyRole">
+		SELECT DISTINCT scr.id id
+		      ,scr.company_id companyId
+		      ,scr.role_id roleId
+		  FROM sys_role_company scr
+		 INNER JOIN  sys_user su
+		    ON scr.company_id = su.company_id
+		 WHERE su.id = #{userId}
+	</select>
+	
+	<select id="getCompanyRoleListByUser" resultType="String">
+		SELECT DISTINCT scr.id
+		  FROM sys_role_company scr
+		  INNER JOIN  sys_user su
+		     ON scr.company_id = su.company_id
+		  INNER JOIN  sys_user_role sur
+		     ON sur.user_id = su.id
+		    AND sur.role_id = scr.role_id
+		  WHERE su.id = #{userId}
+	</select>
+
+</mapper>

@@ -1,0 +1,17 @@
+﻿.mui-input-row label
+{
+    font-size:15px;
+}
+.mui-input-row label.mustinput:before
+{
+    color:Red;
+    content:'*';
+}
+.mui-input-row label.mustinput,.input
+{
+    font-weight:bolder;
+}
+.ime-disabled
+{
+    ime-mode:disabled;
+}

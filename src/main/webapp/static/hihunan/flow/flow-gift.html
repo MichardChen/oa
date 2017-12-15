@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id='viewEle' name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>赠送hi币</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/flow-gift.css">
+    <script src="../js/Zoomage.min.js"></script>
+    <script src="../js/color.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            colorNum = 2;
+        };
+    </script>
+    <style>
+        html{
+            height:40rem;
+        }
+        .show-int {
+            opacity: 0.8;
+            position: fixed;
+            top: 40%;
+            width: auto;
+            padding: 1px 6px;
+            line-height: 3.34rem;
+            color: white;
+            background: black;
+            z-index: 10000;
+            text-align: center;
+            border-radius: 2rem;
+            font-size: 1rem;
+            border: none;
+            box-sizing: border-box;
+
+        }
+        .result {
+            width: 100%;
+            color: #ff4365;
+            text-align: center;
+            font-size: 1.5rem;
+            height: 1.5rem;
+        }
+        .mask {
+            position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;
+            z-index: 1002; left: 0px;
+            opacity:0.5; -moz-opacity:0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="show-int"></div>
+<div class="wrap">
+    <div id="mask" class="mask"></div>
+    <div class="flow-hi">
+        <span>当前Hi币</span>
+        <span><span class="hi" id="hibi">0</span>Hi币</span>
+
+    </div>
+    <div class="form">
+        赠送数量：<input type="number" placeholder="输入赠送数量" id="hi" pattern="[0-9]*"><br>
+        好友手机号：<input type="number" placeholder="输入手机号" id="number" pattern="[0-9]*">
+    </div>
+    <div class="btn">
+        <a  id="gift" onclick="checkMonile()">赠送</a>
+    </div>
+    <div class="warning">
+        <span style="color: #ff4479;font-size: 1rem">每次赠出hi币至少100，至多500</span>
+    </div>
+    <div class="result"></div>
+    <div id="container" class="route-chart">
+        <canvas id="canvas"></canvas>
+    </div>
+</div>
+<script src="../js/common.js"></script>
+<script type="text/javascript">
+    var count = $('#number').val();
+    var phone = $('#phone').val();
+    function sendMessage() {
+        window.location.href = "locahost/index.html#act=message#" + "&" + $('#number').val() + "&" + $('#hi').val();
+    }
+    $('.show-int').hide();
+    function show(){
+
+        $('.show-int').css("display","inline-block");
+
+        var windowWidth = window.screen.width;
+        var tusiWidth = window.parseInt($('.show-int').css("width").split('px')[0]);
+        var left = (windowWidth-tusiWidth)/2;
+
+
+        $('.show-int').css("left",left);
+        setTimeout(function() {
+            $('.show-int').hide(2000);
+        }, 2000)
+    }
+
+    var str = $('#number').val()
+
+
+
+    function checkMonile() {
+        var regBox = {
+            regMobile: /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/,//手机
+
+        }
+
+        var mobile = $('#number').val();
+
+        var mflag = regBox.regMobile.test(mobile);
+
+            if($('#hi').val().length == 0) {
+                $(".show-int").html("请输入赠送数量")
+                show()
+            }else {
+                if (!(mflag)) {
+                    $('.show-int').html("请输入正确的电话号码")
+                    show()
+
+                }else {
+                    showMask()
+                $.ajax({
+                    type: 'post',
+                    url: Domain1+'andlife/base?action=giftPoint',
+                    data: {
+                        version:'2.0',
+                        key:key,
+                        receive_mobile: $('#number').val(),
+                        point: $('#hi').val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.flag == 1) {
+//                            show()
+                            window.location.href = "locahost/index.html#act=message#" + "&" + $('#number').val() + "&" + $('#hi').val();
+                            $.ajax({
+                                type: 'post',
+                                url: Domain1 + 'andlife/base?action=getPointFlow',
+                                data: {
+
+                                    key:key,
+                                    version:'2.0'
+                                },
+                                dataType: 'json',
+                                success: function (data) {
+                                    $('#hibi').html(data.message.point);
+
+                                },
+                                error: function () {
+                                }
+                            })
+
+                        }else {
+                            hideMask()
+                            $('.show-int').html(data.message)
+                            show()
+                        }
+                    },
+                    error: function () {
+                    }
+                })
+            }
+        };
+    }
+
+
+    var member_id = getCookie('member_id')
+    var key = getCookie('key')
+    $(document).ready(function () {
+
+        $.ajax({
+            type: 'post',
+            url: Domain1 + 'andlife/base?action=getPointFlow',
+            data: {
+
+                key:key,
+                version:'2.0'
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#hibi').html(data.message.point);
+
+            },
+            error: function () {
+            }
+        })
+
+
+
+//        $('#gift').click(function () {
+//            $.ajax({
+//                type: 'post',
+//                url: 'http://111.8.7.158:28080/andlife/base?action=giftPoint',
+//                data: {
+//                    version: '1.0',
+//                    member_id: member_id,
+//                    receive_mobile: $('#number').val(),
+//                    point: $('#hi').val()
+//                },
+//                dataType: 'json',
+//                success: function (data) {
+//                    if (data.flag = 1) {
+//                        show()
+//                        $('.show-int').html(data.message);
+////                       $('#gift').attr("src","javascript:sendMessage('flow-gift.html')")
+//                        window.location.href = "locahost/index.html#act=message#" + "&" + $('#number').val() + "&" + $('#hi').val();
+//                    }
+//                },
+//                error: function () {
+//                }
+//            })
+//        })
+
+    })
+    function showMask(){
+        $("#mask").css("height",$(document).height());
+        $("#mask").css("width",$(document).width());
+        $("#mask").show();
+    }
+    //隐藏遮罩层
+    function hideMask(){
+        $("#mask").hide();
+    }
+</script>
+</body>
+</html>

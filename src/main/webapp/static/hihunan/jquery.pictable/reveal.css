@@ -1,0 +1,130 @@
+﻿/*	--------------------------------------------------
+	Reveal Modals
+	-------------------------------------------------- */
+		
+	.reveal-modal-bg { 
+		position: fixed; 
+		height: 100%;
+		width: 100%;
+		background: #000;
+		background: rgba(0,0,0,.8);
+		z-index: 1000;
+		display: none;
+		top: 0;
+		left: 0; 
+		}
+	
+	.reveal-modal {
+		visibility: hidden;
+		top: 50%; 
+		margin-top:-275px;
+		left: 50%;
+		margin-left: -300px;
+		width: 520px;
+		background: #eee url(../jquery.pictable/modal-gloss.png) no-repeat -200px -80px;
+		position: fixed;
+		z-index: 101;
+		padding: 30px 40px 34px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		-moz-box-shadow: 0 0 10px rgba(0,0,0,.4);
+		-webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
+		-box-shadow: 0 0 10px rgba(0,0,0,.4);
+		}
+		
+	.reveal-modal.small 		{ width: 200px; margin-left: -140px;}
+	.reveal-modal.medium 		{ width: 400px; margin-left: -240px;}
+	.reveal-modal.large 		{ width: 600px; margin-left: -340px;}
+	.reveal-modal.xlarge 		{ width: 800px; margin-left: -440px;}
+	.reveal-modal.xxlarge 		{ width: 1000px; margin-left: -540px;}
+
+	.reveal-modal .title-reveal-modal{
+		position: absolute;
+		font-size:22px;
+		color:#000;
+		top:8px;
+		left:10px;
+		font-weight: bold;
+	}
+	
+	.reveal-modal .close-reveal-modal {
+		font-size: 22px;
+		line-height: .5;
+		position: absolute;
+		top: 8px;
+		right: 11px;
+		color: #aaa;
+		text-shadow: 0 -1px 1px rbga(0,0,0,.6);
+		font-weight: bold;
+		cursor: pointer;
+	} 
+
+/***********************************************************/
+	.reveal-modal .pic_class{
+		margin-top: 20px;
+		height:25px;
+		border-bottom: 1px solid #5191d1;
+	}
+
+	.reveal-modal .pic_class li{
+		font-size:12px;
+		float:left;
+		margin-left: 5px;
+		border-top: 1px solid #5191d1;
+		border-left: 1px solid #5191d1;
+		border-right: 1px solid #5191d1;
+		padding:5px 10px 5px 10px;
+		cursor:pointer;
+	}
+
+	.reveal-modal .pic_class li.on{
+		background: #5191d1;
+		color:#fff;
+	}
+
+	.reveal-modal .pic_list{
+		clear:both;
+		height:415px;
+	}
+
+	.reveal-modal .pic_list li{
+		float: left;
+		margin-top: 15px;
+		margin-right: 15px;
+	}
+
+	.reveal-modal .pic_list li img{
+		border: 2px solid #ccc;
+		width: 141px;
+		cursor: pointer;
+	}
+
+	.reveal-modal .pic_list li img.on{
+		border: 2px solid #f00;
+	}
+
+	.reveal-modal .pic_page{
+		clear:both;
+		text-align: center;
+		line-height: 38px;
+	}
+
+	.reveal-modal .pic_page a{
+		color:#000;
+		margin-right: 20px;
+	}
+
+	.reveal-modal .pic_btn{
+		position: absolute;
+		left: 700px;
+		bottom: 30px;
+	}
+
+	.reveal-modal .pic_btn a{
+		cursor: pointer;
+		border: 1px solid #5191d1;
+		background: #5191d1;
+		padding: 5px 10px 5px 10px;
+		color:#fff;
+	}

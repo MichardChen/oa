@@ -1,0 +1,52 @@
+<!-- Created by hjk on 2016/9/6 -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <title>时间选择</title>
+        <script src="../js/zepto.min.js"></script>
+        <script type="text/javascript" src="../js/rem.js"></script>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" type="text/css" href="../css/book-infor.css" />
+        <script src="../js/color.js"></script>
+        <script type="text/javascript">
+            window.onload=function(){
+                colorNum = 2;
+            };
+        </script>
+    </head>
+    <body>
+        <div class="show-f">您需要关注微信悦健康关注公众号支付预约费用</div>
+        <div class="show-int"></div>
+        <div class="wrap">
+            <ul>
+                <li class="name">姓名<input type="text" placeholder="预约人姓名"/></li>
+                <li class="tel">手机<input type="text" placeholder="请填写11位有效号码"/></li>
+                <li class="gender">性别<span class="cho-s">男</span><span>女</span></li>
+                <li class="id-card">身份证号码<input type="text" /></li>
+            </ul>                
+            <div class="medi-card">
+                <section>医疗卡号码 <span>(可选，如未添加可能导致部分医院预约失败)</span>
+                <input type="text" />
+                </section>
+                <div class="add-used">添加为常用联系人</div>
+            </div>
+        </div>
+        <div class="contacts">
+            <div class="peo-con">常用联系人<span>（最多只能添加七个，请谨慎添加）</span></div>
+        </div>    
+        <div class="peo-int">
+            <div class="cho-peo"></div>
+            <div>
+                <a class="order-peo">预约</a>
+                <p class="show-y"></p>
+            </div>
+        </div>
+        <a class="check-or">查看我的预约</a>
+        <script src="../js/common.js" type="text/javascript"></script>
+        <script src="../ajax/book-infor.js" type="text/javascript"></script>
+    </body>
+</html>

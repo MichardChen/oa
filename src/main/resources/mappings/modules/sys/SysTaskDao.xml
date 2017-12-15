@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysTaskDao">
+
+	<!-- 插入任务-->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="autoIncId">
+		INSERT INTO sys_task(
+			id,
+			task_type, 
+			task_owner, 
+			task_data, 
+			task_status, 
+			task_gen_date, 
+			task_comp_date
+		) VALUES (
+			#{id},
+			#{taskType}, 
+			#{taskOwner}, 
+			#{taskData}, 
+			#{taskStatus}, 
+			#{taskGenDate}, 
+			#{taskCompDate}
+		)
+	</insert>
+	<!-- 根据id获取 1条数据-->
+	<select id="get" resultType="SysTask">
+	   select id,
+			task_type, 
+			task_owner, 
+			task_data, 
+			task_status, 
+			task_gen_date, 
+			task_comp_date
+	     from sys_task
+	    where id = #{id}
+	</select>
+	<!-- 根据任务类型获取1条数据 -->
+	<select id="getByTaskType" resultType="SysTask">
+	   select id,
+			task_type, 
+			task_owner, 
+			task_data, 
+			task_status, 
+			task_gen_date, 
+			task_comp_date
+	     from sys_task
+	    where task_type = #{taskType}
+	</select>
+	
+	<!-- 更新任务 -->
+	<update id="update">
+		UPDATE sys_task SET
+		    task_type = #{taskType},
+			task_owner = #{taskOwner},
+			task_data = #{taskData},
+			task_status = #{taskStatus},
+			task_gen_date = #{taskGenDate},
+			task_comp_date = #{taskCompDate}
+		WHERE id = #{id}
+	</update>
+
+    <!-- 更新任务状态(如果为完成，则更新完成日)-->
+	<update id="updateStatus">
+		UPDATE sys_task SET
+			task_status = #{taskStatus}
+			<if test="taskStatus == 1">
+			,
+			task_comp_date = now()
+			</if>
+		WHERE task_type = #{taskType}
+	</update>
+</mapper>

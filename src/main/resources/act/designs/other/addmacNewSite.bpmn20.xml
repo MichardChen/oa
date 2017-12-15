@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="com.thinkgem.jeesite.act">
+  <process id="addmacNewSite" name="新布设(在行新网点)" isExecutable="true">
+    <startEvent id="start" name="布设立项" activiti:initiator="{applyUser}" activiti:formKey="/addmac/nsAddmac"/>
+    <userTask id="installComplete" name="机具安装报告" activiti:formKey="/static/nsmobile/pages/html/installCompNewSite.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.addmac.service.AddMacOnSiteAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="route" name="路由安装及调试" activiti:formKey="/static/nsmobile/pages/html/route.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.addmac.service.AddMacOnSiteAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="takeKey" name="钥匙移交" activiti:formKey="/static/nsmobile/pages/html/takekey.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.addmac.service.AddMacOnSiteAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <endEvent id="end" name="流程结束"/>
+    <sequenceFlow id="sid-1EFBA66C-9130-43BA-B483-024B5026091B" sourceRef="start" targetRef="installComplete"/>
+    <sequenceFlow id="sid-E4F6F0C0-2292-4EC3-A175-04317A8450F8" sourceRef="installComplete" targetRef="route"/>
+    <sequenceFlow id="sid-D5C0886C-81C6-4AF6-9E45-D54EB6678C5E" sourceRef="route" targetRef="takeKey"/>
+    <sequenceFlow id="sid-70C5F0FF-9B49-43A6-A421-AEAFBCA8DD23" sourceRef="takeKey" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_addmacNewSite">
+    <bpmndi:BPMNPlane bpmnElement="addmacNewSite" id="BPMNPlane_addmacNewSite">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="15.0" y="90.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installComplete" id="BPMNShape_installComplete">
+        <omgdc:Bounds height="130.0" width="113.0" x="90.0" y="40.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="route" id="BPMNShape_route">
+        <omgdc:Bounds height="134.0" width="105.0" x="255.0" y="38.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="takeKey" id="BPMNShape_takeKey">
+        <omgdc:Bounds height="135.0" width="110.0" x="420.0" y="38.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="28.0" width="28.0" x="585.0" y="91.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-D5C0886C-81C6-4AF6-9E45-D54EB6678C5E" id="BPMNEdge_sid-D5C0886C-81C6-4AF6-9E45-D54EB6678C5E">
+        <omgdi:waypoint x="360.0" y="105.5"/>
+        <omgdi:waypoint x="420.0" y="105.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E4F6F0C0-2292-4EC3-A175-04317A8450F8" id="BPMNEdge_sid-E4F6F0C0-2292-4EC3-A175-04317A8450F8">
+        <omgdi:waypoint x="203.0" y="105.5"/>
+        <omgdi:waypoint x="255.0" y="105.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1EFBA66C-9130-43BA-B483-024B5026091B" id="BPMNEdge_sid-1EFBA66C-9130-43BA-B483-024B5026091B">
+        <omgdi:waypoint x="44.999861852375446" y="105.06437708949518"/>
+        <omgdi:waypoint x="90.0" y="105.25751072961374"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-70C5F0FF-9B49-43A6-A421-AEAFBCA8DD23" id="BPMNEdge_sid-70C5F0FF-9B49-43A6-A421-AEAFBCA8DD23">
+        <omgdi:waypoint x="530.0" y="105.5"/>
+        <omgdi:waypoint x="585.0" y="105.5"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

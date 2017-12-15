@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id='viewEle' name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Hi币明细</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/flow-detail.css">
+    <script src="../js/color.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            colorNum = 2;
+        };
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <!--<div class="tab">-->
+        <!--<span class="point">500Hi</span>-->
+        <!--<span class="time">2016-9-9</span>-->
+        <!--<span class="thing">收到朋友赠送的积分</span>-->
+    <!--</div>-->
+    <!--<div class="tab">-->
+        <!--<span class="point"></span>-->
+        <!--<span class="time"></span>-->
+        <!--<span class="thing"></span>-->
+    <!--</div>-->
+</div>
+<script>
+    var member_id = getCookie('member_id')
+    var key = getCookie('key')
+    var cell = '<div class="tab">'
+    +'<span class="point"></span>'
+    +'<span class="time"></span>'
+    +'<span class="thing"></span>'
+    +'</div>'
+    var $_wrap = $('.wrap')
+    $(document).ready(function () {
+        $.ajax({
+            type: 'post',
+            url: Domain1+'andlife/base?action=queryPointLog',
+            data: {
+                version:'2.0',
+
+                key:key,
+                currentPage: '',
+                everyPage: ''
+            },
+            dataType: 'json',
+            success: function (data) {
+                var row= data.message;
+                $(row).each(function(i,n){
+                    var $_cell = $(cell);
+                    $('.point',$_cell).html(n.pl_points);
+                    $('.time',$_cell).html(n.pl_operate_time);
+                    $('.thing',$_cell).html(n.pl_desc);
+                    $_wrap.append($_cell);
+                })
+            },
+            error: function () {
+            }
+        })
+    })
+</script>
+</body>
+</html>

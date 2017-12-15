@@ -1,0 +1,190 @@
+*{
+			font-family:"Î¢ÈíÑÅºÚ";
+			text-decoration:none;
+			padding:0px;
+			margin:0px;
+			}
+				.current_title {
+					margin-top:1rem;
+					margin-bottom:1rem;
+				}	
+				.clearfix{
+					clear:both;
+					}
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 11px 0;
+				vertical-align: middle;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+				margin: -11px 0;
+			}
+	
+			.oa-contact-avatar {
+				width: 75px;
+			}
+			.oa-contact-avatar img {
+				border-radius: 50%;
+			}
+			.oa-contact-content {
+				width: 100%;
+			}
+			.oa-contact-name {
+				margin-right: 20px;
+			}
+			.oa-contact-name, oa-contact-position {
+				float: left;
+			}
+			.mui-grid-view.mui-grid-9 .mui-media {
+			color: #797979;
+			border-bottom: 1px solid #eee;
+		}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+		margin: 0;
+		padding: 0.5rem;
+		vertical-align: top;
+		border-right: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+	}
+	.mui-icon img{
+		max-width:3.5rem;
+		}
+	.footer .mui-icon img{
+		max-width:2rem;
+		}
+		
+		.swiper-slide {
+			-webkit-flex-shrink: 0;
+			-ms-flex: 0 0 auto;
+			flex-shrink: 0;
+			width: 100%;
+			max-width:26.667rem;
+			height: auto;
+			position: relative;
+		   height: 10.83333rem;
+		}
+
+		.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+			bottom: 30px;
+			left: 0;
+			width: 100%;
+		}
+		.mui-bar-nav.mui-bar .mui-icon {
+		width: 3rem;
+		height: auto;
+		padding-top: 1rem;
+		/* padding-right: 2rem; */
+		margin-right: 0.5rem;
+		}
+		.navico {
+			 padding-left: 1.25rem;
+    		 margin-top: 0.75rem;
+			  padding-top: 1rem;
+			}
+		.navico .time{
+			float:left;
+			background-image:url(../images/phoone.png);
+			background-repeat:no-repeat;
+			background-position: 1.75rem center;
+   			padding-left: 3.25rem;
+			font-size: 0.75rem;
+			background-size: 1.5rem 1.5rem;
+			}
+		.navico .people{
+			float:left;
+			font-size: 1.5833333rem;
+			padding-left: 3.25rem;
+			}
+		.titlt_bottom{
+			margin-top:0rem;
+			}
+			.titlt_bottom h1{
+			font-size: 1.166667rem;
+			padding: 1rem;
+			padding-left: 2.5rem;
+			}
+			.titlt_bottom p{
+			 font-size: 1rem;
+			padding-left: 2.5rem;
+			padding-bottom: 1rem;
+			}
+		.swiper-wrapper {
+		width: 26.66667rem;
+		height:auto;
+	}
+	.current{
+		font-size: 1rem;
+		line-height: 2rem;
+		padding:2rem 2.5rem;
+		}
+		.mui-bar-tab .mui-tab-item {
+		display: table-cell;
+		overflow: hidden;
+		width: 1%;
+		height: 50px;
+		text-align: center;
+		vertical-align: middle;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		color: #ffffff;
+	}
+		.foodlistimg{
+		width:7.5rem;
+		float:left;
+		}
+		.foodlistimg img{
+		width:100%;
+		}
+		.foodtitle{
+		float:left;
+		width:13.5rem;
+		font-size: 1.16667rem;
+		 margin-left: 0.5rem;
+		}
+		.foodtitle h1{
+		font-size: 1.166667rem;
+		padding: 0.5rem;
+		padding-left: 2.5rem;
+		}
+		.starimg{
+		float:left;
+		width:13.5rem;
+		 font-size: 0.91667rem;
+		  margin-left: 0.5rem;
+		  margin-top: 0.25rem;
+		  line-height: 1.5rem;
+		}
+		.starimg p{
+		 font-size: 0.91667rem;
+		}
+	.Positioning{
+		width: 13.5rem;
+		float: left;
+		background-image: url(../images/calendar.png);
+		background-position: 0 center;
+		background-repeat: no-repeat;
+		padding-left: 2rem;
+		margin-left: 0.5rem;
+		background-size: 1.3rem;
+		margin-top: 0.8rem;
+		}
+	.Positioning p{
+		 font-size: 0.91667rem;
+		 color:#999999;
+		}
+		.foodlist{
+			margin-bottom: 4.5rem;
+			 background-color: #f5fafa;
+			 padding-top: 0.5rem;
+			}	
+		.list01{
+		border-bottom: 1px solid #dfebeb;
+		padding: 0.5rem 2.5rem;
+		background-color: white;
+			}
+			.swiper-wrapper {
+		width: 21.66667rem;
+		height: 10.83333rem;
+		margin-left: 2.5rem;
+	}

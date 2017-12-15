@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="com.thinkgem.jeesite.act">
+  <process id="faultCovPoint" name="便民设备故障处理" isExecutable="true">
+    <startEvent id="start" name="异常报告" activiti:initiator="{applyUser}" activiti:formKey="/static/nsmobile/pages/html/insRegist.html"/>
+    <userTask id="confirmFault" name="故障确认" activiti:formKey="/static/nsmobile/pages/html/confirmFault.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.inspection.service.FaultCovPointAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <endEvent id="end" name="流程结束"/>
+    <userTask id="maintain" name="处理完成" activiti:formKey="/static/nsmobile/pages/html/maintain.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.inspection.service.FaultCovPointAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-B2B5EA97-3E5B-436A-9BD9-52A6EB590504" sourceRef="start" targetRef="confirmFault"/>
+    <sequenceFlow id="sid-F4480922-43B0-426E-8E25-25CB9852C8C9" sourceRef="confirmFault" targetRef="maintain"/>
+    <sequenceFlow id="sid-9B4FA6CD-DAB5-4906-8575-2ED6EF2A996E" sourceRef="maintain" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_faultCovPoint">
+    <bpmndi:BPMNPlane bpmnElement="faultCovPoint" id="BPMNPlane_faultCovPoint">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="45.0" y="87.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="confirmFault" id="BPMNShape_confirmFault">
+        <omgdc:Bounds height="116.0" width="121.0" x="135.0" y="44.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="28.0" width="28.0" x="495.0" y="89.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="maintain" id="BPMNShape_maintain">
+        <omgdc:Bounds height="115.0" width="125.0" x="315.0" y="45.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-F4480922-43B0-426E-8E25-25CB9852C8C9" id="BPMNEdge_sid-F4480922-43B0-426E-8E25-25CB9852C8C9">
+        <omgdi:waypoint x="256.0" y="102.5"/>
+        <omgdi:waypoint x="315.0" y="102.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-9B4FA6CD-DAB5-4906-8575-2ED6EF2A996E" id="BPMNEdge_sid-9B4FA6CD-DAB5-4906-8575-2ED6EF2A996E">
+        <omgdi:waypoint x="440.0" y="102.73764258555133"/>
+        <omgdi:waypoint x="495.00010120030794" y="102.94676844562855"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-B2B5EA97-3E5B-436A-9BD9-52A6EB590504" id="BPMNEdge_sid-B2B5EA97-3E5B-436A-9BD9-52A6EB590504">
+        <omgdi:waypoint x="75.0" y="102.5"/>
+        <omgdi:waypoint x="135.0" y="102.5"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

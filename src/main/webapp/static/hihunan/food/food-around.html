@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>Hi 湖南</title>  
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/food-around.css" />
+    <script type="text/javascript">
+        window.onload=function(){
+            colorNum = 3;
+        };
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="con-tit">
+            <div class="select">地图</div>
+            <div>列表</div>
+        </div>
+        <div class="con-around">
+            <div class="show" id="container"></div>
+            <div id="con-list">
+                <dl class="clearfix">
+                    <dt>
+                        <img src="../images/1.png"/>
+                    </dt>
+                    <dd>
+                        <h2>黄鹤楼</h2>
+                        <div>
+                            <span>高体验，高性价比</span>
+                            <strong>人均35元</strong>
+                        </div>
+                        <section>
+                            <span>芙蓉区远大一路439号</span>
+                            <strong>500m</strong>
+                        </section>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <script src="../js/common.js"></script>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=dLrXkZq6r30wvc4rr2GsWIv6eHFxdQZT"></script>
+    <script src="../ajax/food-around.js" type="text/javascript"></script>
+</body>
+</html>

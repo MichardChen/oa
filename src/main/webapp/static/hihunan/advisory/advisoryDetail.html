@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>详情</title>
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/rem.js"></script>
+    <script src="../js/common.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/travel-aeticle.css">
+    <script type="text/javascript">
+        window.onload=function(){
+            colorNum = 3;
+        };
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="title">
+        <h2></h2>
+        <span></span>
+    </div>
+    <div class="detail">
+        <div class="essay">
+        <!-- <img src="" alt="" style="width: 100%"> -->
+        </div>
+    </div>
+    <div class="address">
+       <h2 style="width: 87.5%;"></h2>
+       <span class="phone"><span></span></span>
+    </div>
+</div>
+<script type="text/javascript"> 
+	
+	var id = UrlParam("id");
+ 
+    $.ajax({
+        type:'post',
+        url:'/hihunan/webservice/rest/newsRest/findNewsAndEducateDetail',
+        data:{
+            'id':id
+        },
+        dataType:'json',
+        success:function(data){
+        	data = data.userdata;
+        	if(data != undefined){
+                $('.title>h2').html(data.title);
+                $('.title>span').html(data.publishDate);
+                $('.essay').html(escape2Html(data.content));
+        	}
+        },
+        error:function(xhr, type){
+        }
+    })
+</script>
+</body>
+</html>

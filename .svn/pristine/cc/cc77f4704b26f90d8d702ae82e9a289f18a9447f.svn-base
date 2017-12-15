@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <title>登录</title>
+        <script src="../js/zepto.min.js"></script>
+        <script type="text/javascript" src="../js/rem.js"></script>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" type="text/css" href="../css/login.css" />
+        <script src="../js/color.js"></script>
+        <script type="text/javascript">
+            window.onload=function(){
+                colorNum = 2;
+            };
+        </script>
+    </head>
+    <body>
+        <div class="show-int"></div>
+        <div class="wrap">
+            <div class="regist">
+                <div class="regist-con">
+                    <div>
+                        <form class="get-tel">
+                            <strong>手机号:</strong>
+                            <input type="text" placeholder="请输入手机号码"/>
+                        </form>
+                        <form class="get-pass">
+                            <strong>密码:</strong>
+                            <input type="password" placeholder="请输入密码"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="regist-b">登录</a>
+        <script src="../js/common.js" type="text/javascript"></script>
+        <script src="../ajax/login.js" type="text/javascript"></script>
+    </body>
+</html>

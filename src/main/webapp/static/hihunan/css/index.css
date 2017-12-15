@@ -1,0 +1,232 @@
+*{	
+	text-decoration:none;
+	padding:0px;
+	margin:0px;
+ }
+ .more h1{
+	float:left;
+ }
+.hot_box{
+	position:relative;
+ }
+.hot_box>img{
+	position:absolute;
+	top:-20px;
+	left:0px;
+ }
+.current_title {
+	margin-top:0.24rem;
+	margin-bottom:0.24rem;
+ }	
+.current_title img{
+    margin-left: 40%;
+	float: left;
+	height: auto;
+	max-width: 0.36rem;
+	display: block;
+	margin-top: 0.15rem;	
+	}	
+.current_title h1{
+	margin-left: 35%;
+    float: left;
+    height: 0.2rem;
+    display: block;
+    /* margin-top: 0.75rem; */
+    width:0.3rem;
+	}
+.current {
+    height:0.95rem;
+    margin-left:0.24rem;
+    padding-top: 0.36rem;
+    margin-right: 0.24rem;
+    }	
+.current img{
+   /* margin-left: 39%;*/
+    float: left;
+    height: 0.2rem;
+    display: block;
+    /* margin-top: 0.5rem;*/
+    /* width: 1.25rem;*/
+    }	
+.current h1{
+    float: left;
+    font-size: 0.22rem;
+    text-align: center;
+    margin-top: 0.36rem;
+    font-weight: 500;
+    margin-left: 0.12rem;
+    color: #282828;
+    font-weight:400;
+    background-repeat: no-repeat;
+    padding-left: 0.34rem;
+    background-position: 0rem center;
+    background-size:0.3rem;
+    margin: 0px;
+	}
+.Information>img{
+	 float: left;
+	 width:100%;
+	 height:auto;
+	display: block;
+	margin-top: 0.18rem;
+	}
+.tourism>img{
+	float: left;
+	width:80%;
+	height:auto;
+	display: block;
+	margin-top: 0.18rem;
+	}
+.tourism{
+	 margin-bottom:0.12rem;
+	}
+.clearfix{
+	clear:both;
+	}
+.food_box{
+	width:100%;
+	}	
+.food_box>img{
+	width:35%;
+	max-width:180px;
+	height:auto;
+	float:left;
+	margin-left: 0.12rem;
+	}	
+.culture_box>img{
+	width: 48%;
+	max-width:0.3rem;
+	height: auto;
+	float: left;
+	margin-left: 0.12rem;
+	margin-bottom: 0.12rem;
+	}	
+.title{
+	margin: 20px 15px 10px;
+	color: #6d6d72;
+	font-size: 15px;
+	}
+.oa-contact-cell.mui-table .mui-table-cell {
+	padding: 11px 0;
+	vertical-align: middle;
+	}
+.oa-contact-cell {
+	position: relative;
+	margin: -11px 0;
+	}
+.oa-contact-avatar {
+	width: 75px;
+	}
+.oa-contact-avatar img {
+	border-radius: 50%;
+	}
+.oa-contact-content {
+	width: 100%;
+	}
+.oa-contact-name {
+	margin-right: 20px;
+	}
+.oa-contact-name, oa-contact-position {
+	float: left;
+	}
+.mui-grid-view.mui-grid-9 .mui-media {
+	color: #797979;
+	border-bottom: 1px solid #eee;
+	min-height:1.44rem;
+	}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+	margin: 0;
+	padding:0.36rem;
+	vertical-align: top;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	height:1.73rem;
+	background-color: white;
+	}
+.mui-icon img{
+	 width:0.5rem;
+	 height:0.5rem;
+	}
+.footer .mui-icon img{
+	max-width:0.48rem;
+	}	
+.swiper-slide {
+	-webkit-flex-shrink: 0;
+	-ms-flex: 0 0 auto;
+	flex-shrink: 0;
+	width: 100%;
+	height: auto;
+	position: relative;
+    }
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+	bottom:5%;
+	left: 0;
+	width: 100%;
+    }
+.swiper-slide {
+    -webkit-flex-shrink: 0;
+    -ms-flex: 0 0 auto;
+    flex-shrink: 0;
+    width: auto;
+    height: auto;
+    position: relative;
+    }
+.mui-grid-view.mui-grid-9 .mui-media .mui-icon {
+    position: relative;
+    height:0.5rem;
+    }
+.imgheight{
+	width: 47.5%;
+    height:1.40rem;
+    margin: 1%;
+    float: left;s
+    }
+。Information{
+	width:100%;
+	height:2.24rem;
+	}
+.Informationimg{
+	height: 2.24rem;
+    width: 100%;
+	}
+.titlelabell{
+	position: absolute;
+    left: 0px;
+    bottom: 2px;
+    font-size: 0.24rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0.12rem;
+    left: auto;
+    /*bottom:1rem;*/
+    bottom:0.15rem;
+    font-size: 0.24rem;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    }
+.titleimg{
+	float: right;
+	width: 0.12rem;
+	height: 0.19rem; 
+	margin-left: 5px;
+    margin-top: 1%;
+     }
+.add{
+	position: absolute;
+    left: 0px;
+    bottom: 2px;
+    font-size: 0.22rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0.15rem;
+    left: auto;
+    bottom:0rem;
+     font-size: 0.22rem;
+    text-align: center;
+    width: 100%;
+    color: #282828;
+    font-weight: 400
+    }

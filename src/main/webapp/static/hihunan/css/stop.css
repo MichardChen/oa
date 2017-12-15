@@ -1,0 +1,36 @@
+.wrap {
+    padding-top: 2.08rem;
+}
+.wrap li {
+    height: 7.63rem;
+    -webkit-box-shadow: 0 40px 40px 10px rgba(66,66,66,0.05);
+    box-shadow: 0 40px 40px 10px rgba(66,66,66,0.05);
+}
+.wrap li section {
+    width: 84.37%;
+    margin: 0 auto;
+    padding-left: 7.81%;
+    background: url("../images/q-color.png") 0.41rem -2rem no-repeat;
+}
+.route {
+    color: #545454;
+    font-size: 1.33rem;
+}
+.route span {
+    margin-right: 1.17rem;
+}
+.route strong {
+    margin-left: 0.92rem;
+}
+.time {
+    color: #00b998;
+    font-size: 1rem;
+   	font-family: "Î¢Ü›ÑÅºÚ";
+}
+.r-details {
+    color: #a6a6a6;
+    font-size: 1.17rem;
+}
+.price {
+    color: #a6a6a6;
+}

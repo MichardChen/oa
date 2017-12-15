@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="com.thinkgem.jeesite.act">
+  <process id="removeMac" name="撤机" isExecutable="true">
+    <startEvent id="start" name="撤钞箱任务发布" activiti:initiator="{applyUser}" activiti:formKey="/removemac/removemacApply"/>
+    <userTask id="removebillboxend" name="撤钞箱完成" activiti:formKey="/static/nsmobile/pages/html/removeboxend.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.removemac.service.RemoveMacAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="issue" name="撤机任务发布" activiti:formKey="/removemac/removemacIssue">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.removemac.service.RemoveMacAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="removeend" name="完成撤机" activiti:formKey="/static/nsmobile/pages/html/removeend.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.removemac.service.RemoveMacAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="takekey" name="钥匙移交" activiti:formKey="/static/nsmobile/pages/html/takekeyForRmv.html">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.thinkgem.jeesite.modules.ns.removemac.service.RemoveMacAssignHandler"/>
+      </extensionElements>
+    </userTask>
+    <endEvent id="end" name="流程结束"/>
+    <sequenceFlow id="sid-29DD7CE0-8D1F-400E-B027-30679E7D7B5E" sourceRef="start" targetRef="removebillboxend"/>
+    <sequenceFlow id="sid-B475E8AF-8443-4147-B51F-C06CAB57061F" sourceRef="removebillboxend" targetRef="issue"/>
+    <sequenceFlow id="sid-B2D7B819-2EA7-4E23-A045-5ABD411BFAA3" sourceRef="issue" targetRef="removeend"/>
+    <sequenceFlow id="sid-AD8876EF-A078-4A8C-B81D-E76DF96D4B5E" sourceRef="removeend" targetRef="takekey"/>
+    <sequenceFlow id="sid-F9B66AC9-976E-4E07-8402-BA9E62E284E9" sourceRef="takekey" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_removeMac">
+    <bpmndi:BPMNPlane bpmnElement="removeMac" id="BPMNPlane_removeMac">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="30.0" y="72.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="removebillboxend" id="BPMNShape_removebillboxend">
+        <omgdc:Bounds height="134.0" width="100.0" x="105.0" y="20.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="issue" id="BPMNShape_issue">
+        <omgdc:Bounds height="134.0" width="99.0" x="255.0" y="20.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="removeend" id="BPMNShape_removeend">
+        <omgdc:Bounds height="136.0" width="99.0" x="405.0" y="19.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="takekey" id="BPMNShape_takekey">
+        <omgdc:Bounds height="137.0" width="98.0" x="555.0" y="18.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="28.0" width="28.0" x="690.0" y="73.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-F9B66AC9-976E-4E07-8402-BA9E62E284E9" id="BPMNEdge_sid-F9B66AC9-976E-4E07-8402-BA9E62E284E9">
+        <omgdi:waypoint x="653.0" y="87.0"/>
+        <omgdi:waypoint x="690.0" y="87.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-AD8876EF-A078-4A8C-B81D-E76DF96D4B5E" id="BPMNEdge_sid-AD8876EF-A078-4A8C-B81D-E76DF96D4B5E">
+        <omgdi:waypoint x="504.0" y="87.0"/>
+        <omgdi:waypoint x="555.0" y="87.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-B2D7B819-2EA7-4E23-A045-5ABD411BFAA3" id="BPMNEdge_sid-B2D7B819-2EA7-4E23-A045-5ABD411BFAA3">
+        <omgdi:waypoint x="354.0" y="87.0"/>
+        <omgdi:waypoint x="405.0" y="87.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-29DD7CE0-8D1F-400E-B027-30679E7D7B5E" id="BPMNEdge_sid-29DD7CE0-8D1F-400E-B027-30679E7D7B5E">
+        <omgdi:waypoint x="60.0" y="87.0"/>
+        <omgdi:waypoint x="105.0" y="87.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-B475E8AF-8443-4147-B51F-C06CAB57061F" id="BPMNEdge_sid-B475E8AF-8443-4147-B51F-C06CAB57061F">
+        <omgdi:waypoint x="205.0" y="87.0"/>
+        <omgdi:waypoint x="255.0" y="87.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
